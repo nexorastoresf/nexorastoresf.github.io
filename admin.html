@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Panel MVP | NEXORA STORE</title>
+<link rel="icon" href="nexora-logo.svg?v=4">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#07090e;color:#fff;font-family:Arial,Helvetica,sans-serif}
+[hidden]{display:none!important}a{color:inherit;text-decoration:none}
+header{padding:16px 5%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #29313d;background:#090c12;position:sticky;top:0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}.brand img{width:44px;height:44px;border-radius:12%;object-fit:cover}
+main{max-width:1100px;margin:32px auto;padding:0 18px 60px}.eyebrow{color:#f5a623;font-size:11px;font-weight:900;letter-spacing:1.4px}
+h1{font-size:40px;margin:8px 0}.muted{color:#8e98a7}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+.stat,.panel{background:#10151e;border:1px solid #29313d;border-radius:16px}.stat{padding:18px}.stat strong{display:block;font-size:26px;color:#f5a623}.stat span{font-size:11px;color:#8e98a7}
+.panel{padding:20px;margin-top:18px}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+button,input{font:inherit}.btn{border:0;border-radius:10px;padding:11px 14px;font-weight:800;cursor:pointer;background:#f5a623;color:#111}.btn.secondary{background:#171e29;color:#fff;border:1px solid #344052}
+.search{width:320px;max-width:100%;padding:12px;border-radius:10px;border:1px solid #344052;background:#090d14;color:#fff}
+.users{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.user{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #2b3441;border-radius:14px;background:#0a0f16}
+.avatar{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#f5a623;color:#111;font-weight:900;overflow:hidden;flex:0 0 48px}.avatar img{width:100%;height:100%;object-fit:cover}
+.user-main{min-width:0;flex:1}.user-main strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.user-main span{display:block;font-size:10px;color:#8792a1;margin-top:4px}
+.detail-card{padding:16px;border:1px solid #2b3441;border-radius:14px;background:#0a0f16}.orders{display:grid;gap:10px;margin-top:14px}.order{padding:13px;border:1px solid #2b3441;border-radius:12px;background:#0c1118}.order h3{margin:0 0 5px;font-size:14px}.order p{margin:0;color:#8792a1;font-size:11px;line-height:1.6}
+.order-status{display:inline-block;font-size:11px;font-weight:800;margin:9px 0 3px;padding:6px 10px;border-radius:50px;background:#292111;color:#ffcc6a}
+.order-status.completed{background:#102b22;color:#81eabb}
+.order-status.cancelled{background:#351d23;color:#ff9a9a}
+.order-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.btn.complete{background:#27c995;color:#071810}
+.btn.cancel-order{background:#48212a;color:#ffb6bf;border:1px solid #733c48}
+.btn:disabled{opacity:.55;cursor:wait}
+.cash-credit{margin-top:16px;padding:18px;border:1px solid #6c502b;border-radius:14px;background:#19150f}
+.cash-credit h3{margin:0 0 9px}.cash-credit p{line-height:1.6;font-size:13px}
+.cash-credit label{display:block;margin:14px 0 8px;font-weight:700}
+.cash-credit-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.cash-credit input{width:180px;max-width:100%;padding:12px;border:1px solid #665336;border-radius:10px;background:#090d14;color:#fff}
+.cash-credit .account-id{overflow-wrap:anywhere;font-size:11px}.cash-credit [role=status]{margin-bottom:0}
+#gate{text-align:center;padding:80px 15px}.error{color:#ff9292}.ok{color:#7ee0b5}
+/* Acciones del MVP: separación amplia y sin solapamientos */
+.admin-quick-actions{display:flex;flex-direction:column;align-items:flex-start;gap:20px;margin:24px 0 30px}
+.admin-primary-action{display:inline-flex;align-items:center;justify-content:space-between;gap:18px;min-height:54px;padding:16px 20px;border-radius:13px;max-width:100%;line-height:1.45;white-space:normal;box-shadow:0 7px 18px rgba(245,166,35,.15)}
+.admin-primary-action:hover{background:#ffb844}.admin-primary-action span{flex-shrink:0}
+.admin-tools{margin-top:34px;background:#0d131c;border-color:#253144}
+.admin-tools details>summary{display:flex;align-items:center;gap:15px;cursor:pointer;font-size:14px;font-weight:800;padding:3px 0;list-style:none}
+.admin-tools details>summary::-webkit-details-marker{display:none}
+.admin-tools details>summary:after{content:"▾";margin-left:auto;color:#ffbe62}
+.admin-tools details[open]>summary:after{content:"▴"}
+.admin-tools-note{font-size:11px;font-weight:400;color:#8e98a7}
+.admin-tools-content{border-top:1px solid #29313d;margin-top:17px;padding-top:17px}
+.admin-tools-content p{font-size:12px;line-height:1.7}
+.admin-tool-link{display:inline-flex;align-items:center;justify-content:space-between;gap:15px;max-width:100%;white-space:normal;line-height:1.5;min-height:48px;margin-top:8px;padding:13px 16px}
+.admin-tool-link:focus-visible,.admin-primary-action:focus-visible,.admin-tools summary:focus-visible{outline:2px solid #ffd477;outline-offset:4px}
+@media(max-width:520px){.admin-quick-actions{margin:23px 0 29px}.admin-primary-action{width:100%;font-size:13px}.admin-tool-link{width:100%;font-size:12px}.admin-tools details>summary{flex-wrap:wrap;gap:8px}.admin-tools-note{width:100%}}
+@media(max-width:760px){.stats{grid-template-columns:1fr 1fr}.users{grid-template-columns:1fr}.panel-head{align-items:stretch;flex-direction:column}.search{width:100%}h1{font-size:32px}}
+</style>
+<link rel="stylesheet" href="nexora-premium.css?v=2">
+<script src="nexora-experience.js?v=2" defer></script>
+<style>
+.mvp-orders-entry{display:flex!important;justify-content:space-between;align-items:center;gap:18px;width:100%;max-width:1120px;margin:20px auto 26px;padding:25px 24px;border:1px solid #ffad59;border-radius:20px;background:linear-gradient(110deg,#ffab49,#ff603d);color:#211007!important;text-decoration:none;box-shadow:0 12px 32px #ff7a2626;box-sizing:border-box;font-family:Arial,sans-serif}.mvp-orders-entry[hidden]{display:none!important}.mvp-orders-entry strong{display:block;font-size:clamp(23px,5vw,34px);font-weight:900;line-height:1.25}.mvp-orders-entry small{display:block;margin-top:8px;font-size:13px;line-height:1.5}.mvp-orders-entry>span:last-child{font-size:30px}.mvp-orders-entry:focus-visible{outline:3px solid #fff;outline-offset:4px}@media(max-width:600px){.mvp-orders-entry{padding:22px 18px}}
+</style>
+</head>
+<body data-nexora-page="admin">
+<header>
+<a class="brand" href="index.html"><img src="nexora-logo.svg?v=4" alt="">NEXORA MVP</a>
+<a class="btn secondary" href="perfil.html">Mi perfil</a>
+</header>
+<main>
+<section id="gate">
+<div class="eyebrow">ACCESO MVP</div>
+<h1>Verificando acceso…</h1>
+<p class="muted" id="gateText">Espera un momento.</p>
+</section>
+
+<section id="dashboard" hidden>
+<div class="eyebrow">ADMINISTRACIÓN NEXORA</div>
+<h1>Panel MVP</h1>
+<p class="muted">Estadísticas desde el reinicio del 20/10/2026. El historial anterior se conserva.</p>
+<a id="mvpOrdersEntry" class="mvp-orders-entry" href="admin-pedidos.html?v=roblox-private-1"><span><strong>📦 Atender pedidos</strong><small>EXCLUSIVO MVP · Abrir la bandeja de pedidos</small></span><span aria-hidden="true">→</span></a>
+<nav class="admin-quick-actions" aria-label="Acciones principales de administración">
+  <a class="btn admin-primary-action" href="admin-recargas.html">💜 Revisar recargas Yape y acreditar saldo <span aria-hidden="true">→</span></a>
+  <a class="btn admin-primary-action" href="admin-soporte.html" style="background:linear-gradient(120deg,#182839,#22394c);color:#e7eef8;border:1px solid #3b546d;box-shadow:none;">📩 Atención al cliente · Ver reclamos y capturas <span aria-hidden="true">→</span></a>
+</nav>
+
+<div class="stats">
+<div class="stat"><strong id="usersCount">0</strong><span>Usuarios registrados</span></div>
+<div class="stat"><strong id="ordersCount">0</strong><span>Pedidos registrados</span></div>
+<div class="stat"><strong id="pendingCount">0</strong><span>Pendientes</span></div>
+<div class="stat"><strong id="salesTotal">S/ 0.00</strong><span>Ventas completadas</span></div>
+</div>
+
+<section class="panel">
+<div class="panel-head">
+<div><h2>Miembros</h2><div class="muted" id="usersStatus">Cargando…</div></div>
+<input id="search" class="search" type="search" placeholder="Buscar usuario">
+</div>
+<div class="users" id="users"></div>
+</section>
+
+<section class="panel" id="detailPanel" hidden>
+<div class="panel-head">
+<h2>Perfil seleccionado</h2>
+<button class="btn secondary" id="closeDetail" type="button">Cerrar</button>
+</div>
+<div id="profileDetail"></div>
+<form id="cashCreditForm" class="cash-credit" hidden>
+<h3>💵 Acreditar saldo en efectivo</h3>
+<p class="muted">Después de recibir el efectivo, acredita ese importe al saldo del cliente.</p>
+<p id="creditRecipient"></p>
+<p class="muted account-id" id="creditUid"></p>
+<p>Saldo actual: <strong id="creditBalance">Cargando…</strong></p>
+<label for="creditAmount">Importe recibido (S/)</label>
+<div class="cash-credit-row">
+<input id="creditAmount" type="text" inputmode="decimal" autocomplete="off" maxlength="8" placeholder="Ej. 20.00" required aria-describedby="creditHelp">
+<button id="creditSubmit" class="btn" type="submit" disabled>Acreditar saldo</button>
+</div>
+<p id="creditHelp" class="muted">De S/ 0.01 a S/ 1,000.00 por acreditación. El importe se suma al saldo existente.</p>
+<p id="creditStatus" role="status" aria-live="polite"></p>
+</form>
+<div class="orders" id="orders"></div>
+</section>
+
+<p id="message" role="status" aria-live="polite"></p>
+
+<section class="panel admin-tools" aria-label="Herramientas internas">
+  <details>
+    <summary>⚙ Herramientas internas <span class="admin-tools-note">Opciones avanzadas</span></summary>
+    <div class="admin-tools-content">
+      <p class="muted">Solo para administrar el catálogo. No necesitas sincronizar los precios cada vez que un cliente compra.</p>
+      <a class="btn secondary admin-tool-link" href="admin-catalogo.html">📋 Revisar y sincronizar precios oficiales <span aria-hidden="true">→</span></a>
+    </div>
+  </details>
+</section>
+</section>
+</main>
+
+<script type="module">
+import { auth } from "./firebase.js";
+import {askRobloxCodes,isCodeDeliveryOrder,codeDeliveryDocumentId,codeDeliveryName,normalizeRobloxCodes,fingerprintRobloxCode} from "./roblox-delivery.js?v=20261102-minecraft1";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { getFirestore, collection, getDocs, doc, getDoc, runTransaction, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const MVP_EMAILS=new Set(["nexora.store.sf@gmail.com","stiven20eduu@gmail.com"]);
+const db=getFirestore(auth.app);
+const gate=document.getElementById("gate");
+const dashboard=document.getElementById("dashboard");
+const usersBox=document.getElementById("users");
+const search=document.getElementById("search");
+const detailPanel=document.getElementById("detailPanel");
+const profileDetail=document.getElementById("profileDetail");
+const ordersBox=document.getElementById("orders");
+let members=[];
+let savingOrder=false;
+let selectedCreditUid=null;
+let savingCredit=false;
+let creditView=0;
+const creditForm=document.getElementById("cashCreditForm");
+const creditAmount=document.getElementById("creditAmount");
+const creditSubmit=document.getElementById("creditSubmit");
+const creditStatus=document.getElementById("creditStatus");
+
+function cashAmountCents(value){
+ const text=String(value).trim().replace(",",".");
+ if(!/^\d{1,4}(\.\d{1,2})?$/.test(text))throw new Error("Escribe un importe válido con hasta dos decimales.");
+ const [whole,fraction=""]=text.split(".");
+ const cents=Number(whole)*100+Number(fraction.padEnd(2,"0"));
+ if(!Number.isSafeInteger(cents)||cents<1||cents>100000)throw new Error("El importe debe estar entre S/ 0.01 y S/ 1,000.00.");
+ return cents;
+}
+
+async function prepareCashCredit(member){
+ const view=++creditView;
+ selectedCreditUid=member.uid;
+ creditForm.hidden=false;creditAmount.value="";creditSubmit.disabled=true;
+ document.getElementById("creditRecipient").textContent="Cliente: "+member.name;
+ document.getElementById("creditUid").textContent="ID de cuenta: "+member.uid;
+ document.getElementById("creditBalance").textContent="Cargando…";
+ creditStatus.textContent="";
+ if(!isMvp(auth.currentUser)||!auth.currentUser.emailVerified){
+   creditStatus.className="error";
+   creditStatus.textContent="Necesitas una cuenta administradora con correo verificado para acreditar saldo.";
+   return;
+ }
+ try{
+   const snap=await getDoc(doc(db,"users",member.uid,"wallet","main"));
+   if(view!==creditView)return;
+   const balance=snap.exists()?snap.data().balanceCents:0;
+   if(!Number.isSafeInteger(balance)||balance<0||balance>100000000)throw new Error("El saldo actual no es válido.");
+   document.getElementById("creditBalance").textContent=money(balance/100);
+   creditSubmit.disabled=false;
+ }catch(error){
+   if(view!==creditView)return;
+   creditStatus.className="error";
+   creditStatus.textContent="No se pudo consultar el saldo. Vuelve a abrir el perfil para intentarlo de nuevo.";
+ }
+}
+
+async function creditCashBalance(uid,amountCents){
+ if(!isMvp(auth.currentUser)||!auth.currentUser.emailVerified)throw new Error("Necesitas una cuenta administradora con correo verificado.");
+ if(!Number.isSafeInteger(amountCents)||amountCents<1||amountCents>100000)throw new Error("Importe inválido.");
+ const walletRef=doc(db,"users",uid,"wallet","main");
+ return runTransaction(db,async tx=>{
+   const [memberSnap,walletSnap]=await Promise.all([
+     tx.get(doc(db,"users",uid)),tx.get(walletRef)
+   ]);
+   if(!memberSnap.exists())throw new Error("La cuenta del cliente ya no existe.");
+   const balance=walletSnap.exists()?walletSnap.data().balanceCents:0;
+   if(!Number.isSafeInteger(balance)||balance<0||balance+amountCents>100000000)throw new Error("No se puede acreditar este importe al saldo actual.");
+   const next=balance+amountCents;
+   const data={balanceCents:next,updatedAt:serverTimestamp()};
+   if(walletSnap.exists())tx.update(walletRef,data);
+   else tx.set(walletRef,data);
+   return next;
+ });
+}
+
+creditForm.addEventListener("submit",async event=>{
+ event.preventDefault();
+ if(savingCredit||creditSubmit.disabled||!selectedCreditUid)return;
+ const member=members.find(m=>m.uid===selectedCreditUid);
+ if(!member)return;
+ let cents;
+ try{cents=cashAmountCents(creditAmount.value)}
+ catch(error){creditStatus.className="error";creditStatus.textContent=error.message;return;}
+ if(!window.confirm("¿Recibiste "+money(cents/100)+" en efectivo de "+member.name+"?\n\nID: "+member.uid+"\n\nSe sumará ese importe a su saldo NEXORA."))return;
+ savingCredit=true;creditSubmit.disabled=true;creditAmount.disabled=true;
+ creditStatus.className="muted";creditStatus.textContent="Acreditando saldo…";
+ try{
+   const balance=await creditCashBalance(member.uid,cents);
+   document.getElementById("creditBalance").textContent=money(balance/100);
+   creditAmount.value="";creditStatus.className="ok";
+   creditStatus.textContent="Se acreditaron "+money(cents/100)+" a "+member.name+". Nuevo saldo: "+money(balance/100)+".";
+ }catch(error){
+   creditStatus.className="error";
+   creditStatus.textContent=error.code==="permission-denied"
+     ?"No se pudo acreditar: verifica tu cuenta administradora y los permisos de saldo."
+     :"No se pudo confirmar la acreditación. Vuelve a abrir el perfil y comprueba el saldo antes de repetirla.";
+   return;
+ }finally{
+   savingCredit=false;creditAmount.disabled=false;
+ }
+ creditSubmit.disabled=false;
+});
+const ORDER_STATUS_LABELS={
+ pending:"Pendiente de verificación",
+ processing:"En proceso",
+ verified:"Pago verificado",
+ completed:"Completado",
+ cancelled:"Cancelado"
+};
+function message(text,error=false){
+ const element=document.getElementById("message");
+ element.textContent=text;element.className=error?"error":"ok";
+}
+
+function isMvp(user){return !!user?.emailVerified&&!!user?.email&&MVP_EMAILS.has(user.email.toLowerCase())}
+function initials(name){return String(name||"N").trim().split(/\s+/).slice(0,2).map(x=>x[0]||"").join("").toUpperCase()||"N"}
+function money(v){return "S/ "+Number(v||0).toFixed(2)}
+function dateText(v){if(!v)return "Sin fecha";const d=new Date(v);return Number.isNaN(d.getTime())?"Sin fecha":d.toLocaleDateString("es-PE")}
+
+async function loadMember(snap){
+ const uid=snap.id,data=snap.data()||{};
+ const [profile,orders]=await Promise.all([
+   getDoc(doc(db,"users",uid,"profile","main")),
+   getDocs(collection(db,"users",uid,"orders"))
+ ]);
+ return {uid,name:data.displayName||"Usuario NEXORA",joinedAt:data.joinedAt||"",photo:profile.data()?.photo||"",orders:orders.docs.map(x=>({id:x.id,...x.data()}))};
+}
+
+function avatar(name,photo){
+ const el=document.createElement("div");el.className="avatar";
+ if(photo&&/^data:image\/jpeg;base64,/.test(photo)){const img=document.createElement("img");img.src=photo;img.alt="";el.append(img)}
+ else el.textContent=initials(name);
+ return el;
+}
+
+// Reinicio de indicadores: el historial de cuentas y compras se conserva.
+const STATS_RESET_AT=Date.parse("2026-10-21T02:27:00Z");
+function afterStatsReset(value){
+  const timestamp=typeof value?.toMillis==="function" ? value.toMillis() : new Date(value).getTime();
+  return Number.isFinite(timestamp)&&timestamp>=STATS_RESET_AT;
+}
+function renderStats(){
+  const recentMembers=members.filter(m=>afterStatsReset(m.joinedAt));
+  const all=members.flatMap(m=>m.orders).filter(o=>afterStatsReset(o.createdAt));
+  const pending=all.filter(o=>!["completed","cancelled"].includes(o.status)).length;
+  const total=all.filter(o=>o.status==="completed").reduce((sum,o)=>sum+Number(o.price||0),0);
+  document.getElementById("usersCount").textContent=recentMembers.length;
+  document.getElementById("ordersCount").textContent=all.length;
+  document.getElementById("pendingCount").textContent=pending;
+  document.getElementById("salesTotal").textContent=money(total);
+}
+
+function renderUsers(){
+ const q=search.value.trim().toLowerCase();
+ const list=members.filter(m=>m.name.toLowerCase().includes(q));
+ usersBox.replaceChildren();
+ for(const m of list){
+   const card=document.createElement("article");card.className="user";
+   const main=document.createElement("div");main.className="user-main";
+   const name=document.createElement("strong");name.textContent=m.name;
+   const meta=document.createElement("span");meta.textContent="Desde "+dateText(m.joinedAt)+" · "+m.orders.length+" pedido(s)";
+   main.append(name,meta);
+   const btn=document.createElement("button");btn.className="btn secondary";btn.type="button";btn.textContent="Ver perfil";btn.addEventListener("click",()=>showMember(m.uid));
+   card.append(avatar(m.name,m.photo),main,btn);usersBox.append(card);
+ }
+ document.getElementById("usersStatus").textContent=list.length+" de "+members.length+" usuarios";
+}
+
+function showMember(uid){
+ if(savingCredit){message("Espera a que termine la acreditación de saldo.",true);return;}
+ const m=members.find(x=>x.uid===uid);if(!m)return;
+ prepareCashCredit(m);
+ profileDetail.replaceChildren();ordersBox.replaceChildren();
+ const box=document.createElement("div");box.className="detail-card";
+ const title=document.createElement("h2");title.textContent=m.name;
+ const meta=document.createElement("p");meta.className="muted";meta.textContent="Miembro desde "+dateText(m.joinedAt)+" · "+m.orders.length+" pedido(s)";
+ box.append(title,meta);profileDetail.append(box);
+ for(const o of m.orders){
+   const item=document.createElement("article");item.className="order";
+   const h=document.createElement("h3");h.textContent=(o.game||"Juego")+" · "+(o.product||"Producto");
+   const p=document.createElement("p");const d=o.createdAt?.toDate?.();
+   p.textContent=money(o.price)+(d?" · "+d.toLocaleString("es-PE"):"");
+   const id=document.createElement("p");id.textContent="Pedido: "+o.id;
+   const status=document.createElement("span");status.className="order-status "+(o.status||"pending");
+   status.textContent=ORDER_STATUS_LABELS[o.status]||"En revisión";
+   item.append(h,p,id,status);
+   if(o.paymentMethod==="wallet"){
+    const paid=document.createElement("p");paid.className="ok";paid.textContent="Pagado con saldo NEXORA";item.append(paid);
+   }
+   if(o.playerId || o.serverId){
+    const destination=document.createElement("p");
+    destination.textContent="Cuenta: "+(o.playerId||"—")+(o.serverId?" · Servidor: "+o.serverId:"")+(o.playerName?" · "+o.playerName:"");
+    item.append(destination);
+   }
+   if(!["completed","cancelled"].includes(o.status)){
+     const actions=document.createElement("div");actions.className="order-actions";
+     const completed=document.createElement("button");completed.className="btn complete";completed.type="button";completed.textContent="Marcar completado";
+     const cancelled=document.createElement("button");cancelled.className="btn cancel-order";cancelled.type="button";cancelled.textContent="Cancelar pedido";
+     completed.disabled=cancelled.disabled=savingOrder;
+      if(isCodeDeliveryOrder(o)&&o.status==='pending'){
+       completed.disabled=true;
+       completed.title='Verifica el pago y pasa el pedido a En proceso desde la bandeja MVP.';
+      }
+     completed.addEventListener("click",()=>changeOrderStatus(m.uid,o.id,"completed"));
+     cancelled.addEventListener("click",()=>changeOrderStatus(m.uid,o.id,"cancelled"));
+     actions.append(completed,cancelled);item.append(actions);
+   }
+   ordersBox.append(item);
+ }
+ if(!m.orders.length){const p=document.createElement("p");p.className="muted";p.textContent="Este usuario todavía no tiene pedidos registrados.";ordersBox.append(p)}
+ detailPanel.hidden=false;detailPanel.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+async function changeOrderStatus(uid,orderId,nextStatus){
+ if(savingOrder || !["completed","cancelled"].includes(nextStatus))return;
+ if(!isMvp(auth.currentUser)){message("No tienes permisos para gestionar los pedidos.",true);return;}
+ const member=members.find(m=>m.uid===uid);
+ const order=member?.orders.find(o=>o.id===orderId);
+ if(!order || ["completed","cancelled"].includes(order.status))return;
+ const isComplete=nextStatus==="completed";
+ let redemptionCodes=null;
+ if(isComplete&&isCodeDeliveryOrder(order)){
+  redemptionCodes=await askRobloxCodes({...order,customer:member?.name});
+  if(redemptionCodes===null)return;
+ }else{
+  const question=isComplete
+    ?"¿Confirmas que entregaste "+(order.product||"el producto")+" al cliente y que el pago real está verificado?\n\nEl pedido pasará a COMPLETADO."
+    :"¿Seguro que quieres CANCELAR el pedido "+(order.product||orderId)+"?\n\n"+(order.paymentMethod==="wallet"?"Se reembolsará el importe a la billetera del cliente.":"No se modificará su saldo NEXORA.")+"";
+  if(!window.confirm(question))return;
+ }
+ let codes=null,hashes=[];
+ if(isComplete&&isCodeDeliveryOrder(order)){
+  try{
+   codes=normalizeRobloxCodes(redemptionCodes,codeDeliveryName(order));
+   hashes=await Promise.all(codes.map(fingerprintRobloxCode));
+   if(new Set(hashes).size!==hashes.length)throw new Error("Hay códigos duplicados.");
+  }catch(error){message(error.message||"No se pudieron comprobar los códigos.",true);return;}
+ }
+ savingOrder=true;
+ document.querySelectorAll(".order-actions button").forEach(button=>button.disabled=true);
+ message("Guardando estado del pedido…");
+ try{
+   await runTransaction(db,async tx=>{
+     const ref=doc(db,"users",uid,"orders",orderId);
+     const snap=await tx.get(ref);
+     if(!snap.exists())throw new Error("El pedido ya no existe.");
+     if(!["pending","processing","verified"].includes(snap.data().status))
+       throw new Error("Este pedido ya fue completado o cancelado. Actualiza el panel.");
+     const current=snap.data();
+     const codeOrder=isCodeDeliveryOrder(current);
+     if(nextStatus==="completed"&&codeOrder){
+      if(!auth.currentUser?.emailVerified)throw new Error("Verifica tu correo para entregar códigos.");
+      if(!codes?.length)throw new Error("Debes registrar al menos un código válido.");
+      if(current.redemptionCode||current.redemptionAddedAt)throw new Error("Este pedido ya tiene una entrega.");
+      for(const hash of hashes){
+       const claimSnap=await tx.get(doc(db,"robloxCodeClaims",hash));
+       if(claimSnap.exists())throw new Error("Uno de estos códigos ya fue entregado. Usa otro.");
+      }
+     }
+     if(nextStatus==="cancelled" && current.paymentMethod==="wallet"){
+       if(!auth.currentUser?.emailVerified)throw new Error("Verifica tu correo de administrador antes de reembolsar.");
+       const cost=current.priceCents;
+       if(!Number.isSafeInteger(cost)||cost<100)throw new Error("Precio original inválido: no se pudo reembolsar.");
+       const walletRef=doc(db,"users",uid,"wallet","main");
+       const walletSnap=await tx.get(walletRef);
+       if(!walletSnap.exists())throw new Error("No se encontró la billetera del cliente.");
+       const balance=walletSnap.data().balanceCents;
+       if(!Number.isSafeInteger(balance)||balance<0||balance+cost>100000000)
+         throw new Error("No es posible calcular el saldo a devolver.");
+       tx.update(walletRef,{balanceCents:balance+cost,updatedAt:serverTimestamp()});
+     }
+     if(nextStatus==="completed"&&codeOrder){
+      const privateRef=doc(db,"users",uid,"orders",orderId,"privateDelivery",codeDeliveryDocumentId(current));
+      hashes.forEach(hash=>tx.set(doc(db,"robloxCodeClaims",hash),{uid,orderId,addedAt:serverTimestamp(),addedBy:auth.currentUser.uid}));
+      tx.set(privateRef,{codes,codeHashes:hashes,addedAt:serverTimestamp(),addedBy:auth.currentUser.uid});
+      tx.update(ref,{status:"completed",redemptionAddedAt:serverTimestamp(),redemptionAddedBy:auth.currentUser.uid});
+     }else{
+      tx.update(ref,{status:nextStatus});
+     }
+   });
+   order.status=nextStatus;
+   if(isComplete&&isCodeDeliveryOrder(order))order.redemptionAddedAt=new Date();
+   renderStats();
+   message(isComplete&&isCodeDeliveryOrder(order)?"Pedido de código digital completado: los códigos están disponibles en Mis compras.":isComplete?"Pedido marcado como COMPLETADO. El cliente verá el cambio en su historial.":order.paymentMethod==="wallet"?"Pedido CANCELADO y saldo reembolsado.":"Pedido CANCELADO. El cliente verá el cambio en su historial.");
+ }catch(error){
+   console.error(error);
+   message(error.code==="permission-denied"?"Firebase denegó el cambio. Publica las reglas nuevas contra códigos duplicados.":error.message||"No pudimos actualizar el pedido.",true);
+ }finally{
+   savingOrder=false;
+   showMember(uid);
+ }
+}
+
+async function load(){
+ const snap=await getDocs(collection(db,"users"));
+ members=[];
+ for(const s of snap.docs)members.push(await loadMember(s));
+ renderStats();renderUsers();
+}
+
+search.addEventListener("input",renderUsers);
+document.getElementById("closeDetail").addEventListener("click",()=>detailPanel.hidden=true);
+
+onAuthStateChanged(auth,async user=>{
+ if(!user){location.replace("login.html");return}
+ if(!isMvp(user)){document.querySelector("#gate h1").textContent="Acceso no autorizado";document.getElementById("gateText").textContent="Esta cuenta no tiene permisos MVP.";document.getElementById("gateText").className="error";return}
+ gate.hidden=true;dashboard.hidden=false;
+ try{await load();document.getElementById("message").textContent="Panel actualizado.";document.getElementById("message").className="ok"}
+ catch(e){console.error(e);document.getElementById("message").textContent="No se pudieron cargar los datos. Verifica las reglas de Firestore.";document.getElementById("message").className="error"}
+});
+</script>
+
+</body>
+</html>
+
+

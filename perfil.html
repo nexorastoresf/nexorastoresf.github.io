@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi perfil | NEXORA STORE</title>
+<link rel="icon" href="nexora-logo.svg?v=4">
+<style>
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top right,#332012 0,transparent 45%),#07090e;color:#fff;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+[hidden]{display:none!important}a{color:inherit;text-decoration:none}
+header{border-bottom:1px solid #272f3b;padding:18px max(20px,calc((100% - 1000px)/2));display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px}.brand img{width:46px;height:46px;object-fit:cover;border-radius:12%;background:#05070a;border:1px solid rgba(255,45,45,.38);box-shadow:0 0 16px rgba(255,25,25,.22)}
+.back{color:#b8beca;font-size:13px}main{max-width:720px;margin:48px auto;padding:0 20px 40px}.eyebrow{color:#f5a623;font-weight:bold;font-size:12px;letter-spacing:2px}h1{font-size:36px;margin:12px 0}p{color:#aeb7c5;line-height:1.6}
+.card{background:#10151e;border:1px solid #272f3b;border-radius:22px;padding:28px;margin-top:24px}
+.identity{display:flex;align-items:center;gap:18px;margin-bottom:28px}.avatar{display:grid;place-items:center;flex-shrink:0;width:72px;height:72px;border-radius:50%;background:#f5a623;color:#111;font-size:28px;font-weight:800}
+h2{margin:0 0 6px;font-size:22px;overflow-wrap:anywhere}.detail{font-size:13px;color:#aeb7c5;overflow-wrap:anywhere}
+label{display:block;font-size:14px;margin:20px 0 9px}input{width:100%;padding:15px;border:1px solid #353e4d;border-radius:10px;background:#090d14;color:#fff;font:inherit}input:focus{outline:2px solid #f5a623;outline-offset:2px}input[readonly]{color:#aeb7c5}
+button,.shop{display:inline-block;border:0;border-radius:10px;padding:14px 18px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}.primary{background:#f5a623;color:#111}.secondary,.shop{background:#1b2330;color:#fff;border:1px solid #353e4d}button:disabled{opacity:.6;cursor:wait}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+#message{min-height:24px;margin:16px 0 0;font-size:14px}#message[data-error="true"]{color:#ff9b9b}#message[data-error="false"]{color:#83e1b9}
+.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}
+.stat{background:linear-gradient(145deg,#121924,#0b1017);border:1px solid #2b3441;border-radius:16px;padding:16px}
+.stat strong{display:block;font-size:22px;margin-bottom:5px;color:#fff}.stat span{font-size:11px;color:#8f99a8}.stat.highlight strong{color:#f5a623}
+.account-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.meta-pill{font-size:11px;color:#aeb7c5;border:1px solid #303947;background:#0b1017;border-radius:999px;padding:7px 10px}
+.avatar{overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.order-item{padding:18px;border:1px solid #2b3441;border-radius:14px;background:#0b1017;margin-top:12px}.order-item p{margin:6px 0;font-size:14px}.order-item h3{margin:0 0 8px;font-size:16px}.order-status{display:inline-block;font-weight:800;font-size:11px;padding:7px 10px;border-radius:999px;background:rgba(245,166,35,.10);border:1px solid rgba(245,166,35,.24);color:#f5a623}.order-status.completed{color:#76e2b7;background:rgba(32,217,155,.08);border-color:rgba(32,217,155,.22)}.order-status.cancelled{color:#ff9b9b;background:rgba(255,98,98,.08);border-color:rgba(255,98,98,.22)}
+.photo-actions{margin-bottom:24px}.photo-actions label{margin-top:0}
+@media(max-width:700px){.dashboard{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){main{margin-top:30px}.card{padding:22px}h1{font-size:30px}.actions>*{width:100%;text-align:center}.dashboard{grid-template-columns:1fr 1fr}.stat{padding:14px}.stat strong{font-size:19px}}
+
+/* Billetera destacada */
+.wallet-feature{background:radial-gradient(circle at top right,rgba(249,168,38,.09),transparent 48%),linear-gradient(140deg,#151e2d,#0e1623);border:1px solid rgba(253,183,72,.25);box-shadow:0 20px 46px rgba(0,0,0,.23);padding:28px}
+.wallet-feature-head{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.wallet-kicker{margin:0 0 8px;color:#ffbd53;font-size:11px;font-weight:900;letter-spacing:1.5px}
+.wallet-feature h2{font-size:25px;margin:0}
+.wallet-feature .detail{line-height:1.65;margin:11px 0 0}
+.wallet-feature-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:rgba(255,178,61,.1);border:1px solid rgba(255,178,61,.22);font-size:25px;color:#ffcb7a}
+.wallet-balance-panel{padding:22px;margin-top:20px;background:linear-gradient(125deg,#192638,#111c2a);border:1px solid rgba(165,190,219,.16);border-radius:16px}
+.wallet-balance-label{display:flex;align-items:center;gap:9px;font-size:12px;color:#b7c9d5}
+.wallet-balance-label:before{content:"";width:8px;height:8px;border-radius:50%;background:#61e9ad;box-shadow:0 0 0 4px rgba(89,224,165,.10)}
+#walletBalance{font-size:clamp(34px,7vw,47px);font-weight:900;line-height:1.2;letter-spacing:-1px;color:#ffc36a;margin:13px 0;font-variant-numeric:tabular-nums}
+.wallet-caption{font-size:12px;color:#9facbb;line-height:1.65}
+.wallet-feature-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:21px}
+.wallet-action{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:13px 17px;border-radius:11px;font-size:13px;font-weight:800;text-align:center;font-family:inherit}
+.wallet-action-primary{color:#161008;background:linear-gradient(110deg,#f5a726,#ffc45d);border:1px solid #f6ad37}
+.wallet-action-secondary{color:#f3f6fa;background:#1b2636;border:1px solid #384559}
+.wallet-action:hover{filter:brightness(1.08)}
+.wallet-action:focus-visible{outline:3px solid #ffcd64;outline-offset:3px}
+.wallet-footnote{font-size:12px;line-height:1.65;color:#afbccb;border-top:1px solid rgba(179,199,224,.12);padding-top:17px;margin:20px 0 0}
+@media(max-width:480px){.wallet-feature{padding:21px}.wallet-feature h2{font-size:22px}.wallet-feature-icon{width:40px;height:40px}.wallet-balance-panel{padding:18px}.wallet-feature-actions>*{width:100%}}
+
+</style>
+<link rel="stylesheet" href="nexora-premium.css?v=4">
+<script src="nexora-experience.js?v=3" defer></script>
+<style>
+/* Acceso MVP compacto; no tapa las tarjetas ni la navegación. */
+.mvp-orders-entry{
+  position:fixed;
+  top:128px;
+  right:18px;
+  left:auto;
+  bottom:auto;
+  z-index:8900;
+  display:flex!important;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+  width:60px;
+  height:60px;
+  max-width:none;
+  margin:0;
+  padding:7px;
+  border:1px solid rgba(255,183,92,.53);
+  border-radius:17px;
+  background:linear-gradient(150deg,rgba(34,43,57,.98),rgba(13,18,29,.98));
+  color:#ffd39c!important;
+  text-decoration:none;
+  box-shadow:0 12px 30px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.07);
+  box-sizing:border-box;
+  line-height:1.1;
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.mvp-orders-entry[hidden]{display:none!important}
+.mvp-orders-entry:hover{
+  transform:translateY(-2px);
+  border-color:#ffb85a;
+  box-shadow:0 15px 35px rgba(0,0,0,.38),0 0 17px rgba(255,151,61,.14);
+}
+.mvp-orders-entry .mvp-orders-icon{font-size:24px;line-height:1}
+.mvp-orders-entry .mvp-orders-label{
+  display:block;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.7px;
+  color:#ffc27a;
+}
+.mvp-orders-entry:focus-visible{outline:3px solid #fff;outline-offset:3px}
+@media(max-width:700px){
+  .mvp-orders-entry{
+    top:auto;
+    bottom:calc(94px + env(safe-area-inset-bottom,0px));
+    right:auto;
+    left:12px;
+    width:56px;
+    height:56px;
+    border-radius:15px;
+  }
+}
+@media(prefers-reduced-motion:reduce){.mvp-orders-entry{transition:none}}
+</style>
+<link rel="stylesheet" href="nexora-mobile.css?v=2">
+</head>
+<body data-nexora-page="profile">
+<header><a class="brand" href="index.html"><img src="nexora-logo.svg?v=4" alt="">NEXORA STORE</a><a class="back" href="index.html">Volver a la tienda</a></header>
+<main>
+<a id="mvpOrdersEntry" class="mvp-orders-entry" href="admin-pedidos.html?v=1" hidden aria-label="Atender pedidos, exclusivo MVP" title="Atender pedidos · Panel MVP"><span class="mvp-orders-icon" aria-hidden="true">📦</span><small class="mvp-orders-label" aria-hidden="true">MVP</small></a>
+<div class="eyebrow">TU CUENTA NEXORA</div>
+<h1>Mi perfil</h1>
+<p>Personaliza tu nombre y administra tu sesión.</p>
+<p id="loading" role="status">Cargando tu perfil…</p>
+
+<section id="accountDashboard" hidden aria-label="Resumen de mi cuenta">
+  <div class="dashboard">
+    <div class="stat highlight"><strong id="statOrders">0</strong><span>Pedidos registrados</span></div>
+    <div class="stat"><strong id="statCompleted">0</strong><span>Completados</span></div>
+    <div class="stat"><strong id="statPending">0</strong><span>Pendientes</span></div>
+    <div class="stat"><strong id="statMember">—</strong><span>Cuenta desde</span></div>
+  </div>
+</section>
+
+<section class="card wallet-feature" id="walletSection" hidden aria-label="Mi saldo disponible">
+<div class="wallet-feature-head" id="saldo">
+  <div><p class="wallet-kicker">BILLETERA NEXORA</p><h2>Mi saldo disponible</h2></div>
+  <span class="wallet-feature-icon" aria-hidden="true">▣</span>
+</div>
+<p class="detail">Saldo acreditado y listo para comprar productos en NEXORA STORE.</p>
+<div class="wallet-balance-panel">
+  <div class="wallet-balance-label">Saldo confirmado</div>
+  <div id="walletBalance" role="status" aria-live="polite">Cargando…</div>
+  <div class="wallet-caption">Paga directamente desde tu cuenta sin hacer otro Yape por cada compra.</div>
+</div>
+<div class="wallet-feature-actions">
+  <a class="wallet-action wallet-action-primary" href="recargar-saldo.html">＋ Recargar saldo</a>
+  <a class="wallet-action wallet-action-secondary" href="compras.html">Mis compras</a>
+  <a class="wallet-action wallet-action-secondary" href="soporte.html">✉ Atención al cliente</a>
+  <button class="wallet-action wallet-action-secondary" id="reloadWallet" type="button">↻ Actualizar saldo</button>
+</div>
+<p class="wallet-footnote">Las recargas se acreditan únicamente después de confirmar el ingreso real del dinero por Yape.</p>
+</section>
+
+<section class="card" id="profile" hidden aria-label="Datos de mi cuenta">
+<div class="identity"><div class="avatar" id="avatar" aria-hidden="true"></div><div><h2 id="profileName"></h2><div class="detail" id="profileEmail"></div><div class="account-meta"><span class="meta-pill">Cuenta NEXORA</span><span class="meta-pill" id="memberSince">Miembro</span></div></div></div>
+<div class="photo-actions">
+<label for="photoFile">Foto de perfil</label>
+<input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp" aria-describedby="photoHint">
+<p id="photoHint" class="detail">JPG, PNG o WebP, hasta 5 MB. Se recorta al centro y se guarda al seleccionarla.</p>
+<button class="secondary" id="removePhoto" type="button">Quitar foto</button>
+<p id="photoStatus" role="status"></p>
+</div>
+<form id="profileForm">
+<label for="displayName">Nombre de perfil</label>
+<input id="displayName" name="displayName" autocomplete="name" maxlength="60" required>
+<label for="email">Correo de tu cuenta</label>
+<input id="email" type="email" readonly>
+<div class="actions"><button class="primary" id="save" type="submit">Guardar cambios</button><a class="shop" href="index.html#catalogo">Ir a comprar</a></div>
+</form>
+<div class="actions"><a class="shop" id="mvpPanel" href="admin.html?v=pedidos-1" hidden>Panel MVP</a><button class="secondary" id="logout" type="button">Cerrar sesión</button></div>
+</section>
+<section class="card" id="ordersSection" hidden>
+<h2>Mis compras</h2><p class="detail">Pedidos recientes iniciados desde tu cuenta. Enviar por WhatsApp no confirma el pago ni la entrega.</p>
+<p id="ordersStatus" role="status">Cargando historial…</p><div id="ordersList"></div>
+<button class="secondary" id="reloadOrders" type="button">Actualizar historial</button>
+</section>
+<p id="message" role="status" aria-live="polite"></p>
+<noscript><p>Activa JavaScript para acceder a tu perfil.</p></noscript>
+</main>
+<script type="module">
+import {isRobloxOrder,renderRobloxDelivery} from "./roblox-delivery.js?v=20261023-multicode";
+const panel = document.getElementById("profile");
+const loading = document.getElementById("loading");
+const message = document.getElementById("message");
+const nameInput = document.getElementById("displayName");
+const save = document.getElementById("save");
+const logout = document.getElementById("logout");
+const mvpPanel = document.getElementById("mvpPanel");
+const MVP_EMAILS = new Set(["nexora.store.sf@gmail.com","stiven20eduu@gmail.com"]);
+function notify(text, error = false) {
+  message.textContent = text;
+  message.dataset.error = String(error);
+}
+let savedPhoto = "";
+function showPhoto() {
+  if (!savedPhoto || !/^data:image\/jpeg;base64,/.test(savedPhoto)) return;
+  const image = document.createElement("img");
+  image.src = savedPhoto;
+  image.alt = "";
+  document.getElementById("avatar").replaceChildren(image);
+}
+function render(user) {
+  const name = user.displayName || "Mi cuenta";
+  const created = user.metadata?.creationTime ? new Date(user.metadata.creationTime) : null;
+  const memberText = created && !Number.isNaN(created.getTime())
+    ? created.toLocaleDateString("es-PE", { month:"short", year:"numeric" })
+    : "Miembro";
+  document.getElementById("memberSince").textContent = "Desde " + memberText;
+  document.getElementById("statMember").textContent = created && !Number.isNaN(created.getTime())
+    ? created.toLocaleDateString("es-PE", { month:"short", year:"numeric" })
+    : "—";
+  document.getElementById("profileName").textContent = name;
+  document.getElementById("profileEmail").textContent = user.email || "";
+  document.getElementById("email").value = user.email || "";
+  nameInput.value = user.displayName || "";
+  document.getElementById("avatar").textContent = name.trim().split(/\s+/).slice(0, 2).map(part => Array.from(part)[0]).join("").toUpperCase();
+  showPhoto();
+}
+try {
+  const [{ auth }, { onAuthStateChanged, updateProfile, signOut }, { getFirestore, doc, getDoc }] = await Promise.all([
+    import("./firebase.js"),
+    import("https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js"),
+    import("https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js")
+  ]);
+  const db = getFirestore(auth.app);
+  let historyVersion = 0;
+
+  const photoInput = document.getElementById("photoFile");
+  const photoStatus = document.getElementById("photoStatus");
+  const removePhoto = document.getElementById("removePhoto");
+  const ordersStatus = document.getElementById("ordersStatus");
+  let accountModule;
+  async function dataModule() {
+    if (!accountModule) accountModule = import("./account-data.js").catch(error => { accountModule = null; throw error; });
+    return accountModule;
+  }
+  let walletFetchVersion = 0;
+  async function refreshWallet() {
+    const token = ++walletFetchVersion;
+    const uid = auth.currentUser?.uid;
+    const el = document.getElementById("walletBalance");
+    if (!uid) return;
+    el.textContent = "Cargando…";
+    try {
+      const { getMyWallet, formatSoles } = await import("./wallet-data.js");
+      const cents = await getMyWallet();
+      if (token !== walletFetchVersion || auth.currentUser?.uid !== uid) return;
+      if (!Number.isSafeInteger(cents) || cents < 0) throw new Error("Saldo incorrecto");
+      el.textContent = formatSoles(cents);
+    } catch (error) {
+      if (token !== walletFetchVersion || auth.currentUser?.uid !== uid) return;
+      console.error("Error al cargar saldo NEXORA", error);
+      el.textContent = "No disponible";
+    }
+  }
+  document.getElementById("reloadWallet").addEventListener("click", async function() {
+    if (!auth.currentUser || this.disabled) return;
+    this.disabled = true;
+    try { await refreshWallet(); }
+    finally { this.disabled = false; }
+  });
+  async function refreshAccount(user) {
+    const version = ++historyVersion;
+    ordersStatus.textContent = "Cargando historial…";
+    document.getElementById("ordersList").replaceChildren();
+    try {
+      const result = await (await dataModule()).loadAccount();
+      if (version !== historyVersion || auth.currentUser?.uid !== user.uid || result.uid !== user.uid) return;
+      savedPhoto = result.photo;
+      render(user);
+      const completedCount = result.orders.filter(order => order.status === "completed").length;
+      const pendingCount = result.orders.filter(order => !["completed","cancelled"].includes(order.status)).length;
+      document.getElementById("statOrders").textContent = String(result.orders.length);
+      document.getElementById("statCompleted").textContent = String(completedCount);
+      document.getElementById("statPending").textContent = String(pendingCount);
+      ordersStatus.textContent = result.orders.length ? "Últimos " + result.orders.length + " pedidos." : "Todavía no tienes pedidos registrados en tu cuenta.";
+      for (const order of result.orders) {
+        const item = document.createElement("article");
+        item.className = "order-item";
+        const title = document.createElement("h3");
+        title.textContent = order.game + " · " + order.product;
+        const detail = document.createElement("p");
+        const date = order.createdAt?.toDate?.();
+        detail.textContent = "S/ " + Number(order.price).toFixed(2) + (date ? " · " + date.toLocaleString("es-PE") : "");
+        const status = document.createElement("p");
+        status.className = "order-status";
+        if (order.status === "completed") status.classList.add("completed");
+        if (order.status === "cancelled") status.classList.add("cancelled");
+        status.textContent = ({
+          pending:"Pendiente de verificación",
+          processing:"En proceso",
+          verified:"Pago verificado",
+          completed:"Completado",
+          cancelled:"Cancelado"
+        })[order.status] || "En revisión";
+        const code = document.createElement("p");
+        code.className = "detail";
+        code.textContent = "Pedido: " + order.id;
+        item.append(title, detail, status, code);
+        // Los pedidos actuales guardan el código en un documento privado, no en el pedido.
+        const needsPrivateCode = isRobloxOrder(order) && order.status === "completed" && !order.redemptionCode;
+        const delivery = renderRobloxDelivery(needsPrivateCode
+          ? {...order, redemptionLoading:true}
+          : order);
+        if (delivery) item.append(delivery);
+        document.getElementById("ordersList").append(item);
+        if (needsPrivateCode && delivery) {
+          getDoc(doc(db, "users", user.uid, "orders", order.id, "privateDelivery", "roblox"))
+            .then(snap => {
+              if (version !== historyVersion || auth.currentUser?.uid !== user.uid || !delivery.isConnected) return;
+              const data = snap.exists() ? snap.data() : {};
+              const codes = Array.isArray(data.codes) ? data.codes : (typeof data.code === "string" ? [data.code] : []);
+              const updated = renderRobloxDelivery({...order, redemptionCodes:codes});
+              if (updated) delivery.replaceWith(updated);
+            })
+            .catch(() => {
+              if (version !== historyVersion || auth.currentUser?.uid !== user.uid || !delivery.isConnected) return;
+              const failed = renderRobloxDelivery({...order, redemptionLoading:false, redemptionError:true});
+              if (failed) delivery.replaceWith(failed);
+            });
+        }
+      }
+    } catch {
+      if (version === historyVersion && auth.currentUser?.uid === user.uid) ordersStatus.textContent = "El historial no está disponible en este momento. Inténtalo más tarde.";
+    }
+  }
+  document.getElementById("reloadOrders").addEventListener("click", async function() {
+    if (!auth.currentUser) return;
+    this.disabled = true;
+    await refreshAccount(auth.currentUser);
+    await refreshWallet();
+    this.disabled = false;
+  });
+  async function uploadPhoto(photo, user) {
+    const uid = await (await dataModule()).savePhoto(photo);
+    if (auth.currentUser?.uid !== user.uid || uid !== user.uid) return;
+    savedPhoto = photo;
+    render(user);
+    photoStatus.textContent = photo ? "Foto guardada en tu cuenta." : "Foto eliminada.";
+  }
+  photoInput.addEventListener("change", async () => {
+    const file = photoInput.files?.[0];
+    const user = auth.currentUser;
+    if (!file || !user) return;
+    if (!["image/jpeg","image/png","image/webp"].includes(file.type) || file.size > 5 * 1024 * 1024) {
+      photoStatus.textContent = "Selecciona una imagen JPG, PNG o WebP de hasta 5 MB.";
+      photoInput.value = ""; return;
+    }
+    photoInput.disabled = removePhoto.disabled = logout.disabled = true;
+    photoStatus.textContent = "Guardando foto…";
+    let bitmap;
+    try {
+      bitmap = await createImageBitmap(file);
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas.height = 160;
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#10151e"; ctx.fillRect(0,0,160,160);
+      const size = Math.min(bitmap.width, bitmap.height);
+      ctx.drawImage(bitmap,(bitmap.width-size)/2,(bitmap.height-size)/2,size,size,0,0,160,160);
+      const photo = canvas.toDataURL("image/jpeg",0.75);
+      if (auth.currentUser?.uid !== user.uid) return;
+      await uploadPhoto(photo, user);
+    } catch {
+      photoStatus.textContent = "No se pudo guardar la foto. Inténtalo más tarde.";
+    } finally {
+      bitmap?.close();
+      photoInput.value = "";
+      photoInput.disabled = removePhoto.disabled = logout.disabled = false;
+    }
+  });
+  removePhoto.addEventListener("click", async () => {
+    const user = auth.currentUser;
+    if (!user) return;
+    photoInput.disabled = removePhoto.disabled = logout.disabled = true;
+    try { await uploadPhoto("", user); }
+    catch { photoStatus.textContent = "No se pudo quitar la foto. Inténtalo más tarde."; }
+    finally { photoInput.disabled = removePhoto.disabled = logout.disabled = false; }
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    historyVersion++;
+    if (!user) {
+      savedPhoto = "";
+      mvpPanel.hidden = true;
+      document.getElementById("mvpOrdersEntry").hidden = true;
+      document.getElementById("ordersSection").hidden = true;
+      document.getElementById("walletSection").hidden = true;
+      document.getElementById("accountDashboard").hidden = true;
+      document.getElementById("ordersList").replaceChildren();
+      document.getElementById("avatar").replaceChildren();
+      panel.hidden = true;
+      nameInput.value = "";
+      document.getElementById("email").value = "";
+      window.location.replace("login.html");
+      return;
+    }
+    savedPhoto = "";
+    mvpPanel.hidden = !user.email || !MVP_EMAILS.has(user.email.toLowerCase());
+    document.getElementById("mvpOrdersEntry").hidden = mvpPanel.hidden;
+    render(user);
+    document.getElementById("ordersSection").hidden = false;
+    document.getElementById("walletSection").hidden = false;
+    refreshWallet();
+    document.getElementById("accountDashboard").hidden = false;
+    refreshAccount(user);
+    loading.hidden = true;
+    panel.hidden = false;
+  }, () => {
+    panel.hidden = true;
+    loading.hidden = true;
+    notify("No pudimos cargar tu sesión. Recarga la página para intentarlo de nuevo.", true);
+  });
+  document.getElementById("profileForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const user = auth.currentUser;
+    if (!user) { window.location.replace("login.html"); return; }
+    const name = nameInput.value.trim();
+    if (!name || name.length > 60) {
+      notify("Escribe un nombre de entre 1 y 60 caracteres.", true);
+      nameInput.focus();
+      return;
+    }
+    save.disabled = true;
+    logout.disabled = true;
+    save.textContent = "Guardando…";
+    notify("");
+    try {
+      await updateProfile(user, { displayName: name });
+      if (auth.currentUser?.uid === user.uid) {
+        render(user);
+        notify("Tu perfil se guardó correctamente.");
+      }
+    } catch (error) {
+      notify(error.code === "auth/network-request-failed"
+        ? "No hay conexión. Revisa tu internet e inténtalo de nuevo."
+        : "No pudimos guardar tu perfil. Inténtalo de nuevo.", true);
+    } finally {
+      save.disabled = false;
+      logout.disabled = false;
+      save.textContent = "Guardar cambios";
+    }
+  });
+  logout.addEventListener("click", async () => {
+    logout.disabled = true;
+    save.disabled = true;
+    try {
+      await signOut(auth);
+      window.location.replace("login.html");
+    } catch {
+      notify("No pudimos cerrar la sesión. Inténtalo de nuevo.", true);
+      logout.disabled = false;
+      save.disabled = false;
+    }
+  });
+} catch {
+  loading.hidden = true;
+  notify("No pudimos conectar. Revisa tu internet y recarga la página.", true);
+}
+</script>
+
+</body>
+</html>
+
+

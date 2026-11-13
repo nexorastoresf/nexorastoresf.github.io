@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finalizar compra con saldo | NEXORA STORE</title>
+<link rel="icon" type="image/svg+xml" href="nexora-logo.svg?v=4">
+<style>
+:root{color-scheme:dark;--bg:#080a10;--card:#111721;--border:#303a48;--muted:#a9b4c4;--orange:#f6a825;--green:#79e4b7}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 10%,#302014 0,transparent 35%),radial-gradient(circle at 10% 12%,#24172d 0,transparent 32%),var(--bg);color:#fff;font:14px Arial,Helvetica,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer}
+header{background:#090d15;border-bottom:1px solid #26303d;padding:13px max(18px,calc((100% - 1100px)/2));display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900}.brand img{width:43px;height:43px;border-radius:12%;object-fit:cover}
+.back,.secondary{display:inline-block;padding:11px 14px;border:1px solid #3b4758;border-radius:10px;background:#161e29;font-weight:700}
+main{max-width:1100px;margin:35px auto 80px;padding:0 18px}.eyebrow{color:var(--orange);font-weight:900;font-size:11px;letter-spacing:1.4px}
+h1{font-size:clamp(27px,4vw,37px);margin:7px 0 10px}.subhead{color:var(--muted);line-height:1.7;margin:0 0 23px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,380px);align-items:start;gap:18px}
+.card{background:linear-gradient(140deg,#121923,#10151e);border:1px solid var(--border);border-radius:17px;overflow:hidden}
+.card-head{padding:20px;border-bottom:1px solid var(--border)}
+.card-head h2{font-size:19px;margin:0 0 6px}.card-head p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
+.card-body{padding:20px}
+.order-row{display:flex;align-items:start;justify-content:space-between;gap:20px;border-bottom:1px solid #29313d;padding:13px 0}
+.order-row:last-child{border-bottom:0}.order-row span{font-size:12px;color:var(--muted)}.order-row strong{text-align:right;font-size:13px;overflow-wrap:anywhere;max-width:60%}
+.order-total strong{font-size:24px;color:var(--orange)}
+.notice{background:#262016;border:1px solid #674b28;border-radius:12px;padding:14px;margin-top:18px;font-size:12px;line-height:1.6}
+.wallet-title{display:flex;gap:10px;align-items:center;color:var(--green)}
+.wallet-title h2{font-size:21px;margin:0}.wallet-icon{font-size:24px}
+.balance-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #293442}
+.balance-row span{font-size:12px;color:var(--muted)}.balance-row strong{font-size:20px;white-space:nowrap}
+.balance-row.highlight strong{color:var(--green)}.balance-row.highlight span{color:#d6e8e2}
+.actions{margin-top:18px}
+.pay{width:100%;padding:15px 13px;border:0;border-radius:11px;background:#f6a825;color:#171000;font-weight:900;font-size:14px}
+.pay:disabled{background:#343b44;color:#aeb7c0;cursor:not-allowed}
+.small{color:var(--muted);font-size:12px;line-height:1.65;margin:11px 0}
+.status{min-height:42px;padding:12px 0;line-height:1.6;font-size:12px;color:#a8bdcb;overflow-wrap:anywhere}
+.status.error{color:#ffaaaa}.status.success{color:var(--green)}
+.help-links{display:flex;flex-direction:column;gap:12px;margin-top:16px}.help-links a{font-size:13px;color:#ffc86b;text-decoration:underline;text-underline-offset:3px}
+#loginHelp{background:#17202d;border-radius:12px;padding:13px;margin-top:16px}
+#loginHelp a{display:inline-block;margin-top:9px}
+.success-box{background:#0f2822;border:1px solid #2e705c;border-radius:13px;padding:16px;margin-top:14px;line-height:1.65}
+.success-box[hidden],.error-card[hidden]{display:none}.success-box h3{margin:0 0 8px;color:var(--green)}
+.success-box p{font-size:12px;margin:6px 0}.success-box a{color:#ffe09a;text-decoration:underline}
+.error-card{max-width:600px;margin:65px auto;padding:30px;text-align:center}.error-card h2{margin-top:0}
+/* Ventanas de confirmación y saldo insuficiente */
+.modal-screen{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:rgba(1,4,10,.84);backdrop-filter:blur(6px);padding:22px;overflow-y:auto}
+.modal-card{width:min(100%,460px);border:1px solid #ad772f;border-radius:23px;background:linear-gradient(145deg,#12151e,#0c0f16);box-shadow:0 26px 85px rgba(0,0,0,.65),0 0 35px rgba(245,166,35,.08);padding:clamp(23px,5vw,30px);max-height:calc(100dvh - 44px);overflow-y:auto}
+.modal-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.modal-heading h2{color:var(--orange);font-size:clamp(20px,5vw,24px);margin:0;line-height:1.2;font-weight:900}
+.modal-exit{display:grid;place-items:center;flex-shrink:0;border:1px solid #354052;background:#0c111b;color:#aeb7c5;font-size:25px;border-radius:12px;width:40px;height:40px}
+.modal-hint{color:var(--muted);line-height:1.7;font-size:13px;margin:10px 0 22px}
+.modal-table{margin:17px 0 21px}
+.modal-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #303844}
+.modal-row span{color:#aeb7c5;font-size:13px;flex-shrink:0}
+.modal-row strong{text-align:right;overflow-wrap:anywhere;font-size:14px}
+.modal-row.total strong{color:var(--orange);font-size:24px}
+.modal-row.total{padding-bottom:20px}
+.modal-buttons{display:grid;grid-template-columns:1fr 1.45fr;gap:12px;margin-top:24px}
+.modal-buttons button,.modal-buttons a{display:grid;place-items:center;min-height:50px;padding:11px 12px;border-radius:10px;font-size:14px;font-weight:900;text-align:center}
+.modal-back{background:#161a24;border:1px solid #3a4351;color:#d3d5df}
+.modal-approve,.modal-recharge{background:var(--orange);border:1px solid var(--orange);color:#161008}
+.modal-approve:disabled{opacity:.6;cursor:wait}
+.warn-symbol{display:grid;place-items:center;width:92px;height:92px;margin:8px auto 22px;background:linear-gradient(135deg,#e3295c,#a30b3e);border-radius:50%;color:#fff;font-size:64px;font-weight:900;box-shadow:0 0 35px rgba(225,20,67,.25)}
+.warning-modal{text-align:center}
+.warning-modal .modal-heading{justify-content:center}
+.warning-modal h2{color:#fff;font-size:27px}
+.warning-caption{color:#ff8099;font-weight:900;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin:0 0 15px}
+.warning-modal .modal-hint{font-size:15px;margin:0 0 14px}
+.warning-meta{font-size:13px;color:#bac1ce;line-height:1.7}
+body.modal-open{overflow:hidden}
+@media(max-width:420px){.modal-screen{padding:13px}.modal-card{padding:22px 20px}.modal-buttons{gap:9px}.modal-buttons button,.modal-buttons a{font-size:12px}}
+footer{border-top:1px solid #29313d;color:#8894a4;padding:23px max(18px,calc((100% - 1100px)/2));font-size:12px}
+[hidden]{display:none!important}
+@media(max-width:780px){.layout{grid-template-columns:1fr}header{padding:12px 18px}.card-body{padding:17px}}
+
+/* NEXORA — refinamiento visual de checkout (solo interfaz) */
+:root{--bg:#070a11;--card:#111826;--border:#283347;--muted:#a4b1c6;--orange:#ffb12d;--green:#61efb8;--shadow:0 22px 60px rgba(0,0,0,.37)}
+body{background:radial-gradient(ellipse 560px 450px at 78% 3%,rgba(238,112,31,.12),transparent 75%),radial-gradient(ellipse 500px 410px at 2% 27%,rgba(130,42,163,.12),transparent 78%),#070a11;color:#f7f8fc;letter-spacing:.04px}
+header{background:rgba(8,12,19,.94);border-bottom:1px solid rgba(207,219,244,.1);min-height:78px;box-shadow:0 5px 28px rgba(0,0,0,.12);backdrop-filter:blur(16px)}
+.brand{gap:13px;font-size:15px;letter-spacing:.4px}.brand img{width:48px;height:48px;filter:drop-shadow(0 0 12px rgba(229,42,39,.2))}
+.brand-caption{display:block;color:#92a3b9;font-weight:700;font-size:9px;letter-spacing:1.6px;margin-top:3px}
+.back{background:#141b27;border-color:#354055;color:#dee5ef;font-size:12px;transition:background .2s,border-color .2s}
+.back:hover{background:#1a2535;border-color:#5b7188}
+main{max-width:1150px;margin:46px auto 86px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;color:#ffbf52;background:rgba(246,166,38,.08);border:1px solid rgba(247,181,68,.23);padding:9px 13px;border-radius:999px;font-size:10px;letter-spacing:1.35px}
+.eyebrow:before{content:"";width:7px;height:7px;border-radius:50%;background:#ffb22d;box-shadow:0 0 0 4px rgba(255,178,45,.1)}
+h1{font-size:clamp(31px,4.3vw,47px);line-height:1.1;letter-spacing:-1.6px;margin:18px 0 11px;font-weight:900}
+.subhead{color:#afbbcb;max-width:760px;font-size:14px;line-height:1.75;margin-bottom:24px}
+.checkout-perks{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px}
+.checkout-perks span{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(142,166,198,.16);background:rgba(23,32,46,.58);border-radius:999px;padding:8px 12px;color:#c7d0df;font-size:11px;font-weight:700}
+.checkout-perks .perk-symbol{color:#70ecbd;font-size:12px}
+.layout{grid-template-columns:minmax(0,1fr) minmax(310px,400px);gap:20px}
+.card{background:linear-gradient(165deg,#141d2a 0%,#0d131e 100%);border:1px solid rgba(114,139,181,.27);border-radius:21px;box-shadow:var(--shadow)}
+.card-head{padding:23px 25px 20px;border-color:rgba(125,152,198,.13)}
+.card-head h2{font-size:21px;letter-spacing:-.4px}
+.card-head p{font-size:12px;line-height:1.7;color:#a5b1c3}
+.card-body{padding:21px 25px 25px}
+.section-tag{color:var(--orange);font-size:10px;font-weight:900;letter-spacing:1.3px;margin-bottom:9px}
+.order-row{padding:18px 0;border-color:rgba(146,171,210,.1);align-items:center}
+.order-row span{color:#abb9ce;font-size:13px}
+.order-row strong{font-size:14px;line-height:1.5;color:#f4f7fa}
+.player-identity{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap;min-width:0;text-align:right}
+.player-identity strong{max-width:none;overflow-wrap:anywhere}
+.player-name{max-width:100%;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(80,223,153,.27);background:rgba(60,201,146,.09);color:#a2f9cf;padding:6px 9px;border-radius:9px;font-size:12px;font-weight:800;overflow-wrap:anywhere;text-align:left}
+.player-name:before{content:"✓";font-size:12px;color:#70ecb1}
+.player-name.not-verified{background:rgba(244,174,60,.07);border-color:rgba(244,174,60,.22);color:#e8ba75}
+.player-name.not-verified:before{content:"!";color:#e7ad62}
+@media(max-width:540px){.player-identity{gap:6px}.player-name{font-size:11px;padding:5px 7px}}
+.order-total{padding:20px 18px;margin:14px -6px 0;background:linear-gradient(90deg,rgba(241,167,38,.08),rgba(241,167,38,.03));border:1px solid rgba(255,191,87,.15);border-radius:12px}
+.order-total strong{font-size:30px;color:#ffc052;letter-spacing:-.7px}
+.notice{background:rgba(244,170,50,.07);border:1px solid rgba(246,176,60,.24);color:#e5d0ac;border-radius:13px;padding:16px 17px;margin-top:20px;line-height:1.65}
+.notice b{color:#ffcc70}
+.wallet-card{position:sticky;top:22px}
+.wallet-card .card-head{padding-bottom:20px}
+.wallet-title{gap:12px;justify-content:space-between;flex-wrap:wrap}
+.wallet-heading{display:flex;align-items:center;gap:10px}
+.wallet-title h2{font-size:20px;color:#d8fff0}
+.wallet-icon{width:39px;height:39px;display:grid;place-items:center;border:1px solid rgba(102,243,184,.24);background:rgba(89,235,173,.1);border-radius:12px;font-size:22px;color:#72eeba}
+.wallet-state{display:inline-flex;align-items:center;gap:6px;font-size:10px;letter-spacing:.15px;border-radius:999px;padding:7px 10px;font-weight:800;border:1px solid transparent;white-space:nowrap}
+.wallet-state.waiting{background:#1d2839;color:#bfcde0;border-color:#35455b}
+.wallet-state.ok{background:rgba(65,204,143,.12);color:#73f5bc;border-color:rgba(65,204,143,.28)}
+.wallet-state.bad{background:rgba(240,84,93,.10);color:#ff999d;border-color:rgba(255,115,118,.28)}
+.wallet-state.paid{background:rgba(65,204,143,.15);color:#8ff7c9;border-color:rgba(65,204,143,.28)}
+.balance-main{border:1px solid rgba(91,133,119,.3);background:linear-gradient(130deg,rgba(20,65,56,.42),rgba(15,34,39,.62));border-radius:16px;padding:19px 18px;margin-bottom:11px}
+.balance-main span{display:block;font-size:12px;color:#b6d6c9;margin-bottom:8px}
+.balance-main strong{display:block;color:#f3fff9;font-size:clamp(29px,4vw,36px);font-weight:900;line-height:1.12;letter-spacing:-1px;white-space:normal}
+.balance-row{padding:17px 1px;border-color:rgba(136,162,203,.1)}
+.balance-row span{font-size:12px}
+.balance-row strong{font-size:18px}
+.balance-row.highlight{background:rgba(54,209,152,.055);padding:16px 15px;border:1px solid rgba(87,226,166,.14);border-radius:12px;margin-top:8px}
+.balance-row.highlight strong{font-size:20px}
+.balance-row.highlight.warning{background:rgba(238,87,103,.045);border-color:rgba(251,126,135,.15)}
+.balance-row.highlight.warning strong{color:#ff949b}
+.balance-row.highlight span{color:#a9d8c7}
+.actions{margin-top:18px}
+.pay{background:linear-gradient(110deg,#f9a928,#ffca59);color:#1e1407;border-radius:12px;font-size:15px;padding:17px 15px;box-shadow:0 11px 22px rgba(244,162,30,.18);transition:transform .18s,filter .18s,box-shadow .18s}
+.pay:not(:disabled):hover{transform:translateY(-2px);filter:brightness(1.045);box-shadow:0 16px 26px rgba(244,162,30,.24)}
+.pay:focus-visible,.modal-approve:focus-visible,.modal-back:focus-visible,.modal-exit:focus-visible,a:focus-visible{outline:3px solid #ffd57a;outline-offset:3px}
+.pay:disabled{background:#334052;color:#aeb9c9;box-shadow:none;transform:none}
+.status{min-height:0;padding:13px 0;font-size:12px;line-height:1.7}
+.status.success{color:#87f1be}
+ .status.error{color:#ff9aa5}
+.minecraft-mvp-activation[hidden]{display:none!important}
+.minecraft-mvp-activation{
+ margin:12px 0 19px;padding:15px 13px;border:1px solid rgba(255,184,89,.32);
+ background:rgba(246,166,35,.065);border-radius:13px;color:#d8e3eb;
+}
+.minecraft-mvp-activation strong{display:block;color:#ffcc80;font-size:13px;margin:0 0 7px}
+.minecraft-mvp-activation p{font-size:12px;line-height:1.6;margin:6px 0 11px}
+.minecraft-mvp-activation button{
+ border:1px solid rgba(255,195,114,.62);background:#ffa932;color:#23160a;
+ border-radius:10px;padding:12px 13px;min-height:44px;width:100%;
+ font-weight:900;cursor:pointer;
+}
+.minecraft-mvp-activation button:disabled{opacity:.5;cursor:wait}
+.minecraft-mvp-activation a{display:inline-block;margin-top:9px;color:#ffd28e;text-decoration:underline}
+.minecraft-mvp-activation .minecraft-mvp-feedback{min-height:0;margin-bottom:0}
+.small{font-size:11px;line-height:1.7;color:#9facbe}
+.help-links{padding-top:15px;margin-top:14px;border-top:1px solid rgba(148,170,198,.13);gap:13px}
+.help-links a{display:flex;align-items:center;gap:7px;text-decoration:none;color:#ffd086;font-size:12px;font-weight:700}
+.help-links a:hover{text-decoration:underline}
+.security-footer{display:flex;gap:20px;flex-wrap:wrap;align-items:center;justify-content:center;text-align:center;margin:30px 0 0;color:#8b9aaa;font-size:11px;line-height:1.6}
+.security-footer span{display:inline-flex;gap:7px;align-items:center}
+.success-box{border-radius:14px}
+.modal-card{border-color:rgba(246,169,40,.45);box-shadow:0 30px 90px rgba(0,0,0,.74),0 0 35px rgba(245,166,35,.08)}
+.modal-heading h2{letter-spacing:-.4px}
+.modal-back:hover{background:#242b39}
+.modal-approve:hover,.modal-recharge:hover{filter:brightness(1.07)}
+footer{border-top:1px solid rgba(176,194,227,.09);font-size:11px}
+@media(max-width:850px){.wallet-card{position:static}.layout{grid-template-columns:1fr}.checkout-perks{gap:7px}}
+@media(max-width:540px){main{margin:25px auto 65px;padding:0 15px}.card-head{padding:20px 19px 16px}.card-body{padding:18px 19px 21px}h1{letter-spacing:-1px}.checkout-perks span{font-size:10px;padding:7px 10px}.layout{gap:15px}.order-row{padding:15px 0}.order-row strong{font-size:13px}.order-total strong{font-size:26px}.wallet-title{gap:7px}.wallet-state{font-size:9px}.security-footer{gap:9px;justify-content:flex-start}.brand img{width:40px;height:40px}header{min-height:67px}}
+@media(prefers-reduced-motion:reduce){.pay,.back{transition:none!important}}
+
+
+.robux-payment-notice[hidden]{display:none!important}
+.robux-payment-notice{
+  background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.38);
+  color:#f5d6a0;border-radius:15px;padding:17px 19px;margin:17px 0 23px;
+  line-height:1.6;font-size:14px
+}
+.robux-payment-notice strong{display:block;color:#fff;font-size:17px;margin-bottom:3px}
+
+</style>
+<link rel="stylesheet" href="nexora-premium.css?v=2">
+<link rel="stylesheet" href="nexora-shop-ambience.css?v=1">
+<link rel="stylesheet" href="nexora-buy-flow.css?v=1">
+<script src="nexora-experience.js?v=2" defer></script>
+<link rel="stylesheet" href="nexora-mobile.css?v=2">
+</head>
+<body data-nexora-page="checkout">
+<div class="nx-shop-ambience" aria-hidden="true">
+  <span class="nx-shop-mesh"></span>
+  <span class="nx-shop-glow nx-shop-glow--main"></span>
+  <span class="nx-shop-glow nx-shop-glow--side"></span>
+  <span class="nx-shop-glow nx-shop-glow--low"></span>
+</div>
+<header>
+<a class="brand" href="index.html"><img src="nexora-logo.svg?v=4" alt="Logo NEXORA"><span>NEXORA STORE<small class="brand-caption">GAMING · DIGITAL</small></span></a>
+<a class="back" href="javascript:history.back()">← Volver</a>
+</header>
+<main>
+<section id="checkout" hidden>
+<div id="robuxCheckoutNotice" class="robux-payment-notice" role="status" hidden><strong>Por ahora no hay Robux (mantenimiento)</strong>Las recargas de Robux están suspendidas temporalmente. No se aceptan pagos para Roblox hasta que se restablezca el servicio.</div>
+<div class="eyebrow">PAGO SEGURO CON NEXORA</div>
+<h1>Paga con tu saldo NEXORA</h1>
+<p class="subhead">Confirma tu compra con el saldo disponible en tu cuenta. Se descontará únicamente el valor del producto y tu pedido se registrará con el pago verificado, listo para su atención.</p>
+<div class="checkout-perks" aria-label="Características de la compra">
+  <span><span class="perk-symbol">✓</span> Precio oficial verificado</span>
+  <span><span class="perk-symbol">✓</span> Descuento automático</span>
+  <span><span class="perk-symbol">◷</span> Atención en menos de 24 horas</span>
+</div>
+<ol class="nx-buy-steps" aria-label="Pasos de esta compra">
+  <li><span class="nx-buy-number" aria-hidden="true">01</span><div><strong>Revisa el pedido</strong><small>Comprueba juego, paquete, ID y total.</small></div></li>
+  <li><span class="nx-buy-number" aria-hidden="true">02</span><div><strong>Comprueba tu saldo</strong><small>Debe estar acreditado en tu billetera NEXORA.</small></div></li>
+  <li><span class="nx-buy-number" aria-hidden="true">03</span><div><strong>Confirma el pago</strong><small>El descuento se hará solo cuando confirmes.</small></div></li>
+</ol>
+<div class="layout">
+<section class="card">
+<div class="card-head"><div class="section-tag">01 / DATOS DEL PEDIDO</div><h2>Resumen de tu compra</h2><p>Comprueba que el producto y la cuenta de destino sean correctos.</p></div>
+<div class="card-body">
+<div class="order-row"><span>Juego</span><strong id="orderGame">—</strong></div>
+<div class="order-row"><span>Producto</span><strong id="orderProduct">—</strong></div>
+<div class="order-row" id="idRow"><span>ID del jugador</span><div class="player-identity"><strong id="orderPlayerId">—</strong></div></div>
+<div class="order-row" id="serverRow" hidden><span>Servidor</span><strong id="orderServerId">—</strong></div>
+<div class="order-row"><span>Plazo de atención</span><strong>Menos de 24 horas</strong></div>
+<div class="order-row order-total"><span>Precio del producto</span><strong id="orderTotal">S/ —</strong></div>
+<div class="notice"><b>Importante:</b> NEXORA solo confirmará la entrega después de prepararla. Pagar con saldo registra el pago como verificado, pero no marca el producto como entregado.</div>
+</div>
+</section>
+<aside class="card wallet-card">
+<div class="card-head">
+<div class="section-tag">02 / MÉTODO DE PAGO</div>
+<div class="wallet-title">
+  <div class="wallet-heading"><span class="wallet-icon">◈</span><h2>Mi saldo NEXORA</h2></div>
+  <span id="walletStatusBadge" class="wallet-state waiting" aria-live="polite">Comprobando</span>
+</div>
+<p>Saldo acreditado y disponible en tu billetera.</p>
+</div>
+<div class="card-body">
+<div class="balance-main"><span>Saldo disponible</span><strong id="walletBalance">Consultando…</strong></div>
+<div class="nx-wallet-help">¿No tienes saldo suficiente? Puedes solicitar una recarga por Yape. <strong>No se acredita automáticamente:</strong> debes esperar su aprobación antes de comprar.
+<a href="recargar-saldo.html">Solicitar recarga de saldo →</a></div>
+<div class="balance-row"><span>Precio oficial del producto</span><strong id="officialPrice">Consultando…</strong></div>
+<div class="balance-row highlight" id="remainingRow"><span>Saldo después de comprar</span><strong id="walletRemaining">—</strong></div>
+<div class="actions"><button type="button" class="pay" id="confirmPurchase" disabled>Comprobando saldo…</button></div>
+<p class="status" id="purchaseStatus" role="status" aria-live="polite">Verificaremos el precio y tu saldo con Firebase.</p>
+<div id="minecraftMvpActivation" class="minecraft-mvp-activation" hidden>
+  <strong>Solo MVP · Activar pagos de Minecoins</strong>
+  <p>Los precios ya están definidos en el catálogo. Regístralos en Firebase para habilitar el pago con saldo a todos los clientes.</p>
+  <button type="button" id="activateMinecraftPayments">Activar los 4 paquetes de Minecoins</button>
+  <p id="minecraftActivationFeedback" class="minecraft-mvp-feedback" role="status" aria-live="polite"></p>
+  <a href="admin-catalogo.html">Abrir administración del catálogo</a>
+</div>
+<p class="small">Si no tienes saldo suficiente, recárgalo con Yape. La recarga será acreditada después de verificar el ingreso.</p>
+<div class="help-links"><a href="recargar-saldo.html">+ Recargar mi saldo con Yape</a><a href="perfil.html">Ver mi saldo</a><a href="compras.html">Ver mis compras</a></div>
+<div id="loginHelp" hidden>
+<p class="small">Necesitas entrar a tu cuenta NEXORA para utilizar tu saldo.</p>
+<a class="secondary" href="login.html" target="_blank" rel="noopener">Iniciar sesión en otra pestaña</a>
+<p class="small">Cuando termines de iniciar sesión, vuelve aquí y actualiza la página.</p>
+</div>
+<div class="success-box" id="purchaseSuccess" hidden>
+<h3>✓ ¡Compra pagada!</h3>
+<p>El dinero se descontó de tu billetera NEXORA.</p>
+<p><b>Estado:</b> Pago verificado · Pendiente de entrega en menos de 24 horas.</p>
+<p id="purchaseCode"></p>
+<p><a href="compras.html">Revisar mi compra →</a></p>
+</div>
+</div>
+</aside>
+</div>
+<div class="security-footer">
+  <span>✓ El precio se valida en Firebase</span>
+  <span>✓ No se descuenta saldo si falla el pedido</span>
+  <span>✓ Entrega gestionada por NEXORA STORE</span>
+</div>
+</section>
+<!-- Diálogos: se abren únicamente después de validar precio y saldo -->
+<div class="modal-screen" id="confirmModal" hidden>
+  <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="confirmTitle" aria-describedby="confirmHint">
+    <div class="modal-heading"><h2 id="confirmTitle">CONFIRMA TU COMPRA</h2><button type="button" class="modal-exit" id="confirmExit" aria-label="Cerrar ventana">×</button></div>
+    <p id="confirmHint" class="modal-hint">Revisa bien el ID y el paquete antes de usar tu saldo.</p>
+    <div class="modal-table">
+      <div class="modal-row"><span>Paquete</span><strong id="modalProduct">—</strong></div>
+      <div class="modal-row"><span>ID del jugador</span><strong id="modalPlayerId">—</strong></div>
+      <div class="modal-row total"><span>Total</span><strong id="modalPrice">S/ —</strong></div>
+      <div class="modal-row"><span>Saldo restante</span><strong id="modalRemaining">S/ —</strong></div>
+    </div>
+    <div class="modal-buttons"><button class="modal-back" id="confirmBack" type="button">Volver</button><button class="modal-approve" id="modalApprove" type="button">Confirmar compra</button></div>
+  </section>
+</div>
+<div class="modal-screen" id="insufficientModal" hidden>
+  <section class="modal-card warning-modal" role="alertdialog" aria-modal="true" aria-labelledby="insufficientTitle" aria-describedby="insufficientText">
+    <div class="warn-symbol" aria-hidden="true">!</div>
+    <p class="warning-caption">Atención</p>
+    <div class="modal-heading"><h2 id="insufficientTitle">Saldo insuficiente</h2></div>
+    <p class="modal-hint" id="insufficientText">Saldo insuficiente. Recarga tu cuenta para realizar esta compra.</p>
+    <p class="warning-meta" id="shortfallText"></p>
+    <div class="modal-buttons"><button class="modal-back" id="insufficientBack" type="button">Volver</button><a class="modal-recharge" href="recargar-saldo.html">Recargar saldo</a></div>
+  </section>
+</div>
+<section id="missingOrder" class="card error-card" hidden>
+<h2>No encontramos tu pedido</h2>
+<p class="subhead">Regresa a NEXORA STORE, selecciona un producto y pulsa «Finalizar compra».</p>
+<a class="secondary" href="index.html">Volver a la tienda</a>
+</section>
+<noscript><p class="subhead">Activa JavaScript para consultar tu saldo y pagar.</p></noscript>
+</main>
+<footer>© 2026 NEXORA STORE · Compra con saldo confirmado · Entrega en menos de 24 horas</footer>
+<script type="module">
+import { auth } from "./firebase.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, writeBatch, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { PRODUCTOS_NEXORA } from "./catalogo-oficial.js?v=20261102-minecraft";
+import { getMyWallet, formatSoles, buyWithNexoraBalance } from "./wallet-data.js?v=20261023-roblox-pago-2";
+
+const byId=(id)=>document.getElementById(id);
+const button=byId("confirmPurchase");
+const status=byId("purchaseStatus");
+const db=getFirestore(auth.app);
+let busy=false;
+let paid=false;
+let approvedPriceCents=null;
+let visibleBalance=null;
+let currentUserId=null;
+let lastFocus=null;
+const minecraftMvpActivation=byId("minecraftMvpActivation");
+const minecraftMvpButton=byId("activateMinecraftPayments");
+const minecraftActivationFeedback=byId("minecraftActivationFeedback");
+const MVP_EMAILS=new Set(["nexora.store.sf@gmail.com","stiven20eduu@gmail.com"]);
+const canManageCatalog=user=>Boolean(user?.emailVerified&&user?.email&&MVP_EMAILS.has(user.email.toLowerCase()));
+const minecoinProducts=PRODUCTOS_NEXORA.filter(item=>item.gameKey==="minecraft");
+function updateMinecraftMvpActivation(order,user,needActivation=false){
+ minecraftMvpActivation.hidden=!(needActivation&&order?.gameKey==="minecraft"&&canManageCatalog(user));
+}
+
+function showModal(id){
+  closeModals(false);
+  lastFocus=document.activeElement;
+  const modal=byId(id);
+  modal.hidden=false;
+  document.body.classList.add("modal-open");
+  const focus=modal.querySelector("button");
+  focus?.focus();
+}
+function closeModals(restoreFocus=true){
+  byId("confirmModal").hidden=true;
+  byId("insufficientModal").hidden=true;
+  document.body.classList.remove("modal-open");
+  if(restoreFocus && lastFocus?.isConnected)lastFocus.focus();
+  lastFocus=null;
+}
+for(const [id,modalId] of [["confirmExit","confirmModal"],["confirmBack","confirmModal"],["insufficientBack","insufficientModal"]]){
+  byId(id).addEventListener("click",()=>closeModals());
+  byId(modalId).addEventListener("click",event=>{if(event.target===byId(modalId))closeModals()});
+}
+document.addEventListener("keydown",event=>{
+ if(event.key==="Escape" && (!byId("confirmModal").hidden||!byId("insufficientModal").hidden))closeModals();
+ if(event.key==="Tab"){
+  const active=!byId("confirmModal").hidden?byId("confirmModal"):(!byId("insufficientModal").hidden?byId("insufficientModal"):null);
+  if(!active)return;
+  const focusables=Array.from(active.querySelectorAll("button:not([disabled]),a[href]"));
+  if(!focusables.length)return;
+  const first=focusables[0],last=focusables[focusables.length-1];
+  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus();}
+  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first.focus();}
+ }
+});
+function showInsufficient(){
+ if(!Number.isSafeInteger(approvedPriceCents)||!Number.isSafeInteger(visibleBalance))return;
+ byId("shortfallText").textContent="Saldo: "+formatSoles(visibleBalance)+" · Te faltan "+formatSoles(Math.max(0,approvedPriceCents-visibleBalance))+".";
+ showModal("insufficientModal");
+}
+function showConfirmation(order){
+ byId("modalProduct").textContent=order.product;
+ const requiresId=!["roblox","minecraft"].includes(order.gameKey);
+ byId("modalPlayerId").parentElement.hidden=!requiresId;
+ byId("confirmHint").textContent=requiresId
+   ? "Revisa bien el ID y el paquete antes de usar tu saldo."
+   : "Revisa el paquete y el total. El código de canje aparecerá en Mis compras cuando el MVP complete la entrega.";
+ byId("modalPlayerId").textContent=[order.playerId,order.serverId].filter(Boolean).join(" / ")||"No indicado";
+ byId("modalPrice").textContent=formatSoles(approvedPriceCents);
+ byId("modalRemaining").textContent=formatSoles(visibleBalance-approvedPriceCents);
+ showModal("confirmModal");
+}
+
+function setStatus(message,type=""){status.textContent=message;status.className="status"+(type?" "+type:"");}
+function setWalletState(label,style="waiting"){
+ const badge=byId("walletStatusBadge");
+ badge.textContent=label;
+ badge.className="wallet-state "+style;
+ byId("remainingRow").classList.toggle("warning",style==="bad");
+}
+function readOrder(){
+ try{return JSON.parse(sessionStorage.getItem("nexoraOrder")||"null")}
+ catch{return null}
+}
+function validOrder(value){
+ return value && typeof value==="object"
+  && /^[a-z0-9-]{2,80}$/.test(String(value.gameKey||""))
+  && !["mobile-legends","fc-mobile"].includes(value.gameKey)
+  && typeof value.game==="string" && value.game.length>0
+  && typeof value.product==="string" && value.product.length>0
+  && (["roblox","minecraft"].includes(value.gameKey) || value.idConfirmed===true)
+  && Number.isFinite(Number(value.price)) && Number(value.price)>0;
+}
+function setDisplayOrder(order){
+ byId("orderGame").textContent=order.game;
+ byId("orderProduct").textContent=order.product;
+ byId("orderTotal").textContent="S/ "+Number(order.price).toFixed(2);
+ if(order.playerId){
+  byId("orderPlayerId").textContent=order.playerId;
+ } else byId("idRow").hidden=true;
+ if(order.serverId){byId("serverRow").hidden=false;byId("orderServerId").textContent=order.serverId;}
+}
+function refreshAvailableBalance(cents){
+ visibleBalance=cents;
+ byId("walletBalance").textContent=formatSoles(cents);
+ if(Number.isSafeInteger(approvedPriceCents)){
+  byId("walletRemaining").textContent=formatSoles(Math.max(0,cents-approvedPriceCents));
+ }else byId("walletRemaining").textContent="—";
+}
+function paySucceeded(id,balance){
+ paid=true;busy=false;
+ refreshAvailableBalance(balance);
+ byId("walletRemaining").textContent=formatSoles(balance);
+ setWalletState("Pago confirmado","paid");
+ button.disabled=true;button.textContent="Pedido pagado";
+ setStatus("¡Pago confirmado! El pedido quedó registrado y NEXORA lo atenderá en menos de 24 horas.","success");
+ byId("purchaseSuccess").hidden=false;
+ byId("purchaseCode").textContent="Número de pedido: "+id;
+}
+async function readExistingOrder(uid,order){
+ if(!order.historyId || !/^[A-Za-z0-9-]{1,80}$/.test(order.historyId))return false;
+ const ref=doc(db,"users",uid,"orders",order.historyId);
+ const snapshot=await getDoc(ref);
+ if(!snapshot.exists())return false;
+ const prior=snapshot.data();
+ if(prior.paymentMethod==="wallet" && prior.status!=="cancelled"){
+  paySucceeded(order.historyId,await getMyWallet());return true;
+ }
+ if(prior.paymentMethod==="wallet" && prior.status==="cancelled"){
+  button.disabled=true;button.textContent="Pedido cancelado";
+  setStatus("Este pedido se canceló. Para volver a comprar, selecciona el producto nuevamente desde el catálogo.","error");return true;
+ }
+ button.disabled=true;button.textContent="Pedido ya registrado";
+ setStatus("Este pedido ya tiene otro método de pago. Selecciona el producto nuevamente para comprar con saldo.","error");
+ return true;
+}
+async function loadWallet(order,user){
+ const uid=user?.uid||null;
+ currentUserId=uid;
+ approvedPriceCents=null;
+ busy=false;paid=false;button.disabled=true;
+ updateMinecraftMvpActivation(order,user,false);
+ setWalletState("Comprobando","waiting");
+ byId("purchaseSuccess").hidden=true;
+ if(!uid){
+  setWalletState("Inicia sesión","waiting");
+  byId("loginHelp").hidden=false;
+  button.textContent="Inicia sesión para usar tu saldo";
+  byId("walletBalance").textContent="Inicia sesión";
+  byId("officialPrice").textContent="—";
+  byId("walletRemaining").textContent="—";
+  setStatus("Inicia sesión primero. Tu saldo está asociado a tu cuenta NEXORA.");
+  return;
+ }
+ byId("loginHelp").hidden=true;
+ button.textContent="Consultando Firebase…";
+ setStatus("Consultando saldo y precio oficial…");
+ try{
+  const id=encodeURIComponent(String(order.gameKey)+"::"+String(order.product));
+  if(id.length>400)throw new Error("El producto seleccionado es inválido.");
+  const [catalog,wallet]=await Promise.all([
+    getDoc(doc(db,"catalogPrices",id)),
+    getMyWallet()
+  ]);
+  if(currentUserId!==uid)return;
+  refreshAvailableBalance(wallet);
+  if(await readExistingOrder(uid,order))return;
+  if(!catalog.exists()||!catalog.data().enabled){
+   updateMinecraftMvpActivation(order,user,true);
+   throw new Error(order.gameKey==="minecraft"
+     ? "Minecraft está pendiente de activar en el catálogo de Firebase. El MVP debe activar los 4 paquetes para permitir pagos con saldo."
+     : "Este producto todavía no está habilitado para pagos con saldo.");
+  }
+  const official=catalog.data();
+  if(official.game!==order.game || official.product!==order.product ||
+    !Number.isSafeInteger(official.priceCents) || official.priceCents<100){
+    throw new Error("El catálogo oficial no coincide con el pedido. Selecciona el producto nuevamente.");
+  }
+  approvedPriceCents=official.priceCents;
+  byId("officialPrice").textContent=formatSoles(official.priceCents);
+  if(official.priceCents!==Math.round(Number(order.price)*100)){
+   throw new Error("El precio oficial cambió. Selecciona de nuevo el producto para continuar.");
+  }
+  byId("walletRemaining").textContent=formatSoles(Math.max(0,wallet-official.priceCents));
+  if(wallet<official.priceCents){
+   setWalletState("Saldo insuficiente","bad");
+   byId("walletRemaining").textContent="—";
+   button.disabled=false;
+   button.textContent="Comprar con saldo";
+   setStatus("No cuentas con saldo suficiente para completar esta compra. Puedes recargar con Yape y volver a intentarlo.");
+   return;
+  }
+  setWalletState("Saldo disponible","ok");
+  button.disabled=false;
+  button.textContent="Confirmar y pagar "+formatSoles(official.priceCents);
+  setStatus("Saldo suficiente. Confirma para registrar el pago y solicitar la entrega.");
+ }catch(error){
+  console.error(error);
+  setWalletState("Revisar saldo","waiting");
+  button.disabled=true;button.textContent="No se puede pagar";
+  setStatus(error.message||"No pudimos verificar tu saldo. Intenta nuevamente más tarde.","error");
+ }
+}
+
+minecraftMvpButton.addEventListener("click",async()=>{
+ const user=auth.currentUser;
+ if(!canManageCatalog(user)||originalOrder?.gameKey!=="minecraft"||busy||paid)return;
+ if(minecoinProducts.length!==4 || minecoinProducts.some(p=>!Number.isSafeInteger(p.priceCents)||p.priceCents<100)){
+  minecraftActivationFeedback.textContent="La lista de precios Minecoins está incompleta. No se guardó ningún cambio.";
+  return;
+ }
+ if(!window.confirm("¿Activar los cuatro paquetes de Minecoins con sus precios oficiales en Firebase? Esta acción no cobra dinero ni realiza compras."))return;
+ minecraftMvpButton.disabled=true;
+ minecraftActivationFeedback.textContent="Registrando precios seguros de Minecoins…";
+ try{
+  const batch=writeBatch(db);
+  for(const item of minecoinProducts){
+   batch.set(doc(db,"catalogPrices",item.id),{
+    gameKey:item.gameKey,game:item.game,product:item.product,
+    priceCents:item.priceCents,enabled:true,updatedAt:serverTimestamp()
+   });
+  }
+  await batch.commit();
+  minecraftActivationFeedback.textContent="¡Minecoins activados! Comprobando nuevamente el precio y tu saldo…";
+  await loadWallet(originalOrder,user);
+ }catch(error){
+  console.error("No fue posible activar el catálogo de Minecoins",error);
+  minecraftActivationFeedback.textContent=error?.code==="permission-denied"
+   ? "Firebase rechazó la activación. Revisa las reglas de Firestore y que estés usando una cuenta MVP verificada."
+   : "No se pudieron guardar los precios: "+(error?.message||"Error desconocido");
+ }finally{minecraftMvpButton.disabled=false;}
+});
+
+const originalOrder=readOrder();
+const robuxInMaintenance=false; // Robux reactivados; el pago mantiene la verificación de catálogo y saldo.
+if(!validOrder(originalOrder)){
+ byId("missingOrder").hidden=false;
+}else{
+ document.body.dataset.gameTheme=originalOrder.gameKey;
+ byId("checkout").hidden=false;
+ setDisplayOrder(originalOrder);
+ if(robuxInMaintenance){
+  byId("robuxCheckoutNotice").hidden=false;
+  button.disabled=true;
+  button.textContent="Robux en mantenimiento";
+  setWalletState("Mantenimiento","waiting");
+  setStatus("Por ahora no hay Robux (mantenimiento). No se puede continuar con este pago.","error");
+ }else{
+  onAuthStateChanged(auth,user=>{
+   loadWallet(originalOrder,user);
+  });
+ }
+}
+button.addEventListener("click",()=>{
+ if(robuxInMaintenance)return;
+ if(busy||paid||!auth.currentUser||auth.currentUser.uid!==currentUserId||!Number.isSafeInteger(approvedPriceCents)||!Number.isSafeInteger(visibleBalance))return;
+ const order=readOrder();
+ if(!validOrder(order) || order.game!==originalOrder.game || order.product!==originalOrder.product ||
+   order.gameKey!==originalOrder.gameKey || Math.round(Number(order.price)*100)!==approvedPriceCents){
+  setStatus("El pedido cambió. Vuelve al catálogo y selecciónalo de nuevo.","error");button.disabled=true;return;
+ }
+ if(visibleBalance<approvedPriceCents){showInsufficient();return;}
+ showConfirmation(order);
+});
+byId("modalApprove").addEventListener("click",async()=>{
+ if(robuxInMaintenance)return;
+ if(busy||paid||!auth.currentUser||auth.currentUser.uid!==currentUserId)return;
+ const order=readOrder();
+ if(!validOrder(order) || order.game!==originalOrder.game || order.product!==originalOrder.product ||
+    order.gameKey!==originalOrder.gameKey || Math.round(Number(order.price)*100)!==approvedPriceCents){
+    closeModals();
+    setStatus("El pedido cambió. Vuelve al catálogo y selecciónalo de nuevo.","error");button.disabled=true;return;
+ }
+ if(!Number.isSafeInteger(approvedPriceCents)||!Number.isSafeInteger(visibleBalance))return;
+ if(visibleBalance<approvedPriceCents){showInsufficient();return;}
+ closeModals();
+ if(!order.historyId){
+  order.historyId=crypto.randomUUID();
+  sessionStorage.setItem("nexoraOrder",JSON.stringify(order));
+ }
+ busy=true;button.disabled=true;button.textContent="Procesando pago…";
+ setStatus("Verificando el precio y descontando tu saldo en una única transacción…");
+ try{
+  const answer=await buyWithNexoraBalance(order);
+  paySucceeded(answer.orderId,answer.balanceCents);
+ }catch(error){
+  console.error("NEXORA: no se pudo completar el pago con saldo",error);
+  busy=false;
+  button.disabled=true;
+  button.textContent="Pago no confirmado";
+  // Comprobar primero el pedido antes de mostrar un error: un fallo de red
+  // puede ocurrir después de que Firebase haya registrado el pago.
+  try{
+   const uid=auth.currentUser?.uid;
+   if(uid && order.historyId){
+    const previous=await getDoc(doc(db,"users",uid,"orders",order.historyId));
+    if(previous.exists() && previous.data().paymentMethod==="wallet" && previous.data().status!=="cancelled"){
+     paySucceeded(order.historyId,await getMyWallet());
+     return;
+    }
+   }
+  }catch(checkError){
+   console.error("NEXORA: no se pudo comprobar el estado del pedido",checkError);
+   setStatus("No pudimos confirmar el estado de esta compra. Antes de volver a pagar, revisa «Mis compras» para evitar cargos repetidos.","error");
+   return;
+  }
+  // Mantener el error visible, sin volver a llamar a loadWallet(): esa llamada
+  // ocultaba el motivo del fallo y mostraba otra vez «Confirmar y pagar».
+  if(error?.code==="permission-denied"){
+   setStatus("Firebase rechazó el pago por permisos. No se registró esta compra. Deben revisarse las reglas publicadas de Firestore. No vuelvas a confirmar hasta resolverlo.","error");
+  }else if(error?.code==="unavailable" || error?.code==="deadline-exceeded"){
+   setStatus("No se pudo completar la consulta a Firebase. Comprueba tu historial de compras antes de volver a intentarlo.","error");
+  }else{
+   setStatus(error?.message||"No pudimos completar el pago. Revisa «Mis compras» antes de intentarlo nuevamente.","error");
+  }
+ }
+});
+</script>
+<script type="module" src="notifications.js"></script>
+</body>
+</html>

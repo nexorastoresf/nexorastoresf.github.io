@@ -1,0 +1,3099 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>NEXORA STORE | Productos</title>
+
+<link
+  rel="icon"
+  type="image/svg+xml"
+  href="nexora-logo.svg?v=4"
+>
+
+<style>
+
+/* ==========================================================
+   NEXORA STORE - JUEGO.HTML
+========================================================== */
+
+:root{
+  --bg:#07090d;
+  --bg2:#0b0f15;
+  --panel:#11161f;
+  --panel2:#151b25;
+  --border:#28313d;
+
+  --text:#fff;
+  --muted:#8f99a8;
+
+  --orange:#f5a623;
+  --orange2:#ffbd4c;
+
+  --green:#20d99b;
+  --red:#ff6262;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+
+  background:
+    radial-gradient(
+      circle at 80% 0%,
+      rgba(245,166,35,.07),
+      transparent 28%
+    ),
+    var(--bg);
+
+  color:var(--text);
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  overflow-x:hidden;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+
+/* ==========================================================
+   NAVBAR
+========================================================== */
+
+.navbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+
+  height:68px;
+
+  background:
+    rgba(7,9,13,.94);
+
+  backdrop-filter:
+    blur(18px);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.06);
+}
+
+.nav-inner{
+  width:
+    min(
+      1420px,
+      calc(100% - 40px)
+    );
+
+  height:100%;
+
+  margin:auto;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+}
+
+.brand img{
+  width:50px;
+  height:50px;
+  object-fit:cover;
+  border-radius:12%;
+  background:#05070a;
+  border:1px solid rgba(255,45,45,.38);
+  box-shadow:
+    0 0 0 3px rgba(255,35,35,.05),
+    0 0 18px rgba(255,25,25,.24);
+  transition:.25s ease;
+}
+
+.brand:hover img{
+  transform:scale(1.05);
+  border-color:rgba(255,70,70,.7);
+}
+
+.brand-name{
+  display:block;
+
+  font-size:15px;
+
+  font-weight:900;
+}
+
+.brand-sub{
+  display:block;
+
+  color:#6f7886;
+
+  font-size:9px;
+
+  letter-spacing:1px;
+
+  margin-top:2px;
+}
+
+.nav-actions{
+  display:flex;
+
+  align-items:center;
+
+  gap:7px;
+}
+
+.country{
+  padding:
+    10px
+    13px;
+
+  border-radius:10px;
+
+  background:#10151d;
+
+  border:
+    1px solid
+    var(--border);
+
+  color:#fff;
+
+  font-size:12px;
+}
+
+.login{
+  color:#c8cdd5;
+
+  padding:
+    10px
+    12px;
+
+  font-size:13px;
+
+  font-weight:700;
+}
+
+.register{
+  padding:
+    11px
+    17px;
+
+  background:
+    var(--orange);
+
+  color:#111;
+
+  border-radius:10px;
+
+  font-size:13px;
+
+  font-weight:900;
+}
+
+.register:hover{
+  background:
+    var(--orange2);
+}
+
+
+/* ==========================================================
+   HERO DEL JUEGO
+========================================================== */
+
+.game-hero{
+  position:relative;
+
+  height:330px;
+
+  overflow:hidden;
+
+  border-bottom:
+    1px solid
+    var(--border);
+}
+
+.game-hero img{
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+.game-hero::after{
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(3,5,8,.98) 0%,
+      rgba(3,5,8,.86) 32%,
+      rgba(3,5,8,.48) 60%,
+      rgba(3,5,8,.12) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(3,5,8,.96),
+      transparent 60%
+    );
+}
+
+.hero-inner{
+  position:relative;
+
+  z-index:2;
+
+  width:
+    min(
+      1420px,
+      calc(100% - 40px)
+    );
+
+  height:100%;
+
+  margin:auto;
+
+  display:flex;
+
+  align-items:center;
+}
+
+.hero-info{
+  max-width:700px;
+}
+
+.hero-badge{
+  display:inline-block;
+
+  padding:
+    7px
+    12px;
+
+  border-radius:30px;
+
+  background:
+    var(--orange);
+
+  color:#111;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  margin-bottom:13px;
+}
+
+.hero-info h1{
+  font-size:
+    clamp(
+      38px,
+      5vw,
+      65px
+    );
+
+  line-height:1;
+
+  letter-spacing:-2px;
+
+  margin-bottom:10px;
+}
+
+.hero-subtitle{
+  color:
+    var(--orange);
+
+  font-size:17px;
+
+  font-weight:900;
+
+  margin-bottom:10px;
+}
+
+.hero-description{
+  color:#d5dae2;
+
+  max-width:640px;
+
+  font-size:13px;
+
+  line-height:1.6;
+}
+
+
+/* ==========================================================
+   CONTENEDOR PRINCIPAL
+========================================================== */
+
+.main{
+  width:
+    min(
+      1130px,
+      calc(100% - 32px)
+    );
+
+  margin:
+    32px
+    auto
+    70px;
+}
+
+.top-heading{
+  margin-bottom:20px;
+}
+
+.eyebrow{
+  color:var(--orange);
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  margin-bottom:7px;
+}
+
+.top-heading h2{
+  font-size:30px;
+
+  letter-spacing:-.5px;
+}
+
+.top-heading p{
+  color:var(--muted);
+
+  font-size:12px;
+
+  margin-top:6px;
+}
+
+
+/* ==========================================================
+   LAYOUT
+========================================================== */
+
+.shop-layout{
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    300px;
+
+  gap:18px;
+
+  align-items:start;
+}
+
+
+/* ==========================================================
+   CAJAS
+========================================================== */
+
+.box{
+  background:
+    linear-gradient(
+      145deg,
+      #121821,
+      #0e131b
+    );
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:15px;
+
+  overflow:hidden;
+
+  margin-bottom:16px;
+}
+
+.box-header{
+  padding:
+    17px
+    18px;
+
+  border-bottom:
+    1px solid
+    var(--border);
+
+  display:flex;
+
+  align-items:center;
+
+  gap:11px;
+}
+
+.number{
+  width:28px;
+  height:28px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:50%;
+
+  background:var(--orange);
+
+  color:#111;
+
+  font-size:12px;
+
+  font-weight:900;
+
+  flex-shrink:0;
+}
+
+.box-header h3{
+  font-size:15px;
+}
+
+.box-header p{
+  color:#717b89;
+
+  font-size:10px;
+
+  margin-top:3px;
+}
+
+.box-body{
+  padding:17px;
+}
+
+
+/* ==========================================================
+   ID
+========================================================== */
+
+.input-row{
+  display:flex;
+
+  gap:9px;
+}
+
+.input-group{
+  flex:1;
+}
+
+.input-group input{
+  width:100%;
+
+  padding:
+    13px
+    14px;
+
+  background:#0c1017;
+
+  color:#fff;
+
+  border:
+    1px solid
+    #2b3441;
+
+  border-radius:9px;
+
+  outline:none;
+
+  font-size:12px;
+}
+
+.input-group input:focus{
+  border-color:
+    var(--orange);
+}
+
+
+/* Confirmación de la cuenta de destino */
+.id-responsibility{
+  margin-top:14px;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid rgba(245,166,35,.42);
+  background:rgba(245,166,35,.065);
+}
+.id-responsibility[hidden]{display:none}
+.id-responsibility-label{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  color:#e8edf5;
+  font-size:13px;
+  line-height:1.58;
+  cursor:pointer;
+}
+.id-responsibility-label input{
+  flex:0 0 20px;
+  width:20px;
+  height:20px;
+  margin:2px 0 0;
+  accent-color:var(--orange);
+  cursor:pointer;
+}
+.id-responsibility-label strong{color:#fff}
+.id-responsibility-help{
+  margin:9px 0 0 32px;
+  font-size:12px;
+  color:#f6c271;
+  line-height:1.5;
+}
+
+/* ==========================================================
+   SERVER ID
+========================================================== */
+
+.ml-fields{
+  display:grid;
+
+  grid-template-columns:
+    1fr
+    1fr;
+
+  gap:9px;
+}
+
+
+/* ==========================================================
+   CATEGORÍA
+========================================================== */
+
+.category-title{
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin:
+    4px
+    0
+    13px;
+
+  color:#dce1e8;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+}
+
+.category-title::after{
+  content:"";
+
+  flex:1;
+
+  height:1px;
+
+  background:
+    var(--border);
+}
+
+
+/* Menús desplegables de Free Fire: membresías, cajas y fragmentos */
+.nx-category-collapse{
+  margin:6px 0 13px;
+  border:1px solid #354052;
+  border-radius:13px;
+  background:linear-gradient(135deg,#1c2736,#111821);
+  overflow:hidden;
+}
+.nx-category-collapse .nx-category-toggle{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:58px;
+  margin:0;
+  padding:13px 15px;
+  list-style:none;
+  cursor:pointer;
+  font-size:12px;
+  letter-spacing:.65px;
+  user-select:none;
+}
+.nx-category-collapse .nx-category-toggle::-webkit-details-marker{display:none}
+.nx-category-collapse .nx-category-toggle::after{display:none}
+.nx-category-toggle .nx-category-name{
+  flex:1;
+  min-width:0;
+  color:#f0f3fa;
+}
+.nx-category-hint{
+  color:#f7b659;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:0;
+  white-space:nowrap;
+}
+.nx-category-chevron{
+  flex:0 0 28px;
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(247,182,89,.38);
+  border-radius:50%;
+  color:#f7b659;
+  font-size:21px;
+  line-height:1;
+  transition:transform .2s ease,background .2s ease;
+}
+.nx-category-collapse[open] .nx-category-chevron{
+  transform:rotate(180deg);
+  background:rgba(247,182,89,.11);
+}
+.nx-category-collapse[open] .nx-category-toggle{
+  border-bottom:1px solid rgba(255,255,255,.09);
+}
+.nx-category-collapse .nx-category-toggle:focus-visible{
+  outline:2px solid #f7b659;
+  outline-offset:-3px;
+}
+.nx-category-collapse:not([open]) > .products-grid{
+  display:none;
+}
+.nx-category-collapse > .products-grid{
+  padding:13px;
+}
+@media(max-width:420px){
+  .nx-category-collapse .nx-category-toggle{padding:12px 11px;font-size:11px}
+  .nx-category-hint{font-size:10px}
+  .nx-category-collapse > .products-grid{padding:10px}
+}
+
+/* ==========================================================
+   PRODUCTOS
+========================================================== */
+
+.products-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:9px;
+}
+
+.product{
+  position:relative;
+
+  min-height:90px;
+
+  padding:13px;
+
+  background:
+    #121821;
+
+  border:
+    1px solid
+    #29323e;
+
+  border-radius:10px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+
+  transition:
+    .2s ease;
+}
+
+.product:hover{
+  border-color:
+    rgba(245,166,35,.65);
+
+  transform:
+    translateY(-2px);
+}
+
+.product.selected{
+  border:
+    2px solid
+    var(--orange);
+
+  background:
+    #171c25;
+
+  box-shadow:
+    0 0 0 2px
+    rgba(245,166,35,.08);
+}
+
+.product-name{
+  color:#fff;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  line-height:1.35;
+}
+
+.product-desc{
+  color:#707b89;
+
+  font-size:9px;
+
+  margin-top:4px;
+}
+
+.product-bottom{
+  margin-top:9px;
+
+  display:flex;
+
+  align-items:end;
+
+  justify-content:space-between;
+
+  gap:5px;
+}
+
+.product-price{
+  color:var(--orange);
+
+  font-size:14px;
+
+  font-weight:900;
+}
+
+.old-price{
+  color:#68717e;
+
+  font-size:9px;
+
+  text-decoration:line-through;
+
+  margin-right:3px;
+}
+
+.product-check{
+  width:20px;
+  height:20px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:50%;
+
+  background:
+    #252c35;
+
+  color:transparent;
+
+  font-size:11px;
+
+  font-weight:900;
+}
+
+.product.selected .product-check{
+  background:
+    var(--orange);
+
+  color:#111;
+}
+
+
+
+/* ==========================================================
+   ICONOS DE PRODUCTO - NEXORA
+========================================================== */
+
+.product{
+  position:relative;
+  min-height:96px;
+  padding:11px 38px 11px 11px;
+  display:grid;
+  grid-template-columns:72px minmax(0,1fr);
+  align-items:center;
+  gap:12px;
+  text-align:left;
+}
+
+.product-media{
+  width:72px;
+  height:72px;
+  display:grid;
+  place-items:center;
+  border-radius:12px;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(255,255,255,.07),transparent 68%),
+    rgba(5,9,15,.42);
+  border:1px solid rgba(255,255,255,.045);
+}
+
+.product-media img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  padding:3px;
+  filter:drop-shadow(0 7px 9px rgba(0,0,0,.36));
+  transition:transform .2s ease;
+}
+
+.product:hover .product-media img{
+  transform:scale(1.07);
+}
+
+.product-info{
+  min-width:0;
+}
+
+.product-name{
+  font-size:11.5px;
+  line-height:1.3;
+}
+
+.product-desc{
+  margin-top:4px;
+  line-height:1.3;
+}
+
+.product-bottom{
+  margin-top:9px;
+  display:block;
+}
+
+.product-price{
+  font-size:14px;
+}
+
+.product-check{
+  position:absolute;
+  right:10px;
+  top:10px;
+}
+
+@media(max-width:600px){
+  .product{
+    grid-template-columns:68px minmax(0,1fr);
+    min-height:92px;
+  }
+
+  .product-media{
+    width:68px;
+    height:68px;
+  }
+}
+
+/* ==========================================================
+   RESUMEN
+========================================================== */
+
+.summary{
+  position:sticky;
+
+  top:85px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #121821,
+      #0e131a
+    );
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:15px;
+
+  padding:19px;
+}
+
+.summary-title{
+  color:var(--orange);
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+
+  margin-bottom:16px;
+}
+
+.summary-empty{
+  border:
+    1px dashed
+    #34404f;
+
+  border-radius:9px;
+
+  padding:22px 10px;
+
+  text-align:center;
+
+  color:#707b8a;
+
+  font-size:10px;
+
+  margin-bottom:17px;
+}
+
+.summary-empty strong{
+  display:block;
+
+  color:#9aa3af;
+
+  margin-bottom:4px;
+}
+
+.summary-row{
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  padding:
+    9px
+    0;
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.06);
+
+  font-size:11px;
+}
+
+.summary-row span:first-child{
+  color:#8d97a5;
+}
+
+.summary-row strong{
+  color:#fff;
+
+  text-align:right;
+}
+
+.total{
+  margin-top:18px;
+
+  display:flex;
+
+  align-items:end;
+
+  justify-content:space-between;
+}
+
+.total span{
+  color:#8d97a5;
+
+  font-size:10px;
+
+  font-weight:900;
+
+  letter-spacing:.7px;
+}
+
+.total strong{
+  color:var(--orange);
+
+  font-size:25px;
+}
+
+.continue-btn{
+  width:100%;
+
+  margin-top:18px;
+
+  padding:13px;
+
+  border-radius:9px;
+
+  border:
+    1px solid
+    var(--orange);
+
+  background:
+    var(--orange);
+
+  color:#111;
+
+  font-size:11px;
+
+  font-weight:900;
+
+  transition:.2s ease;
+}
+
+.continue-btn:disabled{
+  background:#242b36;
+
+  border-color:
+    #4a5360;
+
+  color:#77818f;
+
+  cursor:not-allowed;
+
+  box-shadow:none;
+}
+
+.continue-btn:not(:disabled):hover{
+  background:
+    var(--orange2);
+
+  transform:
+    translateY(-2px);
+}
+
+
+/* ==========================================================
+   ROBLOX INFO
+========================================================== */
+
+.roblox-guide{
+  display:none;
+
+  margin-bottom:16px;
+}
+
+.roblox-guide.show{
+  display:block;
+}
+
+.guide-title{
+  font-size:14px;
+
+  margin-bottom:5px;
+}
+
+.guide-text{
+  color:var(--muted);
+
+  font-size:11px;
+
+  line-height:1.5;
+}
+
+.guide-steps{
+  display:grid;
+
+  grid-template-columns:
+    repeat(4,1fr);
+
+  gap:8px;
+
+  margin-top:15px;
+}
+
+.guide-step{
+  padding:13px;
+
+  text-align:center;
+
+  background:
+    #101620;
+
+  border:
+    1px solid
+    var(--border);
+
+  border-radius:10px;
+}
+
+.guide-step b{
+  display:grid;
+
+  place-items:center;
+
+  width:28px;
+  height:28px;
+
+  margin:
+    0
+    auto
+    8px;
+
+  border-radius:50%;
+
+  background:
+    var(--orange);
+
+  color:#111;
+
+  font-size:11px;
+}
+
+.guide-step span{
+  color:#c3c9d2;
+
+  font-size:9px;
+
+  line-height:1.3;
+}
+
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.footer{
+  margin-top:80px;
+
+  border-top:
+    1px solid
+    var(--border);
+
+  background:
+    #05070a;
+
+  padding:
+    35px
+    0
+    22px;
+}
+
+.footer-inner{
+  width:
+    min(
+      1130px,
+      calc(100% - 32px)
+    );
+
+  margin:auto;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:30px;
+}
+
+.footer-brand{
+  font-size:14px;
+
+  font-weight:900;
+}
+
+.footer-text{
+  margin-top:5px;
+
+  color:#707987;
+
+  font-size:10px;
+}
+
+.footer-right{
+  text-align:right;
+}
+
+.footer-right a{
+  color:var(--orange);
+
+  font-size:11px;
+
+  font-weight:800;
+}
+
+.creator{
+  width:
+    min(
+      1130px,
+      calc(100% - 32px)
+    );
+
+  margin:
+    25px
+    auto
+    0;
+
+  padding-top:15px;
+
+  border-top:
+    1px solid
+    rgba(255,255,255,.05);
+
+  display:flex;
+
+  justify-content:space-between;
+
+  color:#565f6b;
+
+  font-size:9px;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:900px){
+
+  .shop-layout{
+    grid-template-columns:
+      1fr;
+  }
+
+  .summary{
+    position:static;
+  }
+
+  .products-grid{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .guide-steps{
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .footer-inner{
+    flex-direction:
+      column;
+  }
+
+  .footer-right{
+    text-align:left;
+  }
+
+}
+
+
+@media(max-width:600px){
+
+  .container,
+  .nav-inner,
+  .hero-inner{
+    width:
+      calc(100% - 20px);
+  }
+
+  .brand-text{
+    display:none;
+  }
+
+  .country,
+  .login{
+    padding:8px;
+
+    font-size:10px;
+  }
+
+  .register{
+    padding:9px 10px;
+
+    font-size:10px;
+  }
+
+  .game-hero{
+    height:360px;
+  }
+
+  .hero-info h1{
+    font-size:39px;
+  }
+
+  .hero-subtitle{
+    font-size:14px;
+  }
+
+  .hero-description{
+    font-size:11px;
+  }
+
+  .main{
+    width:
+      calc(100% - 20px);
+
+    margin-top:
+      25px;
+  }
+
+  .input-row{
+    flex-direction:
+      column;
+  }
+
+  .products-grid{
+    grid-template-columns:
+      1fr;
+  }
+
+  .creator{
+    flex-direction:
+      column;
+
+    gap:7px;
+  }
+
+}
+
+
+/* Aviso de disponibilidad de Robux */
+.robux-maintenance[hidden]{display:none!important}
+.robux-maintenance{
+  display:flex;align-items:flex-start;gap:18px;
+  border:1px solid rgba(245,166,35,.46);
+  border-radius:20px;padding:27px 30px;margin:20px 0 30px;
+  background:linear-gradient(125deg,rgba(245,166,35,.16),rgba(19,25,35,.92) 66%);
+  box-shadow:0 16px 38px rgba(0,0,0,.19)
+}
+.robux-maintenance-icon{
+  display:grid;place-items:center;flex:none;width:44px;height:44px;
+  border-radius:13px;background:rgba(245,166,35,.17);
+  border:1px solid rgba(245,166,35,.36);color:#ffd184;
+  font-size:25px;font-weight:900
+}
+.robux-maintenance-eyebrow{
+  display:block;margin-bottom:8px;color:#ffd184;
+  letter-spacing:1.7px;font-size:10px;font-weight:900
+}
+.robux-maintenance h2{
+  font-size:clamp(20px,3vw,27px);line-height:1.2;
+  letter-spacing:-.5px;color:#fff;margin:0 0 9px
+}
+.robux-maintenance p{color:#c7cfda;line-height:1.65;font-size:14px;max-width:720px}
+@media(max-width:600px){
+  .robux-maintenance{padding:20px 17px;gap:13px;border-radius:16px}
+  .robux-maintenance-icon{width:37px;height:37px;font-size:21px}
+  .robux-maintenance p{font-size:13px}
+}
+
+</style>
+
+<link rel="stylesheet" href="nexora-premium.css?v=4">
+<script src="nexora-experience.js?v=3" defer></script>
+<link rel="stylesheet" href="nexora-redesign-v3.css?v=3">
+<link rel="stylesheet" href="nexora-shop-ambience.css?v=1">
+<link rel="stylesheet" href="nexora-buy-flow.css?v=1">
+<link rel="stylesheet" href="nexora-mobile.css?v=2">
+<link rel="stylesheet" href="nexora-game-header.css?v=20261102-1">
+</head>
+
+
+<body data-nexora-page="game">
+<div class="nx-shop-ambience" aria-hidden="true">
+  <span class="nx-shop-mesh"></span>
+  <span class="nx-shop-glow nx-shop-glow--main"></span>
+  <span class="nx-shop-glow nx-shop-glow--side"></span>
+  <span class="nx-shop-glow nx-shop-glow--low"></span>
+</div>
+
+
+<!-- ==========================================================
+     NAVBAR
+========================================================== -->
+
+<header class="navbar">
+
+  <div class="nav-inner">
+
+
+    <a
+      class="brand"
+      href="index.html"
+    >
+
+      <img
+        src="nexora-logo.svg?v=4"
+        alt="NEXORA STORE"
+      >
+
+      <div class="brand-text">
+
+        <span class="brand-name">
+          NEXORA STORE
+        </span>
+
+        <span class="brand-sub">
+          GAMING • DIGITAL
+        </span>
+
+      </div>
+
+    </a>
+
+
+    <a class="nx-install-nav" id="downloadAppNavBtn" href="install.html" aria-label="Descargar o instalar NEXORA STORE">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12m0 0 4-4m-4 4-4-4"/>
+        <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>
+      </svg>
+      <span>Descargar App</span>
+    </a>
+
+    <div class="nav-actions">
+
+      <button class="country" type="button">
+        🇵🇪 Perú
+      </button>
+
+      <a class="wallet-chip" id="walletChip" href="perfil.html#saldo" hidden aria-label="Ver mi saldo NEXORA">
+        <span class="wallet-chip-icon" aria-hidden="true">▣</span>
+        <span><span class="wallet-chip-label">Mi saldo</span><strong id="walletChipAmount" aria-live="polite">Cargando…</strong></span>
+      </a>
+
+      <a class="login" href="login.html" hidden>Ingresar</a>
+      <a class="register" href="register.html" hidden>Crear cuenta</a>
+
+    </div>
+
+
+  </div>
+
+</header>
+
+
+
+<!-- ==========================================================
+     HERO DINÁMICO
+========================================================== -->
+
+<section class="game-hero">
+
+  <img
+    id="gameHeroImage"
+    src=""
+    alt=""
+  >
+
+  <div class="hero-inner">
+
+    <div class="hero-info">
+
+      <span
+        class="hero-badge"
+        id="gameBadge"
+      >
+        DISPONIBLE
+      </span>
+
+      <h1
+        id="gameTitle"
+      >
+        NEXORA STORE
+      </h1>
+
+      <div
+        class="hero-subtitle"
+        id="gameSubtitle"
+      >
+        Productos digitales
+      </div>
+
+      <p
+        class="hero-description"
+        id="gameDescription"
+      >
+        Selecciona un producto para continuar.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     CONTENIDO
+========================================================== -->
+
+<main class="main">
+  <div class="nxv3-game-trail">
+    <a href="index.html#catalogo">← Volver al catálogo</a>
+    <span>01. Datos del jugador · 02. Paquete · 03. Pago con saldo</span>
+  </div>
+  <section class="robux-maintenance" id="robuxMaintenance" role="status" aria-live="polite" hidden>
+    <span class="robux-maintenance-icon" aria-hidden="true">!</span>
+    <div>
+      <span class="robux-maintenance-eyebrow">ROBLOX · MANTENIMIENTO</span>
+      <h2>Por ahora no hay Robux (mantenimiento)</h2>
+      <p>Las recargas de Robux están temporalmente suspendidas. No se pueden realizar compras de Robux hasta que el servicio vuelva a estar disponible.</p>
+    </div>
+  </section>
+  <a class="nx-mobile-summary-link" href="#nxResumenCompra">Ver resumen y continuar ↓</a>
+
+
+  <section class="nx-buy-route" aria-labelledby="nxBuyGuideTitle">
+    <div class="nx-buy-route-head">
+      <strong class="nx-buy-eyebrow" id="nxBuyGuideTitle">COMPRA FÁCIL · 3 PASOS</strong>
+      <a class="nx-buy-recharge" href="recargar-saldo.html">¿Aún no tienes saldo? Recargar con Yape ↗</a>
+    </div>
+    <ol class="nx-buy-steps">
+      <li><span class="nx-buy-number" aria-hidden="true">01</span><div><strong>Indica tu cuenta</strong><small>Escribe el ID y servidor si el juego los solicita.</small></div></li>
+      <li><span class="nx-buy-number" aria-hidden="true">02</span><div><strong>Elige el paquete</strong><small>Toca tu producto y comprueba el total en el resumen.</small></div></li>
+      <li><span class="nx-buy-number" aria-hidden="true">03</span><div><strong>Revisa y paga</strong><small>En la siguiente pantalla pagarás con saldo NEXORA acreditado.</small></div></li>
+    </ol>
+    <p class="nx-buy-note"><strong>Importante:</strong> elegir un paquete no cobra dinero. Las recargas de saldo por Yape necesitan aprobación antes de poder usarse.</p>
+  </section>
+
+  <div class="top-heading">
+
+    <div class="eyebrow">
+      RECARGA DIRECTA
+    </div>
+
+    <h2 id="shopTitle">
+      Recarga en un solo lugar
+    </h2>
+
+    <p>
+      Selecciona tu producto y revisa el resumen antes de continuar.
+    </p>
+
+  </div>
+
+
+
+  <div class="shop-layout">
+
+
+    <!-- ======================================================
+         COLUMNA IZQUIERDA
+    ====================================================== -->
+
+    <div>
+
+
+      <!-- ROBLOX GUIDE -->
+
+      <section
+        class="box roblox-guide"
+        id="robloxGuide"
+      >
+
+        <div class="box-body">
+
+          <h3 class="guide-title">
+            Cómo canjear tu código de Roblox
+          </h3>
+
+          <p class="guide-text">
+            Sigue estos pasos después de completar tu compra.
+          </p>
+
+
+          <div class="guide-steps">
+
+            <div class="guide-step">
+
+              <b>1</b>
+
+              <span>
+                Ingresa a Roblox
+              </span>
+
+            </div>
+
+
+            <div class="guide-step">
+
+              <b>2</b>
+
+              <span>
+                Pega tu código
+              </span>
+
+            </div>
+
+
+            <div class="guide-step">
+
+              <b>3</b>
+
+              <span>
+                Canjea el código
+              </span>
+
+            </div>
+
+
+            <div class="guide-step">
+
+              <b>4</b>
+
+              <span>
+                ¡Listo!
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ==================================================
+           DATOS DEL JUGADOR
+      ================================================== -->
+
+      <section
+        class="box"
+        id="playerBox"
+      >
+
+        <div class="box-header">
+
+          <span
+            class="number"
+          >
+            1
+          </span>
+
+          <div>
+
+            <h3 id="playerTitle">
+              Ingresa el ID del jugador
+            </h3>
+
+            <p id="playerDescription">
+              Lo utilizaremos para identificar la cuenta de destino.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="box-body">
+
+
+          <!-- NORMAL -->
+
+          <div
+            class="input-row"
+            id="normalFields"
+          >
+
+            <div class="input-group">
+
+              <input
+                type="text"
+                id="playerId"
+                aria-label="ID del jugador"
+                inputmode="numeric"
+                placeholder="Ej: 3451470467"
+              >
+
+            </div>
+
+
+          </div>
+
+
+          <!-- MOBILE LEGENDS -->
+
+          <div
+            class="ml-fields"
+            id="mlFields"
+            style="display:none;"
+          >
+
+            <div class="input-group">
+
+              <input
+                type="text"
+                id="mlPlayerId"
+                aria-label="ID del jugador de Mobile Legends"
+                inputmode="numeric"
+                placeholder="ID del jugador"
+              >
+
+            </div>
+
+
+            <div class="input-group">
+
+              <input
+                type="text"
+                id="mlServerId"
+                aria-label="Server ID de Mobile Legends"
+                inputmode="numeric"
+                placeholder="Server ID"
+              >
+
+            </div>
+
+          </div>
+
+
+
+
+
+          <!-- Confirmación personal obligatoria antes de pasar al pago -->
+          <div id="idResponsibilityBox" class="id-responsibility" hidden>
+            <label class="id-responsibility-label" for="idResponsibilityCheck">
+              <input type="checkbox" id="idResponsibilityCheck" autocomplete="off">
+              <span>
+                <strong>Confirmo que he revisado mi ID y, si corresponde, mi Server ID.</strong>
+                Acepto la responsabilidad de escribirlos correctamente. Si por mi error
+                la recarga se entrega a otra cuenta, entiendo que no podré exigir
+                una segunda recarga gratuita una vez procesada la operación.
+                Esto no afecta mis derechos ante errores de NEXORA STORE.
+              </span>
+            </label>
+            <p class="id-responsibility-help">Marca la casilla para poder continuar con tu compra.</p>
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ==================================================
+           PRODUCTOS
+      ================================================== -->
+
+      <section class="box">
+
+        <div class="box-header">
+
+          <span
+            class="number"
+          >
+            2
+          </span>
+
+          <div>
+
+            <h3>
+              Elige tu paquete
+            </h3>
+
+            <p>
+              Selecciona un producto para añadirlo al resumen.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="box-body"
+          id="productsArea"
+        >
+        </div>
+
+      </section>
+
+
+    </div>
+
+
+
+    <!-- ====================================================
+         RESUMEN
+    ==================================================== -->
+
+    <aside class="summary" id="nxResumenCompra">
+
+      <div class="summary-title">
+        RESUMEN
+      </div>
+
+
+      <div
+        class="summary-empty"
+        id="summaryEmpty"
+      >
+
+        <strong>
+          ◆ Aún no elegiste un paquete
+        </strong>
+
+        Selecciona un producto para continuar.
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Producto
+        </span>
+
+        <strong id="summaryProduct">
+          Sin seleccionar
+        </strong>
+
+      </div>
+
+
+      <div
+        class="summary-row"
+        id="summaryIdRow"
+      >
+
+        <span>
+          ID del jugador
+        </span>
+
+        <strong id="summaryId">
+          Sin ingresar
+        </strong>
+
+      </div>
+
+
+      <div
+        class="summary-row"
+        id="summaryServerRow"
+        style="display:none;"
+      >
+
+        <span>
+          Server ID
+        </span>
+
+        <strong id="summaryServer">
+          Sin ingresar
+        </strong>
+
+      </div>
+
+
+      <div class="summary-row">
+
+        <span>
+          Entrega
+        </span>
+
+        <strong>
+          Menos de 24 horas
+        </strong>
+
+      </div>
+
+
+      <div class="total">
+
+        <span>
+          TOTAL
+        </span>
+
+        <strong id="summaryTotal">
+          S/ 0.00
+        </strong>
+
+      </div>
+
+
+      <button
+        class="continue-btn"
+        id="continueBtn"
+        type="button"
+        disabled
+      >
+        Selecciona un paquete
+      </button>
+      <p class="nx-continue-explain">Primero revisarás los datos y el saldo. El pago solo se realiza cuando lo confirmes.</p>
+
+    </aside>
+
+
+  </div>
+
+</main>
+
+
+
+<!-- ==========================================================
+     FOOTER
+========================================================== -->
+
+<footer class="footer">
+
+  <div class="footer-inner">
+
+    <div>
+
+      <div class="footer-brand">
+        NEXORA STORE
+      </div>
+
+      <div class="footer-text">
+        Recargas y productos digitales.
+      </div>
+
+    </div>
+
+
+    <div class="footer-right">
+      <a href="soporte.html" style="display:inline-block;margin:0 0 15px;color:#ffc078;font-weight:800">✉ Atención al cliente →</a>
+      <div></div>
+      <a
+        href="https://whatsapp.com/channel/0029Vb8pdP7HwXbDQSnkL13u"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Canal oficial de WhatsApp →
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="creator">
+
+    <span>
+      © 2026 NEXORA STORE
+    </span>
+
+    <span>
+      Creado por <strong>stiven20edu</strong>
+    </span>
+
+  </div>
+
+</footer>
+
+
+
+<script>
+
+/* ==========================================================
+   DATOS DE LOS JUEGOS
+========================================================== */
+
+const games = {
+
+  "free-fire": {
+
+    title:
+      "Free Fire",
+
+    badge:
+      "MÁS POPULAR",
+
+    subtitle:
+      "Diamantes, Pases Booyah & Membresías",
+
+    description:
+      "Recarga tu cuenta utilizando tu ID de jugador. Tu pedido será procesado en menos de 24 horas.",
+
+    hero:
+      "hero-free-fire.png",
+
+    playerTitle:
+      "Ingresa el ID del jugador",
+
+    playerDescription:
+      "Lo utilizaremos para identificar la cuenta de destino.",
+
+    products: [
+
+      {
+        category:
+          "DIAMANTES - FREE FIRE",
+
+        items: [
+
+          ["100 + 10 Diamantes",4.00],
+          ["310 + 31 Diamantes",11.50],
+          ["520 + 52 Diamantes",18.50],
+          ["1060 + 106 Diamantes",33.50],
+          ["2180 + 218 Diamantes",67.50],
+          ["5600 + 560 Diamantes",168.50]
+
+        ]
+
+      },
+
+      {
+        category:
+          "MEMBRESÍAS Y PASE",
+
+        items: [
+
+          ["Membresía Semanal",9.00],
+          ["Membresía Mensual",39.00],
+          ["Pase Booyah",5.50]
+
+        ]
+
+      },
+
+      {
+        category:
+          "CAJAS DE FRAGMENTOS",
+
+        items: [
+
+          ["18 Cajas de Fragmentos",24.50],
+          ["30 Cajas de Fragmentos",44.50],
+          ["60 Cajas de Fragmentos",63.50],
+          ["120 Cajas de Fragmentos",96.00],
+          ["240 Cajas de Fragmentos",187.50]
+
+        ]
+
+      },
+
+      {
+        category:
+          "FRAGMENTOS",
+
+        items: [
+
+          ["90 Fragmentos",24.50],
+          ["150 Fragmentos",44.50],
+          ["300 Fragmentos",63.50],
+          ["600 Fragmentos",96.00],
+          ["1200 Fragmentos",187.50]
+
+        ]
+
+      }
+
+    ]
+
+  },
+
+
+  "blood-strike": {
+
+    title:
+      "Blood Strike",
+
+    badge:
+      "DISPONIBLE AHORA",
+
+    subtitle:
+      "Gold & Recargas",
+
+    description:
+      "Encuentra productos para Blood Strike y realiza tu pedido de forma sencilla. Procesamiento en menos de 24 horas.",
+
+    hero:
+      "hero-blood-strike.png",
+
+    playerTitle:
+      "Ingresa el ID del jugador",
+
+    playerDescription:
+      "Lo utilizaremos para identificar la cuenta de destino.",
+
+    products: [
+
+      {
+
+        category:
+          "ORO - BLOOD STRIKE",
+
+        items: [
+
+          ["51 ORO",3.00],
+          ["105 ORO",5.00],
+          ["320 ORO",13.00],
+          ["540 ORO",21.00],
+          ["1100 ORO",40.00],
+          ["2260 ORO",75.00],
+          ["5800 ORO",183.00]
+
+        ]
+
+      }
+
+    ]
+
+  },
+
+
+  "roblox": {
+
+    title:
+      "Roblox",
+
+    badge:
+      "DISPONIBLE",
+
+    subtitle:
+      "Robux & Productos digitales",
+
+    description:
+      "Selecciona tu paquete de Robux y completa tu compra con saldo NEXORA.",
+
+    hero:
+      "hero-roblox.png",
+
+    roblox:
+      true,
+
+    products: [
+
+      {
+
+        category:
+          "ROBUX",
+
+        items: [
+
+          ["100 Robux",5],
+          ["150 Robux",8],
+          ["200 Robux",10],
+          ["300 Robux",15],
+          ["400 Robux",20],
+          ["500 Robux",24],
+          ["600 Robux",29],
+          ["800 Robux",39],
+          ["1000 Robux",48],
+          ["1200 Robux",58],
+          ["1700 Robux",82],
+          ["2000 Robux",96],
+          ["2500 Robux",121],
+          ["2800 Robux",135],
+          ["3000 Robux",145],
+          ["3500 Robux",169],
+          ["4000 Robux",193],
+          ["4500 Robux",217],
+          ["5000 Robux",241],
+          ["7500 Robux",362]
+
+        ]
+
+      }
+
+    ]
+
+  },
+
+
+
+  "minecraft": {
+
+    title: "Minecraft",
+    badge: "NUEVO · MINECOINS",
+    subtitle: "Minecoins · Código digital",
+    description: "Minecoins para el Marketplace de Minecraft Bedrock. Comprueba la región y plataforma del código antes de comprar. El MVP entregará tu código privado en Mis compras tras validar el pago.",
+    hero: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/NewKeyArt_Header.jpg",
+    giftCode: true,
+    products: [
+      {
+        category: "MINECOINS · CÓDIGOS DIGITALES",
+        items: [
+          ["320 Minecoins",21.00],
+          ["1720 Minecoins",48.00],
+          ["3500 Minecoins",81.00],
+          ["8800 Minecoins",237.00]
+        ]
+      }
+    ]
+
+  },
+
+
+};
+
+
+/* ==========================================================
+   OBTENER JUEGO DE LA URL
+========================================================== */
+
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+if(["mobile-legends","fc-mobile"].includes(params.get("game")))window.location.replace("index.html#catalogo");
+
+let gameKey =
+  params.get("game");
+
+if(
+  !games[gameKey]
+){
+
+  gameKey =
+    "free-fire";
+
+}
+
+// La estética del fondo cambia con el juego elegido; los productos no se alteran.
+document.body.dataset.gameTheme = gameKey;
+
+const game =
+  games[gameKey];
+
+const robuxMaintenance = false; // Robux reactivados. Cambiar a gameKey === "roblox" para volver a mantenimiento.
+
+
+/* ==========================================================
+   ELEMENTOS
+========================================================== */
+
+const gameHeroImage =
+  document.getElementById(
+    "gameHeroImage"
+  );
+
+const gameBadge =
+  document.getElementById(
+    "gameBadge"
+  );
+
+const gameTitle =
+  document.getElementById(
+    "gameTitle"
+  );
+
+const gameSubtitle =
+  document.getElementById(
+    "gameSubtitle"
+  );
+
+const gameDescription =
+  document.getElementById(
+    "gameDescription"
+  );
+
+const shopTitle =
+  document.getElementById(
+    "shopTitle"
+  );
+
+const playerTitle =
+  document.getElementById(
+    "playerTitle"
+  );
+
+const playerDescription =
+  document.getElementById(
+    "playerDescription"
+  );
+
+const normalFields =
+  document.getElementById(
+    "normalFields"
+  );
+
+const mlFields =
+  document.getElementById(
+    "mlFields"
+  );
+
+const playerBox =
+  document.getElementById(
+    "playerBox"
+  );
+
+const robloxGuide =
+  document.getElementById(
+    "robloxGuide"
+  );
+
+const productsArea =
+  document.getElementById(
+    "productsArea"
+  );
+
+const summaryProduct =
+  document.getElementById(
+    "summaryProduct"
+  );
+
+const summaryId =
+  document.getElementById(
+    "summaryId"
+  );
+
+const summaryServer =
+  document.getElementById(
+    "summaryServer"
+  );
+
+const summaryIdRow =
+  document.getElementById(
+    "summaryIdRow"
+  );
+
+const summaryServerRow =
+  document.getElementById(
+    "summaryServerRow"
+  );
+
+const summaryTotal =
+  document.getElementById(
+    "summaryTotal"
+  );
+
+const summaryEmpty =
+  document.getElementById(
+    "summaryEmpty"
+  );
+
+const continueBtn =
+  document.getElementById(
+    "continueBtn"
+  );
+
+const playerId =
+  document.getElementById(
+    "playerId"
+  );
+
+const mlPlayerId =
+  document.getElementById(
+    "mlPlayerId"
+  );
+
+const mlServerId =
+  document.getElementById(
+    "mlServerId"
+  );
+
+const idResponsibilityBox = document.getElementById("idResponsibilityBox");
+const idResponsibilityCheck = document.getElementById("idResponsibilityCheck");
+
+
+
+/* ==========================================================
+   CONFIGURAR JUEGO
+========================================================== */
+
+if(gameKey === "minecraft"){
+  // Use the official Minecraft art. Keep our vector as an offline fallback.
+  gameHeroImage.addEventListener("error", function fallbackMinecraftHero(){
+    gameHeroImage.removeEventListener("error", fallbackMinecraftHero);
+    gameHeroImage.src = "hero-minecraft.svg";
+  });
+}
+
+gameHeroImage.src =
+  game.hero;
+
+gameHeroImage.alt =
+  game.title;
+
+gameBadge.textContent =
+  game.badge;
+
+gameTitle.textContent =
+  game.title;
+
+gameSubtitle.textContent =
+  game.subtitle;
+
+gameDescription.textContent =
+  game.description;
+
+shopTitle.textContent =
+  `Recarga ${game.title} en un solo lugar`;
+
+playerTitle.textContent =
+  game.playerTitle ||
+  "Ingresa el ID del jugador";
+
+playerDescription.textContent =
+  game.playerDescription ||
+  "Lo utilizaremos para identificar la cuenta de destino.";
+
+
+/* ==========================================================
+   ROBLOX
+========================================================== */
+
+if(game.roblox){
+
+  robloxGuide.classList.add(
+    "show"
+  );
+
+  playerBox.style.display =
+    "none";
+
+  summaryIdRow.style.display =
+    "none";
+
+  if(robuxMaintenance){
+    document.getElementById("robuxMaintenance").hidden = false;
+    robloxGuide.style.display = "none";
+    document.querySelector(".nx-buy-route").style.display = "none";
+    document.querySelector(".nx-mobile-summary-link").style.display = "none";
+    document.querySelector(".top-heading").style.display = "none";
+    document.querySelector(".shop-layout").style.display = "none";
+  }
+
+}
+
+
+/* ==========================================================
+   MINECRAFT: CÓDIGOS SIN ID DE JUGADOR
+========================================================== */
+
+if(game.giftCode){
+  playerBox.style.display = "none";
+  summaryIdRow.style.display = "none";
+  robloxGuide.classList.add("show");
+  robloxGuide.querySelector(".guide-title").textContent = "Cómo canjear tu código de Minecraft";
+  const route=document.querySelectorAll(".nx-buy-steps li");
+  const captions=[
+    ["Elige tus Minecoins", "Selecciona uno de los cuatro paquetes de Minecoins."],
+    ["Comprueba el total", "Revisa el precio de tu tarjeta digital."],
+    ["Paga y recibe el código", "El MVP enviará el código privado a Mis compras tras confirmar tu pago."]
+  ];
+  route.forEach((li,i)=>{
+    if(captions[i]){
+      const strong=li.querySelector("strong"),small=li.querySelector("small");
+      if(strong)strong.textContent=captions[i][0];
+      if(small)small.textContent=captions[i][1];
+    }
+  });
+  robloxGuide.querySelector(".guide-text").textContent = "Después de recibir tu código privado en Mis compras, sigue estos pasos:";
+  const steps=robloxGuide.querySelectorAll(".guide-step span");
+  ["Ingresa a minecraft.net/redeem", "Inicia sesión con tu cuenta Microsoft", "Pega tu código de Minecoins", "Confirma el canje en la plataforma compatible"].forEach((text,i)=>{
+    if(steps[i])steps[i].textContent=text;
+  });
+}
+
+/* ==========================================================
+   MOBILE LEGENDS
+========================================================== */
+
+if(game.mobileLegends){
+
+  normalFields.style.display =
+    "none";
+
+  mlFields.style.display =
+    "grid";
+
+  summaryIdRow.style.display =
+    "flex";
+
+  summaryServerRow.style.display =
+    "flex";
+
+}
+
+
+/* ==========================================================
+   CREAR PRODUCTOS
+========================================================== */
+
+let selectedProduct =
+  null;
+
+let lastIdSignature = "";
+
+
+
+
+function getProductImage(categoryName, productName){
+
+  const category =
+    categoryName.toUpperCase();
+
+  const name =
+    productName.toLowerCase();
+
+
+  if(gameKey === "free-fire"){
+
+    if(category.includes("DIAMANTES")){
+      return "icon-ff-diamantes.png";
+    }
+
+    if(category.includes("CAJAS")){
+      return "icon-ff-cajas.png";
+    }
+
+    if(category.includes("FRAGMENTOS")){
+      return "icon-ff-fragmentos.png";
+    }
+
+    if(name.includes("semanal")){
+      return "icon-ff-membresia-semanal.png";
+    }
+
+    if(name.includes("mensual")){
+      return "icon-ff-membresia-mensual.png";
+    }
+
+    if(name.includes("booyah")){
+      return "icon-ff-pase-booyah.png";
+    }
+
+    return "icon-ff-diamantes.png";
+  }
+
+
+  if(gameKey === "blood-strike"){
+    return "icon-blood-oro.png";
+  }
+
+
+  if(gameKey === "mobile-legends"){
+
+    const chestPackages = [
+      "1860",
+      "3099",
+      "4649",
+      "7740"
+    ];
+
+    if(
+      chestPackages.some(
+        amount => name.startsWith(amount)
+      )
+    ){
+      return "icon-ml-cofre.png";
+    }
+
+    return "icon-ml-diamantes.png";
+  }
+
+
+  if(gameKey === "roblox"){
+    return "icon-robux.png";
+  }
+
+  if(gameKey === "minecraft"){
+    return "icon-minecoins.svg";
+  }
+
+
+  if(gameKey === "fc-mobile"){
+
+    if(category.includes("FC POINTS")){
+      return "icon-fc-points.png";
+    }
+
+    if(category.includes("SILVER")){
+      return "icon-fc-silver.png";
+    }
+
+    if(category.includes("PASE ESTELAR")){
+      return "icon-fc-pase-estelar.png";
+    }
+  }
+
+
+  return "nexora-logo.svg?v=4";
+}
+
+
+function renderProducts(){
+
+  productsArea.innerHTML =
+    "";
+
+
+  game.products.forEach(
+    category => {
+
+
+      // Free Fire: diamantes siempre visibles; el resto con desplegables.
+      const isCollapsible =
+        gameKey === "free-fire" &&
+        !category.category.toUpperCase().includes("DIAMANTES");
+
+      const categoryGroup = isCollapsible
+        ? document.createElement("details")
+        : null;
+
+      const categoryTitle = document.createElement(
+        isCollapsible ? "summary" : "div"
+      );
+
+      categoryTitle.className = isCollapsible
+        ? "category-title nx-category-toggle"
+        : "category-title";
+
+      if (isCollapsible) {
+        categoryGroup.className = "nx-category-collapse";
+
+        const titleText = document.createElement("span");
+        titleText.className = "nx-category-name";
+        titleText.textContent = category.category;
+
+        const hint = document.createElement("span");
+        hint.className = "nx-category-hint";
+        hint.textContent = category.items.length + " opciones";
+
+        const arrow = document.createElement("span");
+        arrow.className = "nx-category-chevron";
+        arrow.textContent = "⌄";
+        arrow.setAttribute("aria-hidden", "true");
+
+        categoryTitle.append(titleText, hint, arrow);
+        categoryGroup.appendChild(categoryTitle);
+        productsArea.appendChild(categoryGroup);
+      } else {
+        categoryTitle.textContent = category.category;
+        productsArea.appendChild(categoryTitle);
+      }
+
+
+      const grid =
+        document.createElement(
+          "div"
+        );
+
+
+      grid.className =
+        "products-grid";
+
+
+      category.items.forEach(
+        item => {
+
+
+          const productName =
+            item[0];
+
+          const price =
+            Number(item[1]);
+
+
+          const product =
+            document.createElement(
+              "button"
+            );
+
+
+          product.type =
+            "button";
+
+          product.className =
+            "product";
+
+          if(robuxMaintenance){
+            product.disabled = true;
+            product.setAttribute("aria-label", productName + " - en mantenimiento");
+          }
+
+
+          const productImage =
+            getProductImage(
+              category.category,
+              productName
+            );
+
+
+          product.innerHTML = `
+
+            <div class="product-media">
+
+              <img
+                src="${productImage}"
+                alt="${productName}"
+                loading="lazy"
+              >
+
+            </div>
+
+            <div class="product-info">
+
+              <div class="product-name">
+                ${productName}
+              </div>
+
+              <div class="product-desc">
+                Entrega en menos de 24 horas
+              </div>
+
+              <div class="product-bottom">
+
+                <div class="product-price">
+                  S/ ${price.toFixed(2)}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="product-check">
+              ✓
+            </div>
+
+          `;
+
+
+          product.addEventListener(
+            "click",
+            () => {
+
+              selectProduct(
+                product,
+                productName,
+                price
+              );
+
+            }
+          );
+
+
+          grid.appendChild(
+            product
+          );
+
+        }
+      );
+
+
+      (categoryGroup || productsArea).appendChild(grid);
+
+    }
+  );
+
+}
+
+
+renderProducts();
+
+
+
+/* ==========================================================
+   SELECCIONAR PRODUCTO
+========================================================== */
+
+function selectProduct(
+  element,
+  name,
+  price
+){
+
+  if(robuxMaintenance) return;
+
+  document
+    .querySelectorAll(
+      ".product"
+    )
+    .forEach(
+      product => {
+
+        product.classList.remove(
+          "selected"
+        );
+
+      }
+    );
+
+
+  element.classList.add(
+    "selected"
+  );
+
+
+  selectedProduct = {
+
+    name:
+      name,
+
+    price:
+      price
+
+  };
+
+
+  summaryEmpty.style.display =
+    "none";
+
+
+  summaryProduct.textContent =
+    name;
+
+
+  summaryTotal.textContent =
+    `S/ ${price.toFixed(2)}`;
+
+
+  updateSummary();
+
+}
+
+
+
+function currentIdSignature(){
+  return game.mobileLegends
+    ? mlPlayerId.value.trim() + "::" + mlServerId.value.trim()
+    : playerId.value.trim();
+}
+
+function idFieldsComplete(){
+  if(game.roblox || game.giftCode) return true;
+  if(game.mobileLegends) return Boolean(mlPlayerId.value.trim() && mlServerId.value.trim());
+  return Boolean(playerId.value.trim());
+}
+
+function updatePurchaseGate(){
+  if(game.roblox || game.giftCode){
+    idResponsibilityBox.hidden = true;
+    continueBtn.disabled = !selectedProduct;
+    continueBtn.textContent = selectedProduct ? "Revisar pedido y pago →" : "Selecciona un paquete";
+    return;
+  }
+
+  const signature = currentIdSignature();
+  if(signature !== lastIdSignature){
+    idResponsibilityCheck.checked = false;
+    lastIdSignature = signature;
+  }
+
+  const hasId = idFieldsComplete();
+  idResponsibilityBox.hidden = !hasId;
+  if(!hasId) idResponsibilityCheck.checked = false;
+
+  const confirmed = hasId && idResponsibilityCheck.checked;
+  continueBtn.disabled = !selectedProduct || !confirmed;
+  continueBtn.textContent = !selectedProduct
+    ? "Selecciona un paquete"
+    : !hasId
+      ? (game.mobileLegends ? "Ingresa ID y Server ID" : "Ingresa tu ID")
+      : !confirmed
+        ? "Marca la confirmación del ID"
+        : "Revisar pedido y pago →";
+}
+
+/* ==========================================================
+   ACTUALIZAR RESUMEN
+========================================================== */
+
+function updateSummary(){
+
+  if(game.mobileLegends){
+
+    summaryId.textContent =
+      mlPlayerId.value.trim()
+      ||
+      "Sin ingresar";
+
+
+    summaryServer.textContent =
+      mlServerId.value.trim()
+      ||
+      "Sin ingresar";
+
+  }
+
+  else
+  if(
+    !game.roblox && !game.giftCode
+  ){
+
+    summaryId.textContent =
+      playerId.value.trim()
+      ||
+      "Sin ingresar";
+
+  }
+
+  updatePurchaseGate();
+}
+
+
+/* ==========================================================
+   CAMPOS EN TIEMPO REAL
+========================================================== */
+
+playerId.addEventListener("input", updateSummary);
+
+mlPlayerId.addEventListener(
+  "input",
+  updateSummary
+);
+
+mlServerId.addEventListener(
+  "input",
+  updateSummary
+);
+
+idResponsibilityCheck.addEventListener("change", updatePurchaseGate);
+
+
+/* ==========================================================
+   FINALIZAR COMPRA
+========================================================== */
+
+continueBtn.addEventListener(
+  "click",
+  function(){
+
+    if(robuxMaintenance){
+      alert("Por ahora no hay Robux (mantenimiento).");
+      return;
+    }
+
+    if(!selectedProduct){
+      return;
+    }
+
+
+    let orderPlayerId = "";
+    let orderServerId = "";
+    let orderPlayerName = "";
+    let orderPlayerRegion = "";
+
+
+    if(game.mobileLegends){
+
+      orderPlayerId =
+        mlPlayerId.value.trim();
+
+      orderServerId =
+        mlServerId.value.trim();
+
+
+      if(
+        !orderPlayerId ||
+        !orderServerId
+      ){
+
+        alert(
+          "Ingresa tu ID y Server ID antes de continuar."
+        );
+
+        return;
+      }
+
+    }
+    else
+    if(!game.roblox && !game.giftCode){
+
+      orderPlayerId =
+        playerId.value.trim();
+
+
+      if(!orderPlayerId){
+
+        alert(
+          "Ingresa tu ID de jugador antes de continuar."
+        );
+
+        return;
+      }
+
+
+      // Solo validar el formato del ID, sin buscar ni verificar la cuenta.
+      if (gameKey === "free-fire" && !/^\d{5,15}$/.test(orderPlayerId)) {
+        alert("Ingresa un ID de Free Fire de 5 a 15 dígitos.");
+        return;
+      }
+
+    }
+
+
+    // Prohibir continuar sin confirmar los datos del jugador.
+    if(!game.roblox && !game.giftCode && (!idFieldsComplete() || !idResponsibilityCheck.checked)){
+      alert("Revisa tu ID y marca la casilla de confirmación antes de continuar.");
+      idResponsibilityCheck.focus();
+      return;
+    }
+
+    const order = {
+
+      idConfirmed: game.roblox || game.giftCode || idResponsibilityCheck.checked,
+
+      gameKey:
+        gameKey,
+
+      game:
+        game.title,
+
+      product:
+        selectedProduct.name,
+
+      price:
+        selectedProduct.price,
+
+      playerId:
+        orderPlayerId,
+
+      serverId:
+        orderServerId,
+
+      playerName:
+        orderPlayerName,
+
+      playerRegion:
+        orderPlayerRegion,
+
+      delivery:
+        "Menos de 24 horas",
+
+      createdAt:
+        new Date().toISOString()
+
+    };
+
+
+    sessionStorage.setItem(
+      "nexoraOrder",
+      JSON.stringify(order)
+    );
+
+
+    window.location.href =
+      "pago.html";
+
+  }
+);
+
+
+/* ==========================================================
+   TÍTULO DE LA PÁGINA
+========================================================== */
+
+document.title =
+  `NEXORA STORE | ${game.title}`;
+
+
+</script>
+
+
+<script type="module" src="nexora-game-header.js?v=20261102-1"></script>
+<script type="module" src="notifications.js"></script>
+</body>
+</html>
