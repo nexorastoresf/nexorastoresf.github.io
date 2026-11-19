@@ -2411,6 +2411,49 @@ body[data-nexora-page="home"] .nx-gaming-light-trace--blue {
 </style>
 <link rel="stylesheet" href="nexora-mobile.css?v=2">
 <link rel="stylesheet" href="nexora-ember-premium.css?v=2">
+
+<style>
+/* Logos de los medios de pago en la tarjeta del inicio de NEXORA. */
+body[data-nexora-page="home"] .nx-trust-payments {
+  gap: 11px;
+}
+body[data-nexora-page="home"] .nx-payment-logos {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex: 0 0 auto;
+}
+body[data-nexora-page="home"] .nx-payment-logos img {
+  display: block;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #171923;
+  box-shadow: 0 0 0 1px rgba(255,255,255,.09);
+}
+body[data-nexora-page="home"] .nx-payment-info {
+  min-width: 0;
+}
+@media (max-width: 700px) {
+  body[data-nexora-page="home"] .nx-trust-payments { gap: 8px; }
+  body[data-nexora-page="home"] .nx-payment-logos { gap: 3px; }
+  body[data-nexora-page="home"] .nx-payment-logos img {
+    width: 30px;
+    height: 30px;
+    flex-basis: 30px;
+    border-radius: 8px;
+  }
+}
+@media (max-width: 370px) {
+  body[data-nexora-page="home"] .nx-payment-logos img {
+    width: 26px;
+    height: 26px;
+    flex-basis: 26px;
+  }
+}
+</style>
 </head>
 
 
@@ -2551,9 +2594,12 @@ body[data-nexora-page="home"] .nx-gaming-light-trace--blue {
       </div>
     </div>
 
-    <div class="trust-item">
-      <div class="trust-icon">💳</div>
-      <div>
+    <div class="trust-item nx-trust-payments">
+      <div class="nx-payment-logos" aria-label="Yape y Plin">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Icono_de_la_aplicaci%C3%B3n_Yape.png" alt="Yape" width="38" height="38" loading="lazy" decoding="async" title="Yape · Imagen de BCP, Wikimedia Commons, CC BY-SA 4.0">
+        <img src="https://www.bbva.pe/content/dam/public-web/peru/images/promo-sliders/promo-plin.im1585949297034im.png?imwidth=960" alt="Plin" width="38" height="38" loading="lazy" decoding="async" title="Plin · Imagen de BBVA Perú">
+      </div>
+      <div class="nx-payment-info">
         <strong>Yape &amp; Plin</strong>
         <span>Métodos de pago</span>
       </div>
