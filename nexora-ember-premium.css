@@ -1,8 +1,8 @@
-/* NEXORA STORE SF · Edición Ember 2026. Diseño, no lógica comercial. */
-:root{--nx26-orange:#ff6a16;--nx26-red:#d92835;--nx26-ink:#0c0d12;--nx26-line:#383039;--nx26-muted:#aeb0bb}
+/* NEXORA STORE SF · Edición Rojo Premium 2026. Solo diseño; no toca compras, autenticación ni saldo. */
+:root{--nx26-orange:#ff7a1a;--nx26-red:#e23a2e;--nx26-ink:#0c0d12;--nx26-line:#383039;--nx26-muted:#aeb0bb}
 body[data-nexora-page="home"],body[data-nexora-page="game"]{
- --orange:#ff681d;--orange-hover:#ff8640;--orange2:#ff8739;--nx-orange:#ff742c;--nx-red:#d92835;
- --v3-orange:#ff6b25;--v3-coral:#db3140;--border:rgba(255,255,255,.12);
+ --orange:#e23a2e;--orange-hover:#f05443;--orange2:#c72a35;--nx-orange:#e23a2e;--nx-red:#a92233;
+ --v3-orange:#e23a2e;--v3-coral:#a92233;--border:rgba(255,255,255,.12);
  background:#0b0c10!important;color:#f9f8f8;
 }
 body[data-nexora-page="home"] .nx-gaming-backdrop{
@@ -16,11 +16,11 @@ body[data-nexora-page="home"] .navbar,body[data-nexora-page="game"] .navbar{
 body[data-nexora-page="home"] .brand img,body[data-nexora-page="game"] .brand img{
  box-shadow:none;border:1px solid rgba(255,108,42,.24);border-radius:14px
 }
-body[data-nexora-page="home"] .brand-sub,body[data-nexora-page="game"] .brand-sub{color:#ff9357!important}
-body[data-nexora-page="home"] .nav-menu a:hover,body[data-nexora-page="game"] .nav-menu a:hover{color:#ff965b}
+body[data-nexora-page="home"] .brand-sub,body[data-nexora-page="game"] .brand-sub{color:#f07565!important}
+body[data-nexora-page="home"] .nav-menu a:hover,body[data-nexora-page="game"] .nav-menu a:hover{color:#f07565}
 body[data-nexora-page="home"] .register,body[data-nexora-page="game"] .register,
 body[data-nexora-page="home"] .nxv3-primary,body[data-nexora-page="game"] .continue-btn:not(:disabled){
- color:#fff;background:linear-gradient(105deg,#fa641b 0%,#e52d2f 100%);box-shadow:0 9px 26px rgba(214,44,35,.14);border:1px solid rgba(255,129,84,.34)
+ color:#fff;background:linear-gradient(105deg,#e23a2e 0%,#a92233 100%);box-shadow:0 9px 26px rgba(214,44,35,.14);border:1px solid rgba(255,129,84,.34)
 }
 body[data-nexora-page="home"] .register:hover,body[data-nexora-page="home"] .nxv3-primary:hover{filter:brightness(1.08)}
 body[data-nexora-page="home"] .service-status{background:rgba(17,23,22,.7)}
@@ -33,18 +33,18 @@ body[data-nexora-page="home"] .nx-install-nav{border-color:rgba(255,120,67,.2)}
  background:linear-gradient(125deg,#171215,#101116 63%,#1c1516);box-shadow:0 25px 55px rgba(0,0,0,.22)
 }
 .nx26-copy{position:relative;z-index:2;padding:clamp(29px,4.4vw,61px);display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
-.nx26-kicker{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:850;letter-spacing:1.7px;color:#ffb385}
-.nx26-kicker:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#fa6828}
+.nx26-kicker{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:850;letter-spacing:1.7px;color:#f6a094}
+.nx26-kicker:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#e23a2e}
 .nx26-copy h1{margin:20px 0 17px;font-size:clamp(35px,4.1vw,61px);font-weight:900;letter-spacing:-.052em;line-height:1.07;max-width:640px;color:#fff}
-.nx26-copy h1 strong{font-weight:900;display:block;color:#ff752f;background:linear-gradient(105deg,#ff8a38,#fb6129 54%,#e54145);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nx26-copy h1 strong{font-weight:900;display:block;color:#e23a2e;background:linear-gradient(105deg,#f65a48,#e23a2e 54%,#a92233);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nx26-copy p{max-width:480px;margin:0 0 23px;line-height:1.67;font-size:14px;color:#c6c4cb}
 .nx26-actions{display:flex;align-items:center;flex-wrap:wrap;gap:11px}
 .nx26-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border-radius:12px;padding:12px 18px;text-decoration:none;font-size:12px;font-weight:820;transition:transform .18s,background .18s,filter .18s}
 .nx26-action:hover{transform:translateY(-2px)}
-.nx26-action--primary{color:white;background:linear-gradient(105deg,#ff6a16,#d92835);box-shadow:0 9px 23px rgba(225,56,35,.18)}
+.nx26-action--primary{color:white;background:linear-gradient(105deg,#e23a2e,#a92233);box-shadow:0 9px 23px rgba(225,56,35,.18)}
 .nx26-action--secondary{color:#f9f8fa;border:1px solid rgba(230,219,218,.26);background:rgba(255,255,255,.045)}
 .nx26-footnote{margin-top:23px;font-size:11px;color:#aeb0b8;line-height:1.5}
-.nx26-footnote span{color:#ff9259;font-weight:900;margin-right:5px}
+.nx26-footnote span{color:#f48371;font-weight:900;margin-right:5px}
 .nx26-media{position:relative;isolation:isolate;min-height:370px;background:linear-gradient(115deg,#17171c,#25161b)}
 .nx26-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.96) contrast(1.06)}
 .nx26-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,16,21,.35),transparent 44%),linear-gradient(0deg,rgba(9,10,15,.55),transparent 45%);pointer-events:none}
@@ -56,16 +56,16 @@ body[data-nexora-page="home"] .nxv3-pick{
  transition:transform .18s,border-color .18s
 }
 body[data-nexora-page="home"] .nxv3-pick:hover{border-color:rgba(255,109,46,.47);transform:translateY(-2px);box-shadow:none}
-body[data-nexora-page="home"] .nxv3-pick .nxv3-pick-arrow{color:#ff8042}
+body[data-nexora-page="home"] .nxv3-pick .nxv3-pick-arrow{color:#e9604c}
 body[data-nexora-page="home"] .trust-strip{margin:20px 0 2px}
 body[data-nexora-page="home"] .trust-item{background:#14151a;border:1px solid rgba(255,255,255,.09);border-radius:14px;box-shadow:none}
 body[data-nexora-page="home"] .trust-icon{background:rgba(244,86,41,.09);border:1px solid rgba(255,116,50,.17)}
 body[data-nexora-page="home"] .toolbar{background:#15161c;border:1px solid rgba(255,255,255,.09);border-radius:16px}
 body[data-nexora-page="home"] .search{background:#0d0f13;border-color:rgba(255,255,255,.15)}
-body[data-nexora-page="home"] .search:focus-within{border-color:#ff7944;box-shadow:0 0 0 3px rgba(255,100,40,.07)}
-body[data-nexora-page="home"] .filter.active{background:linear-gradient(110deg,#ff681d,#d92b37)!important;color:white!important;border-color:transparent!important}
+body[data-nexora-page="home"] .search:focus-within{border-color:#ee5549;box-shadow:0 0 0 3px rgba(255,100,40,.07)}
+body[data-nexora-page="home"] .filter.active{background:linear-gradient(110deg,#e23a2e,#a92233)!important;color:white!important;border-color:transparent!important}
 body[data-nexora-page="home"] .filter:hover{border-color:rgba(255,110,51,.45)}
-body[data-nexora-page="home"] .eyebrow{color:#ff9757}
+body[data-nexora-page="home"] .eyebrow{color:#f07869}
 body[data-nexora-page="home"] .section-title{letter-spacing:-.045em}
 body[data-nexora-page="home"] #catalogo .catalog-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;transform:none!important}
 body[data-nexora-page="home"] #catalogo .catalog-card,
@@ -81,22 +81,22 @@ body[data-nexora-page="home"] #catalogo .catalog-content{padding:18px;gap:5px}
 body[data-nexora-page="home"] #catalogo .catalog-content h3{font-size:clamp(21px,2vw,27px);line-height:1.08;letter-spacing:-.035em}
 body[data-nexora-page="home"] #catalogo .catalog-content h4{color:#e2dde0;font-size:12px}
 body[data-nexora-page="home"] #catalogo .catalog-content p{line-height:1.45;color:#c8c1c5;font-size:11px}
-body[data-nexora-page="home"] #catalogo .catalog-tag{color:#ffbd9d;border-color:rgba(252,106,65,.34);background:rgba(254,100,47,.13)}
-body[data-nexora-page="home"] #catalogo .catalog-btn{background:linear-gradient(100deg,#ff691c,#d92e36);color:#fff;border:0;box-shadow:none;min-height:35px}
+body[data-nexora-page="home"] #catalogo .catalog-tag{color:#ffc0b6;border-color:rgba(252,106,65,.34);background:rgba(254,100,47,.13)}
+body[data-nexora-page="home"] #catalogo .catalog-btn{background:linear-gradient(100deg,#e23a2e,#a92233);color:#fff;border:0;box-shadow:none;min-height:35px}
 body[data-nexora-page="home"] .step,body[data-nexora-page="home"] .cta,body[data-nexora-page="home"] .install-card{border-color:rgba(255,255,255,.1);background:#16161c}
-body[data-nexora-page="home"] .step-number{color:#ff9258}
-body[data-nexora-page="home"] .cta-primary,body[data-nexora-page="home"] .install-app-btn:not(:disabled){background:linear-gradient(100deg,#ff691c,#d92d36);color:white}
+body[data-nexora-page="home"] .step-number{color:#f07868}
+body[data-nexora-page="home"] .cta-primary,body[data-nexora-page="home"] .install-app-btn:not(:disabled){background:linear-gradient(100deg,#e23a2e,#a92233);color:white}
 body[data-nexora-page="home"] .footer{border-top:1px solid rgba(255,121,52,.21);background:#0a0b0f}
-body[data-nexora-page="home"] .gold-name{color:#ff9a5e}
+body[data-nexora-page="home"] .gold-name{color:#f18071}
 body[data-nexora-page="home"] .floating-support{border-color:rgba(255,110,48,.26)}
 /* En páginas de producto conservar los elementos y flujos reales de compra. */
 body[data-nexora-page="game"] .game-hero{border-color:rgba(255,109,45,.3)}
-body[data-nexora-page="game"] .hero-badge{background:linear-gradient(102deg,#ff722a,#d92d36);color:#fff}
+body[data-nexora-page="game"] .hero-badge{background:linear-gradient(102deg,#e23a2e,#a92233);color:#fff}
 body[data-nexora-page="game"] .product{border-color:rgba(255,255,255,.14);background:#16181f}
 body[data-nexora-page="game"] .product:hover{border-color:rgba(255,109,46,.48)}
 body[data-nexora-page="game"] .summary{border-color:rgba(255,107,44,.26);background:#16171e}
-body[data-nexora-page="game"] .summary-title{color:#ffa06f}
-body[data-nexora-page="game"] .nxv3-game-trail a{color:#ff9869}
+body[data-nexora-page="game"] .summary-title{color:#f29b8a}
+body[data-nexora-page="game"] .nxv3-game-trail a{color:#f29b8a}
 @media(max-width:1120px){
  body[data-nexora-page="home"] #catalogo .catalog-track{grid-template-columns:repeat(2,minmax(0,1fr))}
  body[data-nexora-page="home"] .nxv3-picks-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -131,3 +131,36 @@ body[data-nexora-page="game"] .nxv3-game-trail a{color:#ff9869}
 @media(prefers-reduced-motion:reduce){
  .nx26-action,body[data-nexora-page="home"] .nxv3-pick,body[data-nexora-page="home"] #catalogo .catalog-card{transition:none}
 }
+
+/* Ajustes finales: rojo de marca dominante y naranja reservado para pequeños acentos. */
+body[data-nexora-page="home"],body[data-nexora-page="game"]{
+ --nx26-primary:#e23a2e;--nx26-primary-dark:#aa2232;--nx26-accent:#ff7a1a;
+ --nx26-highlight:#f05443;--nx26-black:#0c0d10;
+}
+.nx26-hero .nx26-shell{border-color:rgba(227,66,57,.28);background:linear-gradient(125deg,#171315,#101116 63%,#211419)}
+.nx26-copy h1 strong{background-image:linear-gradient(108deg,#ff6150 0%,#e23a2e 53%,#ad2334 100%)}
+.nx26-kicker{color:#ffc0b6}
+.nx26-kicker::before{background:#ff7a1a}
+.nx26-action--primary,
+body[data-nexora-page="home"] .register,
+body[data-nexora-page="home"] #catalogo .catalog-btn,
+body[data-nexora-page="home"] .cta-primary,
+body[data-nexora-page="home"] .filter.active{
+ background:linear-gradient(110deg,#e23a2e 0%,#ab2032 100%)!important;color:#fff!important;
+}
+body[data-nexora-page="home"] .nx26-action--primary:hover,
+body[data-nexora-page="home"] .register:hover{filter:brightness(1.09)}
+body[data-nexora-page="home"] .brand-sub,
+body[data-nexora-page="game"] .brand-sub{color:#f18979!important}
+body[data-nexora-page="home"] .section-title,
+body[data-nexora-page="home"] .nx26-copy h1{color:#f9f8f8}
+body[data-nexora-page="home"] .catalog-card:focus-visible,
+body[data-nexora-page="home"] .nxv3-pick:focus-visible,
+body[data-nexora-page="home"] .nx26-action:focus-visible{outline:2px solid #f16b59;outline-offset:3px}
+body[data-nexora-page="home"] .step-number,
+body[data-nexora-page="home"] #catalogo .catalog-tag,
+body[data-nexora-page="home"] .eyebrow{color:#ff9b8f}
+body[data-nexora-page="home"] #catalogo .catalog-card:hover{border-color:rgba(230,62,53,.60)}
+body[data-nexora-page="game"] .continue-btn:not(:disabled),
+body[data-nexora-page="game"] .hero-badge{background:linear-gradient(108deg,#e23a2e,#aa2232);color:#fff}
+body[data-nexora-page="game"] .product:focus-visible{outline:2px solid #ff7967;outline-offset:3px}
