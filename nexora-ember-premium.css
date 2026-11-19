@@ -1,0 +1,133 @@
+/* NEXORA STORE SF · Edición Ember 2026. Diseño, no lógica comercial. */
+:root{--nx26-orange:#ff6a16;--nx26-red:#d92835;--nx26-ink:#0c0d12;--nx26-line:#383039;--nx26-muted:#aeb0bb}
+body[data-nexora-page="home"],body[data-nexora-page="game"]{
+ --orange:#ff681d;--orange-hover:#ff8640;--orange2:#ff8739;--nx-orange:#ff742c;--nx-red:#d92835;
+ --v3-orange:#ff6b25;--v3-coral:#db3140;--border:rgba(255,255,255,.12);
+ background:#0b0c10!important;color:#f9f8f8;
+}
+body[data-nexora-page="home"] .nx-gaming-backdrop{
+ background:radial-gradient(ellipse 50% 32% at 94% 2%,rgba(170,40,40,.10),transparent 80%),linear-gradient(180deg,#0a0b0e,#101014 60%,#0a0b0f)!important
+}
+body[data-nexora-page="home"] .nx-gaming-backdrop > *{display:none!important}
+body[data-nexora-page="home"] .navbar,body[data-nexora-page="game"] .navbar{
+ background:rgba(11,12,16,.97);border-bottom:1px solid rgba(249,107,49,.16);box-shadow:0 12px 34px rgba(0,0,0,.16);
+ backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+}
+body[data-nexora-page="home"] .brand img,body[data-nexora-page="game"] .brand img{
+ box-shadow:none;border:1px solid rgba(255,108,42,.24);border-radius:14px
+}
+body[data-nexora-page="home"] .brand-sub,body[data-nexora-page="game"] .brand-sub{color:#ff9357!important}
+body[data-nexora-page="home"] .nav-menu a:hover,body[data-nexora-page="game"] .nav-menu a:hover{color:#ff965b}
+body[data-nexora-page="home"] .register,body[data-nexora-page="game"] .register,
+body[data-nexora-page="home"] .nxv3-primary,body[data-nexora-page="game"] .continue-btn:not(:disabled){
+ color:#fff;background:linear-gradient(105deg,#fa641b 0%,#e52d2f 100%);box-shadow:0 9px 26px rgba(214,44,35,.14);border:1px solid rgba(255,129,84,.34)
+}
+body[data-nexora-page="home"] .register:hover,body[data-nexora-page="home"] .nxv3-primary:hover{filter:brightness(1.08)}
+body[data-nexora-page="home"] .service-status{background:rgba(17,23,22,.7)}
+body[data-nexora-page="home"] .nx-install-nav{border-color:rgba(255,120,67,.2)}
+/* Portada editorial con fotografía real, sin animación cinematográfica. */
+.nx26-hero{padding-top:22px;position:relative;z-index:1}
+.nx26-hero .nx26-shell{
+ display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+ min-height:436px;border:1px solid rgba(255,125,77,.23);border-radius:25px;overflow:hidden;
+ background:linear-gradient(125deg,#171215,#101116 63%,#1c1516);box-shadow:0 25px 55px rgba(0,0,0,.22)
+}
+.nx26-copy{position:relative;z-index:2;padding:clamp(29px,4.4vw,61px);display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
+.nx26-kicker{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:850;letter-spacing:1.7px;color:#ffb385}
+.nx26-kicker:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#fa6828}
+.nx26-copy h1{margin:20px 0 17px;font-size:clamp(35px,4.1vw,61px);font-weight:900;letter-spacing:-.052em;line-height:1.07;max-width:640px;color:#fff}
+.nx26-copy h1 strong{font-weight:900;display:block;color:#ff752f;background:linear-gradient(105deg,#ff8a38,#fb6129 54%,#e54145);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nx26-copy p{max-width:480px;margin:0 0 23px;line-height:1.67;font-size:14px;color:#c6c4cb}
+.nx26-actions{display:flex;align-items:center;flex-wrap:wrap;gap:11px}
+.nx26-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border-radius:12px;padding:12px 18px;text-decoration:none;font-size:12px;font-weight:820;transition:transform .18s,background .18s,filter .18s}
+.nx26-action:hover{transform:translateY(-2px)}
+.nx26-action--primary{color:white;background:linear-gradient(105deg,#ff6a16,#d92835);box-shadow:0 9px 23px rgba(225,56,35,.18)}
+.nx26-action--secondary{color:#f9f8fa;border:1px solid rgba(230,219,218,.26);background:rgba(255,255,255,.045)}
+.nx26-footnote{margin-top:23px;font-size:11px;color:#aeb0b8;line-height:1.5}
+.nx26-footnote span{color:#ff9259;font-weight:900;margin-right:5px}
+.nx26-media{position:relative;isolation:isolate;min-height:370px;background:linear-gradient(115deg,#17171c,#25161b)}
+.nx26-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.96) contrast(1.06)}
+.nx26-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,16,21,.35),transparent 44%),linear-gradient(0deg,rgba(9,10,15,.55),transparent 45%);pointer-events:none}
+.nx26-photo-label{position:absolute;z-index:2;bottom:21px;right:23px;border:1px solid rgba(255,255,255,.24);border-radius:9px;background:rgba(13,14,19,.76);padding:9px 13px;color:#f3f0f1;font-size:10px;letter-spacing:.7px;font-weight:700}
+/* Catálogo visual: tamaños iguales y jerarquía más limpia. */
+body[data-nexora-page="home"] .nxv3-picks{margin-top:25px}
+body[data-nexora-page="home"] .nxv3-pick{
+ background:#17181d;border:1px solid rgba(255,255,255,.11);border-radius:14px;box-shadow:none;
+ transition:transform .18s,border-color .18s
+}
+body[data-nexora-page="home"] .nxv3-pick:hover{border-color:rgba(255,109,46,.47);transform:translateY(-2px);box-shadow:none}
+body[data-nexora-page="home"] .nxv3-pick .nxv3-pick-arrow{color:#ff8042}
+body[data-nexora-page="home"] .trust-strip{margin:20px 0 2px}
+body[data-nexora-page="home"] .trust-item{background:#14151a;border:1px solid rgba(255,255,255,.09);border-radius:14px;box-shadow:none}
+body[data-nexora-page="home"] .trust-icon{background:rgba(244,86,41,.09);border:1px solid rgba(255,116,50,.17)}
+body[data-nexora-page="home"] .toolbar{background:#15161c;border:1px solid rgba(255,255,255,.09);border-radius:16px}
+body[data-nexora-page="home"] .search{background:#0d0f13;border-color:rgba(255,255,255,.15)}
+body[data-nexora-page="home"] .search:focus-within{border-color:#ff7944;box-shadow:0 0 0 3px rgba(255,100,40,.07)}
+body[data-nexora-page="home"] .filter.active{background:linear-gradient(110deg,#ff681d,#d92b37)!important;color:white!important;border-color:transparent!important}
+body[data-nexora-page="home"] .filter:hover{border-color:rgba(255,110,51,.45)}
+body[data-nexora-page="home"] .eyebrow{color:#ff9757}
+body[data-nexora-page="home"] .section-title{letter-spacing:-.045em}
+body[data-nexora-page="home"] #catalogo .catalog-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;transform:none!important}
+body[data-nexora-page="home"] #catalogo .catalog-card,
+body[data-nexora-page="home"] #catalogo .catalog-card:first-child{
+ min-width:0;width:100%;height:330px;min-height:0;grid-column:auto;border-radius:18px;
+ background:#19191e;border:1px solid rgba(255,255,255,.12);
+ box-shadow:0 15px 32px rgba(0,0,0,.18);transition:transform .18s,border-color .18s,box-shadow .18s
+}
+body[data-nexora-page="home"] #catalogo .catalog-card:hover{transform:translateY(-3px);border-color:rgba(255,116,45,.6);box-shadow:0 19px 35px rgba(0,0,0,.22)}
+body[data-nexora-page="home"] #catalogo .catalog-card img{filter:saturate(.98) contrast(1.02);object-position:center top}
+body[data-nexora-page="home"] #catalogo .catalog-overlay{background:linear-gradient(0deg,rgba(8,8,12,.99),rgba(8,8,12,.79) 43%,rgba(7,8,11,.05) 82%)}
+body[data-nexora-page="home"] #catalogo .catalog-content{padding:18px;gap:5px}
+body[data-nexora-page="home"] #catalogo .catalog-content h3{font-size:clamp(21px,2vw,27px);line-height:1.08;letter-spacing:-.035em}
+body[data-nexora-page="home"] #catalogo .catalog-content h4{color:#e2dde0;font-size:12px}
+body[data-nexora-page="home"] #catalogo .catalog-content p{line-height:1.45;color:#c8c1c5;font-size:11px}
+body[data-nexora-page="home"] #catalogo .catalog-tag{color:#ffbd9d;border-color:rgba(252,106,65,.34);background:rgba(254,100,47,.13)}
+body[data-nexora-page="home"] #catalogo .catalog-btn{background:linear-gradient(100deg,#ff691c,#d92e36);color:#fff;border:0;box-shadow:none;min-height:35px}
+body[data-nexora-page="home"] .step,body[data-nexora-page="home"] .cta,body[data-nexora-page="home"] .install-card{border-color:rgba(255,255,255,.1);background:#16161c}
+body[data-nexora-page="home"] .step-number{color:#ff9258}
+body[data-nexora-page="home"] .cta-primary,body[data-nexora-page="home"] .install-app-btn:not(:disabled){background:linear-gradient(100deg,#ff691c,#d92d36);color:white}
+body[data-nexora-page="home"] .footer{border-top:1px solid rgba(255,121,52,.21);background:#0a0b0f}
+body[data-nexora-page="home"] .gold-name{color:#ff9a5e}
+body[data-nexora-page="home"] .floating-support{border-color:rgba(255,110,48,.26)}
+/* En páginas de producto conservar los elementos y flujos reales de compra. */
+body[data-nexora-page="game"] .game-hero{border-color:rgba(255,109,45,.3)}
+body[data-nexora-page="game"] .hero-badge{background:linear-gradient(102deg,#ff722a,#d92d36);color:#fff}
+body[data-nexora-page="game"] .product{border-color:rgba(255,255,255,.14);background:#16181f}
+body[data-nexora-page="game"] .product:hover{border-color:rgba(255,109,46,.48)}
+body[data-nexora-page="game"] .summary{border-color:rgba(255,107,44,.26);background:#16171e}
+body[data-nexora-page="game"] .summary-title{color:#ffa06f}
+body[data-nexora-page="game"] .nxv3-game-trail a{color:#ff9869}
+@media(max-width:1120px){
+ body[data-nexora-page="home"] #catalogo .catalog-track{grid-template-columns:repeat(2,minmax(0,1fr))}
+ body[data-nexora-page="home"] .nxv3-picks-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:800px){
+ .nx26-hero{padding-top:12px}
+ .nx26-hero .nx26-shell{grid-template-columns:1fr}
+ .nx26-copy{padding:34px 27px 29px}
+ .nx26-copy h1{font-size:clamp(34px,7vw,54px)}
+ .nx26-media{min-height:240px;height:240px}
+ .nx26-media img{object-position:center}
+ .nx26-photo-label{bottom:13px;right:16px}
+}
+@media(max-width:560px){
+ body[data-nexora-page="home"] .container{width:calc(100% - 28px)}
+ .nx26-hero .nx26-shell{border-radius:19px}
+ .nx26-copy{padding:28px 22px}
+ .nx26-copy h1{font-size:37px}
+ .nx26-copy p{font-size:13px}
+ .nx26-actions{width:100%}
+ .nx26-action{flex:1;min-width:145px;font-size:11px}
+ .nx26-media{height:196px;min-height:196px}
+ body[data-nexora-page="home"] #catalogo .catalog-track{grid-template-columns:1fr;gap:13px}
+ body[data-nexora-page="home"] #catalogo .catalog-card,
+ body[data-nexora-page="home"] #catalogo .catalog-card:first-child{height:308px}
+ body[data-nexora-page="home"] .nxv3-picks-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ body[data-nexora-page="home"] .nxv3-pick{padding:8px}
+ body[data-nexora-page="home"] .nxv3-pick img{width:43px;height:46px}
+ body[data-nexora-page="home"] .nxv3-pick b{font-size:10px}
+ body[data-nexora-page="home"] .nxv3-pick small{font-size:9px}
+}
+@media(prefers-reduced-motion:reduce){
+ .nx26-action,body[data-nexora-page="home"] .nxv3-pick,body[data-nexora-page="home"] #catalogo .catalog-card{transition:none}
+}
