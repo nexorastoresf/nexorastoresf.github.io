@@ -2412,6 +2412,51 @@ body[data-nexora-page="home"] .nx-gaming-light-trace--blue {
 <link rel="stylesheet" href="nexora-mobile.css?v=2">
 <link rel="stylesheet" href="nexora-ember-premium.css?v=2">
 
+<style id="nx-home-background-premium-v1">
+/* Fondo general NEXORA: grafito, rojo profundo y retícula discreta.
+   Sin imágenes externas ni animaciones: visual sobrio y rápido en móviles. */
+body[data-nexora-page="home"]{
+  background:#0a0a0e!important;
+}
+body[data-nexora-page="home"] .nx-gaming-backdrop{
+  background:
+    radial-gradient(ellipse 66% 40% at 105% -3%, rgba(193,43,55,.17) 0%, rgba(97,21,39,.055) 55%, transparent 79%),
+    radial-gradient(ellipse 58% 48% at -18% 70%, rgba(146,34,44,.10) 0%, transparent 75%),
+    radial-gradient(ellipse 58% 42% at 78% 108%, rgba(90,23,39,.07) 0%, transparent 78%),
+    linear-gradient(165deg,#0b0b10 0%,#101015 46%,#090a0e 100%) !important;
+}
+body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-grid{
+  display:block!important;
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(218,158,161,.032) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(218,158,161,.032) 1px,transparent 1px);
+  background-size:72px 72px;
+  opacity:.58;
+  transform:none!important;
+  animation:none!important;
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 13%,#000 69%,transparent 100%);
+  mask-image:linear-gradient(to bottom,transparent 0%,#000 13%,#000 69%,transparent 100%);
+}
+body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-orb,
+body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-light-trace{
+  display:none!important;
+}
+@media (max-width:700px){
+  body[data-nexora-page="home"] .nx-gaming-backdrop{
+    background:
+      radial-gradient(ellipse 88% 33% at 105% 5%,rgba(193,43,55,.13),transparent 83%),
+      radial-gradient(ellipse 95% 52% at -24% 85%,rgba(135,33,49,.07),transparent 80%),
+      linear-gradient(170deg,#0a0a0f,#101015 50%,#09090e) !important;
+  }
+  body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-grid{
+    background-size:56px 56px;
+    opacity:.36;
+  }
+}
+</style>
+
 <style>
 /* Logos de los medios de pago en la tarjeta del inicio de NEXORA. */
 body[data-nexora-page="home"] .nx-trust-payments {
