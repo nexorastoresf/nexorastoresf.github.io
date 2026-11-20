@@ -2414,7 +2414,7 @@ body[data-nexora-page="home"] .nx-gaming-light-trace--blue {
 
 <style id="nx-home-background-premium-v1">
 /* Fondo general NEXORA: grafito, rojo profundo y retícula discreta.
-   Sin imágenes externas ni animaciones: visual sobrio y rápido en móviles. */
+   Partículas naranjas ascendentes discretas, sin scripts ni imágenes externas. */
 body[data-nexora-page="home"]{
   background:#0a0a0e!important;
 }
@@ -2453,6 +2453,45 @@ body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-light-trace{
   body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-grid{
     background-size:56px 56px;
     opacity:.36;
+  }
+}
+
+/* Partículas de luz: detrás de todo el contenido, sin interferir con los clics. */
+body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-bubble{
+  display:block!important;
+  position:absolute;
+  bottom:-70px;
+  left:var(--x);
+  width:var(--size);
+  height:var(--size);
+  border-radius:50%;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle at 32% 27%,rgba(255,211,145,.94) 0%,rgba(255,154,54,.82) 24%,rgba(241,89,28,.51) 62%,rgba(240,64,21,.07) 100%);
+  box-shadow:0 0 16px rgba(255,124,37,.21),0 0 36px rgba(244,74,33,.10);
+  animation:nxPremiumBubbleRise var(--duration) linear var(--delay) infinite;
+  will-change:transform,opacity;
+}
+@keyframes nxPremiumBubbleRise{
+  0%{transform:translate3d(0,0,0) scale(.8);opacity:0}
+  12%{opacity:.52}
+  45%{transform:translate3d(-11px,-49vh,0) scale(1.03);opacity:.58}
+  82%{opacity:.43}
+  100%{transform:translate3d(var(--drift),-115vh,0) scale(.76);opacity:0}
+}
+@media(max-width:700px){
+  body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-bubble{
+    width:calc(var(--size) * .72);
+    height:calc(var(--size) * .72);
+    box-shadow:0 0 12px rgba(255,124,37,.19);
+  }
+  body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-bubble:nth-child(3n){display:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-bubble{
+    animation:none!important;
+    display:none!important;
+    will-change:auto;
   }
 }
 </style>
@@ -2505,11 +2544,20 @@ body[data-nexora-page="home"] .nx-payment-info {
 <body data-nexora-page="home">
 <div class="nx-gaming-backdrop" aria-hidden="true">
   <span class="nx-gaming-grid"></span>
-  <span class="nx-gaming-orb nx-gaming-orb--orange"></span>
-  <span class="nx-gaming-orb nx-gaming-orb--blue"></span>
-  <span class="nx-gaming-orb nx-gaming-orb--violet"></span>
-  <span class="nx-gaming-light-trace"></span>
-  <span class="nx-gaming-light-trace nx-gaming-light-trace--blue"></span>
+  <span class="nx-bubble" style="--x:5%;--size:14px;--duration:17s;--delay:-11s;--drift:18px"></span>
+  <span class="nx-bubble" style="--x:12%;--size:8px;--duration:12s;--delay:-7s;--drift:-12px"></span>
+  <span class="nx-bubble" style="--x:19%;--size:23px;--duration:21s;--delay:-17s;--drift:23px"></span>
+  <span class="nx-bubble" style="--x:27%;--size:10px;--duration:15s;--delay:-9s;--drift:-19px"></span>
+  <span class="nx-bubble" style="--x:35%;--size:16px;--duration:20s;--delay:-4s;--drift:14px"></span>
+  <span class="nx-bubble" style="--x:43%;--size:7px;--duration:11s;--delay:-8s;--drift:-10px"></span>
+  <span class="nx-bubble" style="--x:51%;--size:19px;--duration:23s;--delay:-16s;--drift:21px"></span>
+  <span class="nx-bubble" style="--x:59%;--size:11px;--duration:16s;--delay:-14s;--drift:-12px"></span>
+  <span class="nx-bubble" style="--x:66%;--size:27px;--duration:24s;--delay:-9s;--drift:-23px"></span>
+  <span class="nx-bubble" style="--x:73%;--size:8px;--duration:13s;--delay:-10s;--drift:9px"></span>
+  <span class="nx-bubble" style="--x:81%;--size:15px;--duration:19s;--delay:-3s;--drift:-17px"></span>
+  <span class="nx-bubble" style="--x:88%;--size:10px;--duration:14s;--delay:-6s;--drift:13px"></span>
+  <span class="nx-bubble" style="--x:94%;--size:21px;--duration:22s;--delay:-15s;--drift:-20px"></span>
+  <span class="nx-bubble" style="--x:97%;--size:6px;--duration:12s;--delay:-3s;--drift:-7px"></span>
 </div>
 
 
