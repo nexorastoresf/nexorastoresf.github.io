@@ -2538,6 +2538,37 @@ body[data-nexora-page="home"] .nx-payment-info {
   }
 }
 </style>
+<style id="nx-seo-sales-guide-css">
+/* Accesos compactos y sin superponer elementos del catálogo. */
+body[data-nexora-page="home"] .nx-seo-guide-strip{
+  display:flex;align-items:center;flex-wrap:wrap;gap:8px 15px;
+  margin-top:13px;margin-bottom:8px;padding:12px 15px;
+  background:rgba(19,19,25,.74);border:1px solid rgba(255,255,255,.09);
+  border-radius:12px;
+}
+body[data-nexora-page="home"] .nx-seo-guide-strip .nx-seo-guide-lead{
+  font-weight:750;color:#c2bec6;font-size:11px;
+}
+body[data-nexora-page="home"] .nx-seo-guide-strip a{
+  color:#f1c0b9;text-decoration:none;font-size:11px;font-weight:780;
+  text-underline-offset:3px;
+}
+body[data-nexora-page="home"] .nx-seo-guide-strip a:hover,
+body[data-nexora-page="home"] .nx-seo-guide-strip a:focus-visible{
+  color:#fff;text-decoration:underline;
+}
+body[data-nexora-page="home"] .nx-seo-guide-strip .nx-seo-guide-share{
+  margin-left:auto;color:#f3a997;
+}
+@media(max-width:650px){
+  body[data-nexora-page="home"] .nx-seo-guide-strip{
+    padding:11px 12px;gap:9px 12px;
+  }
+  body[data-nexora-page="home"] .nx-seo-guide-strip .nx-seo-guide-share{
+    margin-left:0;
+  }
+}
+</style>
 </head>
 
 
@@ -2663,6 +2694,15 @@ body[data-nexora-page="home"] .nx-payment-info {
     </div>
   </div>
 </section>
+
+<!-- Guías de recarga: enlaces rastreables y una opción voluntaria para compartir. -->
+<div class="nx-seo-guide-strip container" aria-label="Guías para comprar y compartir">
+  <span class="nx-seo-guide-lead">Conoce antes de comprar:</span>
+  <a href="recargas-free-fire.html">Guía Free Fire</a>
+  <a href="recargas-blood-strike.html">Guía Blood Strike</a>
+  <a href="guia-de-compra.html">Cómo funciona el pago</a>
+  <a class="nx-seo-guide-share" href="https://api.whatsapp.com/send?text=%F0%9F%8E%AE%20%C2%BFBuscas%20recargas%20de%20videojuegos%3F%20Conoce%20NEXORA%20STORE%20SF%2C%20revisa%20los%20productos%20y%20compra%20usando%20saldo%20confirmado%3A%20https%3A%2F%2Fnexorastoresf.github.io%2F%3Futm_source%3Dwhatsapp%26utm_medium%3Dshare%26utm_campaign%3Dorganico" target="_blank" rel="noopener noreferrer" aria-label="Compartir NEXORA STORE por WhatsApp">Compartir NEXORA ↗</a>
+</div>
 
 <!-- ========================================================
      RESUMEN NEXORA
@@ -3283,13 +3323,13 @@ body[data-nexora-page="home"] .nx-payment-info {
           </a>
 
 
-          <a href="#">
-            Términos y condiciones
+          <a href="guia-de-compra.html">
+            Guía de compra
           </a>
 
 
-          <a href="#">
-            Política de privacidad
+          <a href="soporte.html">
+            Consultas de privacidad
           </a>
 
 
