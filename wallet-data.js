@@ -63,7 +63,7 @@ export async function requestYapeTopup({ amount, operation, payer, proofImage, s
   // El comprobante nunca verifica el pago: el administrador revisa Yape.
   const payload = {
     uid: user.uid, amountCents, yapeOperation, payerName,
-    sourceBank: source, destinationWallet: "Yape",
+    sourceBank: source,
     status: "pending", createdAt: serverTimestamp()
   };
   if (proofImage !== undefined && proofImage !== null && proofImage !== "") {
