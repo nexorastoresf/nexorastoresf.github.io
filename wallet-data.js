@@ -32,11 +32,30 @@ export function parseSoles(input) {
   }
   return cents;
 }
-export async function requestYapeTopup({ amount, operation, payer, proofImage }) {
+const TOPUP_SOURCES = new Set([
+  "Yape", "BCP", "Interbank", "BBVA", "Scotiabank", "BanBif",
+  "Caja Arequipa", "Caja Huancayo", "Caja Ica", "Caja Sullana",
+  "Banco Alfin", "Banco de la Nación", "Otro banco con Plin"
+]);
+// Compatibilidad con solicitudes antiguas: si falta origen, era Yape.
+function normalizeTopupSource(value) {
+  const source = value == null || value === "" ? "Yape" : String(value).trim();
+  if (!TOPUP_SOURCES.has(source)) throw new Error("Selecciona una aplicación o banco válido para enviar a Yape.");
+  return source;
+}
+function validTopupReference(value, source) {
+  return source === "Yape" ? /^\d{6,16}$/.test(value) : /^[A-Za-z0-9-]{4,24}$/.test(value);
+}
+export async function requestYapeTopup({ amount, operation, payer, proofImage, sourceBank }) {
   const user = await session();
   const amountCents = parseSoles(amount);
-  const yapeOperation = String(operation || "").replace(/\s/g, "");
-  if (!/^\d{6,16}$/.test(yapeOperation)) throw new Error("Ingresa un número de operación de Yape válido (6 a 16 dígitos).");
+  const source = normalizeTopupSource(sourceBank);
+  const yapeOperation = String(operation || "").replace(/\s/g, "").toUpperCase();
+  if (!validTopupReference(yapeOperation, source)) {
+    throw new Error(source === "Yape"
+      ? "Ingresa el número de operación de Yape (6 a 16 dígitos)."
+      : "Ingresa la referencia de la operación de tu banco (4 a 24 letras, números o guiones).");
+  }
   const payerName = String(payer || "").trim();
   if (payerName.length > 80) throw new Error("El nombre no puede superar 80 caracteres.");
 
@@ -44,6 +63,7 @@ export async function requestYapeTopup({ amount, operation, payer, proofImage })
   // El comprobante nunca verifica el pago: el administrador revisa Yape.
   const payload = {
     uid: user.uid, amountCents, yapeOperation, payerName,
+    sourceBank: source, destinationWallet: "Yape",
     status: "pending", createdAt: serverTimestamp()
   };
   if (proofImage !== undefined && proofImage !== null && proofImage !== "") {
@@ -94,7 +114,11 @@ export async function approveYapeTopup(id) {
     if (!requestSnap.exists()) throw new Error("No encontramos la solicitud.");
     const topup = requestSnap.data();
     if (topup.status !== "pending") throw new Error("Esta recarga ya fue revisada.");
-    if (!/^\d{6,16}$/.test(topup.yapeOperation) || !Number.isSafeInteger(topup.amountCents) || topup.amountCents < 100) {
+    // La referencia puede proceder de Yape, BCP, Plin o una app bancaria.
+    // La aprobación siempre exige comprobar el depósito real recibido en Yape.
+    const source = normalizeTopupSource(topup.sourceBank);
+    if (!validTopupReference(topup.yapeOperation, source) ||
+        !Number.isSafeInteger(topup.amountCents) || topup.amountCents < 100) {
       throw new Error("Datos de recarga inválidos.");
     }
     const usedRef = doc(db, "yapeOperations", topup.yapeOperation);
