@@ -1,8 +1,8 @@
-/* NEXORA STORE SF · Edición Rojo Premium 2026. Solo diseño; no toca compras, autenticación ni saldo. */
-:root{--nx26-orange:#ff7a1a;--nx26-red:#e23a2e;--nx26-ink:#0c0d12;--nx26-line:#383039;--nx26-muted:#aeb0bb}
+/* NEXORA STORE SF · Edición Naranja Cobre Premium 2026. Solo diseño; no toca compras, autenticación ni saldo. */
+:root{--nx26-orange:#ff7a1a;--nx26-red:#ff922e;--nx26-ink:#0c0d12;--nx26-line:#383039;--nx26-muted:#aeb0bb}
 body[data-nexora-page="home"],body[data-nexora-page="game"]{
- --orange:#e23a2e;--orange-hover:#f05443;--orange2:#c72a35;--nx-orange:#e23a2e;--nx-red:#a92233;
- --v3-orange:#e23a2e;--v3-coral:#a92233;--border:rgba(255,255,255,.12);
+ --orange:#ff922e;--orange-hover:#ffb15c;--orange2:#df6220;--nx-orange:#ff922e;--nx-red:#e36522;
+ --v3-orange:#ff922e;--v3-coral:#e36522;--border:rgba(255,255,255,.12);
  background:#0b0c10!important;color:#f9f8f8;
 }
 body[data-nexora-page="home"] .nx-gaming-backdrop{
@@ -16,11 +16,11 @@ body[data-nexora-page="home"] .navbar,body[data-nexora-page="game"] .navbar{
 body[data-nexora-page="home"] .brand img,body[data-nexora-page="game"] .brand img{
  box-shadow:none;border:1px solid rgba(255,108,42,.24);border-radius:14px
 }
-body[data-nexora-page="home"] .brand-sub,body[data-nexora-page="game"] .brand-sub{color:#f07565!important}
-body[data-nexora-page="home"] .nav-menu a:hover,body[data-nexora-page="game"] .nav-menu a:hover{color:#f07565}
+body[data-nexora-page="home"] .brand-sub,body[data-nexora-page="game"] .brand-sub{color:#ffbb77!important}
+body[data-nexora-page="home"] .nav-menu a:hover,body[data-nexora-page="game"] .nav-menu a:hover{color:#ffbb77}
 body[data-nexora-page="home"] .register,body[data-nexora-page="game"] .register,
 body[data-nexora-page="home"] .nxv3-primary,body[data-nexora-page="game"] .continue-btn:not(:disabled){
- color:#fff;background:linear-gradient(105deg,#e23a2e 0%,#a92233 100%);box-shadow:0 9px 26px rgba(214,44,35,.14);border:1px solid rgba(255,129,84,.34)
+ color:#fff;background:linear-gradient(105deg,#ff922e 0%,#e36522 100%);box-shadow:0 9px 26px rgba(240,119,29,.14);border:1px solid rgba(255,129,84,.34)
 }
 body[data-nexora-page="home"] .register:hover,body[data-nexora-page="home"] .nxv3-primary:hover{filter:brightness(1.08)}
 body[data-nexora-page="home"] .service-status{background:rgba(17,23,22,.7)}
@@ -30,22 +30,22 @@ body[data-nexora-page="home"] .nx-install-nav{border-color:rgba(255,120,67,.2)}
 .nx26-hero .nx26-shell{
  display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
  min-height:436px;border:1px solid rgba(255,125,77,.23);border-radius:25px;overflow:hidden;
- background:linear-gradient(125deg,#171215,#101116 63%,#1c1516);box-shadow:0 25px 55px rgba(0,0,0,.22)
+ background:linear-gradient(125deg,#1b1714,#101116 63%,#251d18);box-shadow:0 25px 55px rgba(0,0,0,.22)
 }
 .nx26-copy{position:relative;z-index:2;padding:clamp(29px,4.4vw,61px);display:flex;align-items:flex-start;justify-content:center;flex-direction:column}
-.nx26-kicker{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:850;letter-spacing:1.7px;color:#f6a094}
-.nx26-kicker:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#e23a2e}
+.nx26-kicker{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:850;letter-spacing:1.7px;color:#ffcf94}
+.nx26-kicker:before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:#ff922e}
 .nx26-copy h1{margin:20px 0 17px;font-size:clamp(35px,4.1vw,61px);font-weight:900;letter-spacing:-.052em;line-height:1.07;max-width:640px;color:#fff}
-.nx26-copy h1 strong{font-weight:900;display:block;color:#e23a2e;background:linear-gradient(105deg,#f65a48,#e23a2e 54%,#a92233);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nx26-copy h1 strong{font-weight:900;display:block;color:#ff922e;background:linear-gradient(105deg,#ffc478,#ff922e 54%,#e36522);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nx26-copy p{max-width:480px;margin:0 0 23px;line-height:1.67;font-size:14px;color:#c6c4cb}
 .nx26-actions{display:flex;align-items:center;flex-wrap:wrap;gap:11px}
 .nx26-action{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:46px;border-radius:12px;padding:12px 18px;text-decoration:none;font-size:12px;font-weight:820;transition:transform .18s,background .18s,filter .18s}
 .nx26-action:hover{transform:translateY(-2px)}
-.nx26-action--primary{color:white;background:linear-gradient(105deg,#e23a2e,#a92233);box-shadow:0 9px 23px rgba(225,56,35,.18)}
+.nx26-action--primary{color:white;background:linear-gradient(105deg,#ff922e,#e36522);box-shadow:0 9px 23px rgba(243,130,31,.18)}
 .nx26-action--secondary{color:#f9f8fa;border:1px solid rgba(230,219,218,.26);background:rgba(255,255,255,.045)}
 .nx26-footnote{margin-top:23px;font-size:11px;color:#aeb0b8;line-height:1.5}
-.nx26-footnote span{color:#f48371;font-weight:900;margin-right:5px}
-.nx26-media{position:relative;isolation:isolate;min-height:370px;background:linear-gradient(115deg,#17171c,#25161b)}
+.nx26-footnote span{color:#ffbe7c;font-weight:900;margin-right:5px}
+.nx26-media{position:relative;isolation:isolate;min-height:370px;background:linear-gradient(115deg,#17171c,#261b16)}
 .nx26-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(.96) contrast(1.06)}
 .nx26-media:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(17,16,21,.35),transparent 44%),linear-gradient(0deg,rgba(9,10,15,.55),transparent 45%);pointer-events:none}
 .nx26-photo-label{position:absolute;z-index:2;bottom:21px;right:23px;border:1px solid rgba(255,255,255,.24);border-radius:9px;background:rgba(13,14,19,.76);padding:9px 13px;color:#f3f0f1;font-size:10px;letter-spacing:.7px;font-weight:700}
@@ -56,16 +56,16 @@ body[data-nexora-page="home"] .nxv3-pick{
  transition:transform .18s,border-color .18s
 }
 body[data-nexora-page="home"] .nxv3-pick:hover{border-color:rgba(255,109,46,.47);transform:translateY(-2px);box-shadow:none}
-body[data-nexora-page="home"] .nxv3-pick .nxv3-pick-arrow{color:#e9604c}
+body[data-nexora-page="home"] .nxv3-pick .nxv3-pick-arrow{color:#ffab50}
 body[data-nexora-page="home"] .trust-strip{margin:20px 0 2px}
 body[data-nexora-page="home"] .trust-item{background:#14151a;border:1px solid rgba(255,255,255,.09);border-radius:14px;box-shadow:none}
-body[data-nexora-page="home"] .trust-icon{background:rgba(244,86,41,.09);border:1px solid rgba(255,116,50,.17)}
+body[data-nexora-page="home"] .trust-icon{background:rgba(255,153,54,.09);border:1px solid rgba(255,116,50,.17)}
 body[data-nexora-page="home"] .toolbar{background:#15161c;border:1px solid rgba(255,255,255,.09);border-radius:16px}
 body[data-nexora-page="home"] .search{background:#0d0f13;border-color:rgba(255,255,255,.15)}
-body[data-nexora-page="home"] .search:focus-within{border-color:#ee5549;box-shadow:0 0 0 3px rgba(255,100,40,.07)}
-body[data-nexora-page="home"] .filter.active{background:linear-gradient(110deg,#e23a2e,#a92233)!important;color:white!important;border-color:transparent!important}
+body[data-nexora-page="home"] .search:focus-within{border-color:#ff9a36;box-shadow:0 0 0 3px rgba(255,100,40,.07)}
+body[data-nexora-page="home"] .filter.active{background:linear-gradient(110deg,#ff922e,#e36522)!important;color:white!important;border-color:transparent!important}
 body[data-nexora-page="home"] .filter:hover{border-color:rgba(255,110,51,.45)}
-body[data-nexora-page="home"] .eyebrow{color:#f07869}
+body[data-nexora-page="home"] .eyebrow{color:#ffba72}
 body[data-nexora-page="home"] .section-title{letter-spacing:-.045em}
 body[data-nexora-page="home"] #catalogo .catalog-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;transform:none!important}
 body[data-nexora-page="home"] #catalogo .catalog-card,
@@ -81,22 +81,22 @@ body[data-nexora-page="home"] #catalogo .catalog-content{padding:18px;gap:5px}
 body[data-nexora-page="home"] #catalogo .catalog-content h3{font-size:clamp(21px,2vw,27px);line-height:1.08;letter-spacing:-.035em}
 body[data-nexora-page="home"] #catalogo .catalog-content h4{color:#e2dde0;font-size:12px}
 body[data-nexora-page="home"] #catalogo .catalog-content p{line-height:1.45;color:#c8c1c5;font-size:11px}
-body[data-nexora-page="home"] #catalogo .catalog-tag{color:#ffc0b6;border-color:rgba(252,106,65,.34);background:rgba(254,100,47,.13)}
-body[data-nexora-page="home"] #catalogo .catalog-btn{background:linear-gradient(100deg,#e23a2e,#a92233);color:#fff;border:0;box-shadow:none;min-height:35px}
+body[data-nexora-page="home"] #catalogo .catalog-tag{color:#ffe0b5;border-color:rgba(255,171,77,.34);background:rgba(255,156,50,.13)}
+body[data-nexora-page="home"] #catalogo .catalog-btn{background:linear-gradient(100deg,#ff922e,#e36522);color:#fff;border:0;box-shadow:none;min-height:35px}
 body[data-nexora-page="home"] .step,body[data-nexora-page="home"] .cta,body[data-nexora-page="home"] .install-card{border-color:rgba(255,255,255,.1);background:#16161c}
-body[data-nexora-page="home"] .step-number{color:#f07868}
-body[data-nexora-page="home"] .cta-primary,body[data-nexora-page="home"] .install-app-btn:not(:disabled){background:linear-gradient(100deg,#e23a2e,#a92233);color:white}
+body[data-nexora-page="home"] .step-number{color:#ffba72}
+body[data-nexora-page="home"] .cta-primary,body[data-nexora-page="home"] .install-app-btn:not(:disabled){background:linear-gradient(100deg,#ff922e,#e36522);color:white}
 body[data-nexora-page="home"] .footer{border-top:1px solid rgba(255,121,52,.21);background:#0a0b0f}
-body[data-nexora-page="home"] .gold-name{color:#f18071}
+body[data-nexora-page="home"] .gold-name{color:#ffbd7c}
 body[data-nexora-page="home"] .floating-support{border-color:rgba(255,110,48,.26)}
 /* En páginas de producto conservar los elementos y flujos reales de compra. */
 body[data-nexora-page="game"] .game-hero{border-color:rgba(255,109,45,.3)}
-body[data-nexora-page="game"] .hero-badge{background:linear-gradient(102deg,#e23a2e,#a92233);color:#fff}
+body[data-nexora-page="game"] .hero-badge{background:linear-gradient(102deg,#ff922e,#e36522);color:#fff}
 body[data-nexora-page="game"] .product{border-color:rgba(255,255,255,.14);background:#16181f}
 body[data-nexora-page="game"] .product:hover{border-color:rgba(255,109,46,.48)}
 body[data-nexora-page="game"] .summary{border-color:rgba(255,107,44,.26);background:#16171e}
-body[data-nexora-page="game"] .summary-title{color:#f29b8a}
-body[data-nexora-page="game"] .nxv3-game-trail a{color:#f29b8a}
+body[data-nexora-page="game"] .summary-title{color:#ffc78c}
+body[data-nexora-page="game"] .nxv3-game-trail a{color:#ffc78c}
 @media(max-width:1120px){
  body[data-nexora-page="home"] #catalogo .catalog-track{grid-template-columns:repeat(2,minmax(0,1fr))}
  body[data-nexora-page="home"] .nxv3-picks-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -132,35 +132,123 @@ body[data-nexora-page="game"] .nxv3-game-trail a{color:#f29b8a}
  .nx26-action,body[data-nexora-page="home"] .nxv3-pick,body[data-nexora-page="home"] #catalogo .catalog-card{transition:none}
 }
 
-/* Ajustes finales: rojo de marca dominante y naranja reservado para pequeños acentos. */
+/* Ajustes finales: naranja cálido de marca, con acentos cobre y fondo grafito. */
 body[data-nexora-page="home"],body[data-nexora-page="game"]{
- --nx26-primary:#e23a2e;--nx26-primary-dark:#aa2232;--nx26-accent:#ff7a1a;
- --nx26-highlight:#f05443;--nx26-black:#0c0d10;
+ --nx26-primary:#ff922e;--nx26-primary-dark:#d4551b;--nx26-accent:#ff7a1a;
+ --nx26-highlight:#ffb15c;--nx26-black:#0c0d10;
 }
-.nx26-hero .nx26-shell{border-color:rgba(227,66,57,.28);background:linear-gradient(125deg,#171315,#101116 63%,#211419)}
-.nx26-copy h1 strong{background-image:linear-gradient(108deg,#ff6150 0%,#e23a2e 53%,#ad2334 100%)}
-.nx26-kicker{color:#ffc0b6}
+.nx26-hero .nx26-shell{border-color:rgba(255,151,53,.28);background:linear-gradient(125deg,#1b1714,#101116 63%,#251c16)}
+.nx26-copy h1 strong{background-image:linear-gradient(108deg,#ffd18b 0%,#ff922e 53%,#c94b16 100%)}
+.nx26-kicker{color:#ffe0b5}
 .nx26-kicker::before{background:#ff7a1a}
 .nx26-action--primary,
 body[data-nexora-page="home"] .register,
 body[data-nexora-page="home"] #catalogo .catalog-btn,
 body[data-nexora-page="home"] .cta-primary,
 body[data-nexora-page="home"] .filter.active{
- background:linear-gradient(110deg,#e23a2e 0%,#ab2032 100%)!important;color:#fff!important;
+ background:linear-gradient(110deg,#ff922e 0%,#d85d1f 100%)!important;color:#fff!important;
 }
 body[data-nexora-page="home"] .nx26-action--primary:hover,
 body[data-nexora-page="home"] .register:hover{filter:brightness(1.09)}
 body[data-nexora-page="home"] .brand-sub,
-body[data-nexora-page="game"] .brand-sub{color:#f18979!important}
+body[data-nexora-page="game"] .brand-sub{color:#ffc08a!important}
 body[data-nexora-page="home"] .section-title,
 body[data-nexora-page="home"] .nx26-copy h1{color:#f9f8f8}
 body[data-nexora-page="home"] .catalog-card:focus-visible,
 body[data-nexora-page="home"] .nxv3-pick:focus-visible,
-body[data-nexora-page="home"] .nx26-action:focus-visible{outline:2px solid #f16b59;outline-offset:3px}
+body[data-nexora-page="home"] .nx26-action:focus-visible{outline:2px solid #ffaf65;outline-offset:3px}
 body[data-nexora-page="home"] .step-number,
 body[data-nexora-page="home"] #catalogo .catalog-tag,
-body[data-nexora-page="home"] .eyebrow{color:#ff9b8f}
-body[data-nexora-page="home"] #catalogo .catalog-card:hover{border-color:rgba(230,62,53,.60)}
+body[data-nexora-page="home"] .eyebrow{color:#ffcd91}
+body[data-nexora-page="home"] #catalogo .catalog-card:hover{border-color:rgba(252,149,48,.60)}
 body[data-nexora-page="game"] .continue-btn:not(:disabled),
-body[data-nexora-page="game"] .hero-badge{background:linear-gradient(108deg,#e23a2e,#aa2232);color:#fff}
-body[data-nexora-page="game"] .product:focus-visible{outline:2px solid #ff7967;outline-offset:3px}
+body[data-nexora-page="game"] .hero-badge{background:linear-gradient(108deg,#ff922e,#d4551b);color:#fff}
+body[data-nexora-page="game"] .product:focus-visible{outline:2px solid #ffa74c;outline-offset:3px}
+
+
+/* NEXORA STORE SF · Refinamiento naranja cobre (21/11/2026)
+   Solo presentación visual: conserva catálogo, saldo, pagos y autenticación. */
+:root{
+  --nx26-orange:#ff922e;
+  --nx26-red:#e36522;
+  --nx26-line:rgba(255,160,69,.18);
+}
+body[data-nexora-page="home"],body[data-nexora-page="game"]{
+  --orange:#ff922e;
+  --orange-hover:#ffb15c;
+  --orange2:#e36522;
+  --nx-orange:#ff922e;
+  --nx-red:#e36522;
+  --v3-orange:#ff922e;
+  --v3-coral:#e36522;
+  --nx26-primary:#ff922e;
+  --nx26-primary-dark:#d85d1f;
+  --nx26-accent:#ffc06c;
+  --nx26-highlight:#ffd18b;
+  color:#f9f6f1;
+  background-color:#0b0d12;
+}
+body[data-nexora-page="home"] .navbar,
+body[data-nexora-page="game"] .navbar{
+  background:rgba(12,14,19,.96);
+  border-bottom-color:rgba(255,160,74,.20);
+}
+.nx26-hero .nx26-shell{
+  background:radial-gradient(circle at 88% 12%,rgba(255,150,49,.09),transparent 42%),linear-gradient(128deg,#211b17 0%,#141519 56%,#1b1715 100%);
+  border-color:rgba(255,163,77,.29);
+  box-shadow:0 24px 60px rgba(0,0,0,.27);
+}
+.nx26-copy h1 strong{
+  background-image:linear-gradient(110deg,#ffe0a2 0%,#ffb04d 48%,#f27c24 100%);
+}
+.nx26-kicker{color:#ffd4a1}
+.nx26-kicker::before{background:#ff9a36}
+.nx26-copy p{color:#d2cdd0}
+.nx26-footnote span{color:#ffc27e}
+.nx26-media{background:linear-gradient(125deg,#211d1a,#2a211b)}
+.nx26-media img{filter:saturate(1.04) contrast(1.04)}
+body[data-nexora-page="home"] :is(.register,.nxv3-primary,.catalog-btn,.cta-primary,.hero-btn,.filter.active,.install-app-btn:not(:disabled)),
+.nx26-action--primary,
+body[data-nexora-page="game"] :is(.continue-btn:not(:disabled),.hero-badge){
+  background:linear-gradient(112deg,#ffb44f 0%,#ff932b 53%,#e96a20 100%)!important;
+  color:#251307!important;
+  border-color:rgba(255,203,133,.32)!important;
+  box-shadow:0 10px 25px rgba(227,111,30,.13);
+}
+body[data-nexora-page="home"] :is(.register,.nxv3-primary,.catalog-btn,.cta-primary,.hero-btn,.filter.active):hover,
+.nx26-action--primary:hover{
+  filter:brightness(1.075);
+}
+body[data-nexora-page="home"] .nxv3-pick,
+body[data-nexora-page="home"] #catalogo .catalog-card,
+body[data-nexora-page="home"] .trust-item{
+  background-color:#18191e;
+  border-color:rgba(255,190,119,.13);
+}
+body[data-nexora-page="home"] :is(.nxv3-pick,#catalogo .catalog-card,.social-card):hover,
+body[data-nexora-page="game"] .product:hover{
+  border-color:rgba(255,161,61,.65);
+}
+body[data-nexora-page="home"] .toolbar{background:#17181d;border-color:rgba(255,174,88,.18)}
+body[data-nexora-page="home"] .search:focus-within{border-color:#ff9f3f;box-shadow:0 0 0 3px rgba(255,154,48,.10)}
+body[data-nexora-page="home"] :is(.eyebrow,.step-number,.brand-sub){color:#ffc27e!important}
+body[data-nexora-page="home"] #catalogo .catalog-tag{
+  color:#ffd29a;
+  background:rgba(255,151,53,.13);
+  border-color:rgba(255,151,53,.28);
+}
+body[data-nexora-page="home"] .nxv3-pick-arrow,
+body[data-nexora-page="home"] .social-arrow{color:#ffb860}
+body[data-nexora-page="home"] .footer{
+  background:#0b0d11;
+  border-top-color:rgba(255,160,70,.21);
+}
+body[data-nexora-page="game"] .summary-title,
+body[data-nexora-page="game"] .nxv3-game-trail a{color:#ffd095}
+body[data-nexora-page] :is(a,button,input,select,textarea):focus-visible{
+  outline:2px solid #ffd38b;
+  outline-offset:3px;
+}
+@media(prefers-reduced-motion:reduce){
+ .nx26-action--primary{transition:none}
+}
