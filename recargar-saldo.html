@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07090e">
-<title>Recargar saldo con Yape | NEXORA STORE</title>
+<title>Recargar saldo desde Yape y bancos | NEXORA STORE</title>
 <link rel="icon" type="image/svg+xml" href="nexora-logo.svg?v=4">
 <style>
 :root{color-scheme:dark;--orange:#f5a623;--line:#2c3440;--dim:#a8b1be}
@@ -33,12 +33,25 @@ button.secondary,.action.secondary{background:#1b2430;color:#fff;border:1px soli
 <link rel="stylesheet" href="nexora-buy-flow.css?v=1">
 <script src="nexora-experience.js?v=2" defer></script>
 <link rel="stylesheet" href="nexora-mobile.css?v=2">
+<style id="nx-topup-origin-styles">
+.nx-source-fieldset{border:0;padding:0;margin:20px 0 8px;min-width:0}
+.nx-source-fieldset legend{font-size:14px;font-weight:900;margin-bottom:12px}
+.nx-source-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.nx-source-option{margin:0;display:flex;align-items:center;gap:8px;padding:12px 10px;border-radius:12px;border:1px solid #343640;background:#181820;color:#e8e2e7;font-size:12px;font-weight:800;line-height:1.3;cursor:pointer}
+.nx-source-option:has(input:checked){border-color:#f27d62;background:rgba(213,57,48,.14);color:#fff}
+.nx-source-option:focus-within{outline:2px solid #ee967f;outline-offset:2px}
+.nx-source-option input{flex:0 0 16px;width:16px;height:16px;margin:0;padding:0;accent-color:#e85d4b}
+.nx-source-help{border:1px solid rgba(239,109,71,.28);padding:12px 14px;margin:12px 0 18px;border-radius:12px;background:rgba(224,71,54,.09);font-size:12px;line-height:1.6}
+.nx-source-help strong{color:#ffaf9d}
+.nx-source-help p{margin:5px 0 0;color:#e0d7dc}
+@media(max-width:680px){.nx-source-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.nx-source-option{min-height:48px}}
+</style>
 </head>
 <body data-nexora-page="topup">
 <header><a class="brand" href="index.html">NEXORA STORE</a><a class="back" href="perfil.html">← Mi perfil</a></header>
 <main>
-<div class="eyebrow">BILLETERA NEXORA</div><h1>Recarga tu saldo con Yape</h1>
-<p class="muted">Pagas directamente a nuestro Yape personal, sin comisión adicional de NEXORA. El saldo se acredita después de verificar el ingreso.</p>
+<div class="eyebrow">BILLETERA NEXORA</div><h1>Recarga tu saldo desde Yape o tu banco</h1>
+<p class="muted">Todos los métodos envían el dinero al <strong>mismo Yape con DNI de NEXORA</strong>. Selecciona desde dónde pagarás; el saldo solo se acredita cuando confirmemos el ingreso real.</p>
 <section class="nx-return-checkout" id="nxReturnCheckout" hidden aria-label="Retomar compra">
   <strong>¿Estabas realizando una compra?</strong>
   <p>Tu pedido seleccionado puede retomarse en esta misma pestaña. Si ya solicitaste una recarga, espera a que figure como aprobada: una solicitud pendiente todavía no permite pagar.</p>
@@ -46,37 +59,60 @@ button.secondary,.action.secondary{background:#1b2430;color:#fff;border:1px soli
 </section>
 <div id="gate" class="card"><p id="gateText">Comprobando tu cuenta…</p><a id="loginLink" class="action" href="login.html" hidden>Iniciar sesión</a></div>
 <div id="content" hidden>
-  <a class="nx-mobile-yape-link" href="#nxYapeDatos">Ver QR y datos de Yape ↓</a>
+  <a class="nx-mobile-yape-link" href="#nxYapeDatos">Ver número de Yape receptor ↓</a>
   <div class="layout">
     <section class="card">
       <h2>Solicitar recarga</h2>
       <p class="muted">Saldo disponible en tu cuenta</p><div class="balance" id="balance">S/ 0.00</div>
       <form id="topupForm">
-        <label for="amount">¿Cuánto dinero yapeaste? (S/)</label>
+        <fieldset class="nx-source-fieldset" aria-describedby="sourceInstructions">
+          <legend>¿Desde qué app o banco vas a pagar?</legend>
+          <div class="nx-source-grid">
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Yape" checked><span>Yape</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="BCP"><span>BCP</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Interbank"><span>Interbank</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="BBVA"><span>BBVA</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Scotiabank"><span>Scotiabank</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="BanBif"><span>BanBif</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Caja Arequipa"><span>Caja Arequipa</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Caja Huancayo"><span>Caja Huancayo</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Caja Ica"><span>Caja Ica</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Caja Sullana"><span>Caja Sullana</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Banco Alfin"><span>Banco Alfin</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Banco de la Nación"><span>Banco de la Nación</span></label>
+            <label class="nx-source-option"><input type="radio" name="sourceBank" value="Otro banco con Plin"><span>Otro banco con Plin</span></label>
+          </div>
+        </fieldset>
+        <div class="nx-source-help" id="sourceInstructions" role="status" aria-live="polite">
+          <strong id="sourceTitle">Yape</strong>
+          <p id="sourceDetail">Envía directamente al número o QR de Yape de NEXORA y comprueba el nombre del destinatario.</p>
+        </div>
+        <label for="amount">¿Cuánto dinero enviaste? (S/)</label>
         <input id="amount" type="text" inputmode="decimal" placeholder="10.00" required maxlength="8" autocomplete="off" aria-describedby="amountHelp">
         <p class="muted" id="amountHelp">Recarga mínima: S/ 10.00 · Máximo: S/ 1,000.00.</p>
-        <label for="operation">Número de operación que aparece en Yape</label>
+        <label for="operation" id="operationLabel">Número de operación de Yape</label>
         <input id="operation" type="text" inputmode="numeric" pattern="[0-9]{6,16}" placeholder="Ej. 12345678" minlength="6" maxlength="16" required autocomplete="off">
-        <label for="payer">Nombre del titular que realizó el Yape (opcional)</label>
+        <p class="muted" id="operationHelp">Usa el código que aparece en tu operación.</p>
+        <label for="payer">Nombre de quien envió el dinero (opcional)</label>
         <input id="payer" type="text" maxlength="80" placeholder="Nombre del remitente" autocomplete="off">
-        <label for="proof">Comprobante de Yape (PNG, JPG o WebP)</label>
+        <label for="proof">Comprobante del pago (PNG, JPG o WebP)</label>
         <div class="proof-upload">
           <input id="proof" type="file" accept="image/png,image/jpeg,image/webp" required aria-describedby="proofStatus">
-          <p class="proof-note" id="proofStatus" role="status">Sube la captura de tu Yape (máximo 8 MB). Se convertirá a JPG comprimido antes de enviarse.</p>
+          <p class="proof-note" id="proofStatus" role="status">Sube la captura del pago (máximo 8 MB). Se convertirá a JPG antes de enviarse.</p>
           <img id="proofPreview" class="proof-preview" alt="Vista previa del comprobante" hidden>
         </div>
-        <div class="note">Importante: verifica primero que el Yape se haya enviado correctamente al destinatario indicado. Registrar una operación <b>no confirma el pago</b>. Revisaremos el movimiento real en Yape antes de añadir saldo. Nunca compartas tu clave ni código de seguridad.</div>
+        <div class="note">Importante: todos los pagos deben llegar al <b>Yape con DNI de NEXORA</b>. Confirmaremos el ingreso real antes de añadir saldo. <b>Una captura o referencia no demuestra por sí sola que el dinero llegó.</b> Nunca compartas claves ni códigos de seguridad.</div>
         <button id="send" type="submit">Enviar solicitud de recarga</button>
       </form>
       <p class="message" id="message" role="status" aria-live="polite"></p>
     </section>
     <aside class="card yape" id="nxYapeDatos">
-      <h2>Datos para yapear</h2><p>Escanea el QR o utiliza el número.</p>
+      <h2>Yape receptor de NEXORA</h2><p>Para Yape puedes usar el QR o el número. Desde BCP, Plin u otras apps, utiliza el número y selecciona Yape como destino.</p>
       <div class="qr"><canvas id="yapeQr" width="360" height="360" aria-label="QR de Yape NEXORA"></canvas></div>
       <p class="muted">A nombre de</p><div class="payee">Lea Ticona Coila</div>
       <div class="phone" id="phone">992 515 200</div>
       <button id="copyPhone" type="button" class="secondary">Copiar número</button>
-      <p style="font-size:12px;opacity:.87;margin-top:18px">Confirma en la aplicación Yape el nombre de la persona receptora antes de pagar.</p>
+      <p style="font-size:12px;opacity:.87;margin-top:18px">Comprueba en tu app que el destinatario sea la persona indicada antes de enviar el dinero.</p>
     </aside>
   </div>
   <section class="card history">
@@ -100,6 +136,29 @@ try{
 }catch{
   // Un pedido temporal ilegible no debe bloquear las recargas.
 }
+const bankHints={
+  "Yape":["Yape","Envía al número de Yape de NEXORA o escanea su QR."],
+  "BCP":["Banca Móvil BCP","Usa «Yapear a celular» e ingresa el número de Yape de NEXORA."],
+  "Banco de la Nación":["App Banco de la Nación","Usa «Transferir a celular» y elige Yape como destino, si está habilitado."]
+};
+function updateBankSource(){
+ const name=document.querySelector('input[name="sourceBank"]:checked')?.value||"Yape";
+ const direct=name==="Yape", fromPlin=name!=="BCP"&&name!=="Banco de la Nación"&&!direct;
+ const hint=bankHints[name]||[name+" · Plin","Desde la app de "+name+", selecciona Plin y envía al número de NEXORA eligiendo Yape como destino. Si tu app no ofrece esta opción, no envíes dinero."];
+ document.getElementById("sourceTitle").textContent=hint[0];
+ document.getElementById("sourceDetail").textContent=hint[1]+" Confirma el nombre del destinatario antes de pagar.";
+ const input=document.getElementById("operation");
+ input.value="";input.inputMode=direct?"numeric":"text";
+ input.pattern=direct?"[0-9]{6,16}":"[A-Za-z0-9-]{4,24}";
+ input.minLength=direct?6:4;input.maxLength=direct?16:24;
+ input.placeholder=direct?"Ej. 12345678":"Código de operación / referencia";
+ document.getElementById("operationLabel").textContent=direct?"Número de operación de Yape":"Código de operación o referencia de "+name;
+ document.getElementById("operationHelp").textContent=fromPlin
+   ?"Anota la referencia de tu operación de Plin. Puede no coincidir con la referencia que muestra el Yape receptor."
+   :"Escribe el código que aparece en tu comprobante. Verificaremos el ingreso real.";
+}
+document.querySelectorAll('input[name="sourceBank"]').forEach(input=>input.addEventListener("change",updateBankSource));
+updateBankSource();
 const qrMatrix = [
 "11111110010101111110011010010011101111111",
 "10000010000101000100110100111110101000001",
@@ -209,7 +268,7 @@ async function refresh(){
   if(!topups.length){const p=document.createElement("p");p.className="muted";p.textContent="Todavía no tienes solicitudes.";list.append(p);}
   for(const t of topups){
     const card=document.createElement("article"),details=document.createElement("div"),amount=document.createElement("strong"),meta=document.createElement("small"),status=document.createElement("span");
-    amount.textContent=formatSoles(t.amountCents);meta.textContent="Operación: "+t.yapeOperation+" · "+(t.createdAt?.toDate?.().toLocaleString("es-PE") || "Reciente");
+    amount.textContent=formatSoles(t.amountCents);meta.textContent="Origen: "+(t.sourceBank||"Yape")+" · Operación/referencia: "+t.yapeOperation+" · "+(t.createdAt?.toDate?.().toLocaleString("es-PE") || "Reciente");
     status.textContent=({pending:"Pendiente",approved:"Aprobado",rejected:"Rechazado"})[t.status] || t.status;
     status.className="status "+t.status;details.append(amount,meta);card.append(details,status);list.append(card);
   }
@@ -223,12 +282,13 @@ document.getElementById("topupForm").addEventListener("submit",async ev=>{
       amount:document.getElementById("amount").value,
       operation:document.getElementById("operation").value,
       payer:document.getElementById("payer").value,
-      proofImage:receiptData
+      proofImage:receiptData,
+      sourceBank:document.querySelector('input[name="sourceBank"]:checked')?.value
     });
-    inform("Solicitud registrada ("+id.slice(0,8)+") con comprobante. Está pendiente de revisar en Yape; todavía no se ha añadido saldo.");
-    ev.target.reset();receiptData="";++proofVersion;
+    inform("Solicitud registrada ("+id.slice(0,8)+"). Verificaremos el ingreso en el Yape de NEXORA antes de añadir saldo.");
+    ev.target.reset();updateBankSource();receiptData="";++proofVersion;
     proofPreview.hidden=true;proofPreview.removeAttribute("src");
-    proofStatus.textContent="Sube la captura de tu Yape (máximo 8 MB). Se convertirá a JPG comprimido antes de enviarse.";
+    proofStatus.textContent="Sube la captura del pago (máximo 8 MB). Se convertirá a JPG antes de enviarse.";
     try{await refresh();}catch{inform("Solicitud registrada correctamente, pero no se pudo actualizar el historial. Pulsa Actualizar más tarde.");}
   }catch(e){inform(e.message==="Missing or insufficient permissions."?"El sistema de recargas aún no está habilitado. Contacta a NEXORA.":e.message||"No se pudo registrar la solicitud.",true);}
   finally{button.disabled=false;}
