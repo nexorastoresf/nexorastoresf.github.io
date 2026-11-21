@@ -252,3 +252,95 @@ body[data-nexora-page] :is(a,button,input,select,textarea):focus-visible{
 @media(prefers-reduced-motion:reduce){
  .nx26-action--primary{transition:none}
 }
+
+
+/* NEXORA SF · Paleta equilibrada naranja, rojo, negro y plomo (21/11/2026) */
+:root{
+  --nx26-orange:#ef852b;
+  --nx26-red:#c83d34;
+  --nx26-line:rgba(163,174,190,.15);
+}
+body[data-nexora-page="home"],body[data-nexora-page="game"]{
+  --bg:#0d0f12;
+  --bg-soft:#15181e;
+  --panel:#1e232b;
+  --panel-2:#242930;
+  --border:rgba(147,155,167,.20);
+  --orange:#ef852b;
+  --orange-hover:#ffa044;
+  --orange2:#c83d34;
+  --nx-orange:#ef852b;
+  --nx-red:#c83d34;
+  --v3-orange:#ef852b;
+  --v3-coral:#c83d34;
+  --nx26-primary:#ef852b;
+  --nx26-primary-dark:#c83d34;
+  --nx26-accent:#ed8833;
+  --nx26-highlight:#f6aa61;
+  color:#f4f5f7;
+  background:#0d0f12!important;
+}
+body[data-nexora-page="home"] .navbar,
+body[data-nexora-page="game"] .navbar{
+  background:rgba(13,15,18,.97);
+  border-bottom:1px solid rgba(145,152,161,.18);
+  box-shadow:0 6px 22px rgba(0,0,0,.15);
+}
+body[data-nexora-page="home"] .brand img,
+body[data-nexora-page="game"] .brand img{
+  border-color:rgba(216,93,51,.30);
+}
+.nx26-hero .nx26-shell{
+  background:linear-gradient(125deg,#242024 0%,#1b2026 55%,#191b20 100%);
+  border-color:rgba(158,164,173,.21);
+  box-shadow:0 15px 36px rgba(0,0,0,.25);
+}
+.nx26-copy h1 strong{
+  background-image:linear-gradient(108deg,#ffac59 0%,#f08a30 50%,#d34d3a 100%);
+}
+.nx26-kicker,.nx26-footnote span{color:#f6b16f}
+.nx26-kicker::before{background:#d64937}
+.nx26-copy p{color:#c4c8d0}
+.nx26-media{background:#24252b}
+.nx26-media img{filter:saturate(.98) contrast(1.03)}
+body[data-nexora-page="home"] :is(.register,.nxv3-primary,.catalog-btn,.cta-primary,.hero-btn,.filter.active,.install-app-btn:not(:disabled)),
+.nx26-action--primary,
+body[data-nexora-page="game"] :is(.continue-btn:not(:disabled),.hero-badge){
+  background:linear-gradient(110deg,#d97523 0%,#ce5630 61%,#bf3935 100%)!important;
+  color:#fff!important;
+  border:1px solid rgba(216,122,65,.30)!important;
+  box-shadow:0 5px 16px rgba(119,35,24,.13)!important;
+}
+body[data-nexora-page="home"] :is(.register,.nxv3-primary,.catalog-btn,.cta-primary,.hero-btn,.filter.active):hover,
+.nx26-action--primary:hover{filter:brightness(1.08)}
+body[data-nexora-page="home"] :is(.nxv3-pick,.trust-item,.benefit,.step,.install-card,.cta,.toolbar,.social-card),
+body[data-nexora-page="home"] #catalogo .catalog-card{
+  background:#1e232b;
+  border-color:rgba(147,155,167,.19);
+  box-shadow:none;
+}
+body[data-nexora-page="home"] :is(.nxv3-pick,.social-card):hover,
+body[data-nexora-page="home"] #catalogo .catalog-card:hover,
+body[data-nexora-page="game"] .product:hover{
+  border-color:rgba(230,124,47,.51);
+}
+body[data-nexora-page="home"] .search,
+body[data-nexora-page="home"] .search input{background:#14171d;border-color:rgba(147,155,167,.20)}
+body[data-nexora-page="home"] .search:focus-within{border-color:#de8032;box-shadow:0 0 0 3px rgba(223,124,46,.10)}
+body[data-nexora-page="home"] :is(.eyebrow,.step-number,.brand-sub){color:#ef9b57!important}
+body[data-nexora-page="home"] :is(.nxv3-pick-arrow,.social-arrow){color:#e98636}
+body[data-nexora-page="home"] #catalogo .catalog-tag{
+  color:#f6bd8c;
+  background:rgba(216,89,43,.12);
+  border-color:rgba(216,89,43,.26);
+}
+body[data-nexora-page="home"] .nx26-action--secondary{
+  background:#252a31;
+  border-color:rgba(152,161,176,.26);
+}
+body[data-nexora-page="home"] .footer{background:#101216;border-top:1px solid rgba(147,155,167,.17)}
+body[data-nexora-page="game"] :is(.product,.summary,.box){background-color:#1e232b}
+body[data-nexora-page="game"] :is(.summary-title,.nxv3-game-trail a){color:#f4a764}
+body[data-nexora-page] :is(a,button,input,select,textarea):focus-visible{
+  outline:2px solid #f59b43;outline-offset:3px;
+}
