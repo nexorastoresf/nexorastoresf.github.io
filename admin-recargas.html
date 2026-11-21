@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Revisión de Yape | NEXORA MVP</title>
+<title>Revisión de recargas a Yape | NEXORA MVP</title>
 <link rel="icon" type="image/svg+xml" href="nexora-logo.svg?v=4">
 <style>
 :root{color-scheme:dark;--orange:#f5a623;--border:#2b3441;--muted:#a5afbd}*{box-sizing:border-box}
@@ -32,11 +32,11 @@ button:disabled{opacity:.5;cursor:wait}.secondary{color:#fff;background:#1b2430;
 <header><a href="admin.html"><b>NEXORA MVP</b></a><a href="admin.html" class="back">← Panel principal</a></header>
 <main>
 <div class="eyebrow">ADMINISTRACIÓN · BILLETERA</div>
-<h1>Recargas de saldo por Yape</h1>
-<p class="muted">Las solicitudes se registran automáticamente, pero los pagos se confirman manualmente contra los movimientos reales de Yape.</p>
+<h1>Recargas de saldo recibidas en Yape</h1>
+<p class="muted">Los clientes pueden enviar desde Yape, BCP y bancos con Plin. <strong>Todos los pagos llegan al mismo Yape con DNI de NEXORA.</strong> Cada solicitud espera la verificación manual del ingreso.</p>
 <div class="box" id="gate"><p id="gateText">Comprobando acceso de administrador…</p></div>
 <div id="app" hidden>
-<div class="warning"><b>Antes de aprobar:</b> abre Yape, comprueba que recibiste el monto exacto, que el número de operación coincide y que el movimiento no fue devuelto. <b>Una captura o el número que escribe el cliente no son prueba suficiente.</b> Aprobar añadirá el saldo inmediatamente.</div>
+<div class="warning"><b>Antes de aprobar:</b> revisa los movimientos reales del <strong>Yape receptor de NEXORA</strong>. Confirma importe, fecha/hora, remitente y que el dinero esté efectivamente disponible, sin reversión. Si el cliente usó BCP o Plin, el código de su comprobante puede ser distinto a la referencia de Yape. <b>Ni la captura ni el código del cliente son suficientes.</b> Aprobar suma saldo inmediatamente.</div>
 <section class="box">
   <div class="controls"><div><h2>Solicitudes pendientes</h2><span id="pendingCount" class="muted"></span></div><button id="refresh">Actualizar</button></div>
   <div id="pending"><p class="muted">Cargando…</p></div>
@@ -66,16 +66,17 @@ function makeItem(t){
  const left=document.createElement("div");
  const amount=document.createElement("strong");amount.textContent=formatSoles(t.amountCents);
  const identity=document.createElement("small");identity.textContent="Cliente: "+(names.get(t.uid)||t.uid);
- const operation=document.createElement("small");operation.textContent="Operación Yape: "+t.yapeOperation;
+ const origin=document.createElement("small");origin.textContent="Enviado desde: "+(t.sourceBank||"Yape")+" · Recibido en Yape";
+ const operation=document.createElement("small");operation.textContent="Código / referencia declarado: "+t.yapeOperation;
  const payer=document.createElement("small");payer.textContent="Remitente declarado: "+(t.payerName||"No indicado");
  const created=document.createElement("small");created.textContent="Solicitado: "+dateText(t.createdAt);
- left.append(amount,identity,operation,payer,created);
+ left.append(amount,identity,origin,operation,payer,created);
  if(typeof t.proofImage==="string" && t.proofImage.length<=180000 &&
     /^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(t.proofImage)){
    const detail=document.createElement("details");detail.className="proof-detail";
    const summary=document.createElement("summary");summary.textContent="Ver comprobante adjunto";
-   const img=document.createElement("img");img.alt="Comprobante de Yape enviado por el cliente";img.loading="lazy";img.src=t.proofImage;
-   const reminder=document.createElement("p");reminder.textContent="La captura puede estar modificada. Confirma el número de operación y el ingreso en la aplicación Yape antes de aprobar.";
+   const img=document.createElement("img");img.alt="Comprobante enviado por el cliente";img.loading="lazy";img.src=t.proofImage;
+   const reminder=document.createElement("p");reminder.textContent="La captura puede estar modificada. Verifica el ingreso real en Yape. El código de Plin o del banco puede diferir del recibido en Yape.";
    detail.append(summary,img,reminder);left.append(detail);
  }else{
    const noImage=document.createElement("small");noImage.textContent="Comprobante: no adjuntado (solicitud anterior)";left.append(noImage);
@@ -115,7 +116,7 @@ async function process(t,action){
  if(busy)return;
  const approve=action==="approve";
  const prompt=approve
-   ? "¿VERIFICASTE EN TU APP YAPE el ingreso real de "+formatSoles(t.amountCents)+" con operación "+t.yapeOperation+"?\n\nAceptar sumará ese dinero al saldo del cliente. No te bases en capturas."
+   ? "¿CONFIRMASTE EN EL YAPE RECEPTOR el ingreso real de "+formatSoles(t.amountCents)+"?\nOrigen: "+(t.sourceBank||"Yape")+"\nReferencia declarada: "+t.yapeOperation+"\n\nVerifica monto, remitente y fecha. En Plin/BCP las referencias pueden ser distintas. No te bases en capturas."
    : "¿Quieres rechazar la solicitud "+t.yapeOperation+"? No se añadirá saldo.";
  if(!window.confirm(prompt))return;
  busy=true;document.querySelectorAll(".actions button").forEach(b=>b.disabled=true);inform("Procesando…");
