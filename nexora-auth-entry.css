@@ -1,0 +1,67 @@
+/* NEXORA STORE · Acceso universal (web) — naranja rojizo, rojo anaranjado, negro y plomo */
+body[data-nexora-page="login"],body[data-nexora-page="register"]{
+  --auth-orange:#e86c32;--auth-red:#d34c34;--auth-black:#0c0e12;--auth-slate:#22262e;
+  color:#f5f6f8;
+}
+body[data-nexora-page="login"] .panel{background:rgba(12,14,18,.96);border-left:1px solid rgba(150,157,172,.16)}
+body[data-nexora-page="register"]{background:radial-gradient(circle at 5% 2%,rgba(209,70,41,.12),transparent 45%),#0c0e12}
+body[data-nexora-page="register"] .container{background:#1d222a;border:1px solid rgba(151,161,175,.19);max-width:455px;box-shadow:0 16px 48px rgba(0,0,0,.28)}
+body[data-nexora-page="login"] .box{max-width:455px}
+body[data-nexora-page="login"] .brand img,body[data-nexora-page="register"] .logo{border-color:rgba(218,92,53,.45);box-shadow:0 6px 24px rgba(0,0,0,.3)}
+body[data-nexora-page="login"] .field input,body[data-nexora-page="register"] input:not([type=checkbox]){
+  background:#141820;color:#f4f5f7;border:1px solid rgba(154,163,179,.28);min-height:51px;
+  font-size:16px;
+}
+body[data-nexora-page="login"] .field input:focus,body[data-nexora-page="register"] input:focus{
+  outline:none;border-color:#e86c32;box-shadow:0 0 0 3px rgba(232,108,50,.12);
+}
+body[data-nexora-page="login"] .primary,body[data-nexora-page="register"] .register-btn{
+  background:linear-gradient(110deg,#c9612c,#c24f31,#b74134);color:#fff;border:1px solid rgba(230,120,65,.26);
+  box-shadow:none;min-height:52px;
+}
+body[data-nexora-page="login"] :is(.row a,.register-link a),
+body[data-nexora-page="register"] .login-link a{color:#f3a16f}
+body[data-nexora-page="login"] .google,body[data-nexora-page="register"] .google-btn{
+  display:block;width:100%;min-height:52px;height:auto;margin-top:0;
+  background:#f6f7f9;color:#20242b;border:1px solid #c8ced8;border-radius:11px;
+  font-weight:800;padding:12px 14px;
+}
+body[data-nexora-page="login"] .google:hover,body[data-nexora-page="register"] .google-btn:hover{background:#fff}
+body[data-nexora-page="login"] .apple,body[data-nexora-page="register"] .apple-btn{
+  display:block;width:100%;min-height:52px;margin-top:10px;padding:12px 14px;
+  background:#14171c;color:#fff;border:1px solid rgba(185,194,210,.3);
+  border-radius:11px;font-weight:800;font-size:14px;cursor:pointer;
+}
+body[data-nexora-page="login"] .apple:hover,body[data-nexora-page="register"] .apple-btn:hover{background:#262b33}
+body[data-nexora-page="login"] :is(.google,.apple):disabled,
+body[data-nexora-page="register"] :is(.google-btn,.apple-btn,.register-btn):disabled{
+  opacity:.65;cursor:not-allowed;transform:none;
+}
+body[data-nexora-page="login"] .message,
+body[data-nexora-page="register"] .message{
+  min-height:0;display:none;margin:12px 0;padding:11px;border-radius:10px;
+  font-size:13px;line-height:1.5;text-align:left;
+}
+body[data-nexora-page="login"] .message.error,body[data-nexora-page="register"] .message.error{
+  display:block;background:rgba(202,65,51,.10);border:1px solid rgba(228,104,79,.36);color:#ffbbb0;
+}
+body[data-nexora-page="login"] .message.success,body[data-nexora-page="register"] .message.success{
+  display:block;background:rgba(52,143,110,.10);border:1px solid rgba(106,198,151,.30);color:#b9eed1;
+}
+body[data-nexora-page] .nx-auth-device-note{color:#a3acbb;text-align:center;margin-top:17px;font-size:12px;line-height:1.6}
+body[data-nexora-page="login"] .remember input{width:17px;height:17px;accent-color:#da6337}
+body[data-nexora-page="login"] .password-toggle,
+body[data-nexora-page="register"] .password-toggle{color:#bec5d1}
+@media(max-width:900px){
+  body[data-nexora-page="login"]{background:#0c0e12}
+  body[data-nexora-page="login"] .panel{min-height:100dvh;padding:36px clamp(20px,5vw,40px);border:0}
+}
+@media(max-width:520px){
+  body[data-nexora-page="login"] .panel{padding:24px 22px}
+  body[data-nexora-page="login"] h1{font-size:29px}
+  body[data-nexora-page="register"]{padding:12px}
+  body[data-nexora-page="register"] .container{padding:26px 22px}
+  body[data-nexora-page="register"] .logo{width:84px;height:84px}
+  body[data-nexora-page="login"] :is(.primary,.google,.apple),
+  body[data-nexora-page="register"] :is(.btn,.apple-btn){min-height:50px}
+}
