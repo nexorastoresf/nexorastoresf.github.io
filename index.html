@@ -2410,7 +2410,7 @@ body[data-nexora-page="home"] .nx-gaming-light-trace--blue {
 }
 </style>
 <link rel="stylesheet" href="nexora-mobile.css?v=2">
-<link rel="stylesheet" href="nexora-ember-premium.css?v=3">
+<link rel="stylesheet" href="nexora-ember-premium.css?v=4">
 
 <style id="nx-home-background-premium-v1">
 /* Fondo general NEXORA: grafito y cobre suave y retícula discreta.
@@ -2420,20 +2420,20 @@ body[data-nexora-page="home"]{
 }
 body[data-nexora-page="home"] .nx-gaming-backdrop{
   background:
-    radial-gradient(ellipse 66% 40% at 105% -3%, rgba(242,126,39,.17) 0%, rgba(138,76,27,.055) 55%, transparent 79%),
-    radial-gradient(ellipse 58% 48% at -18% 70%, rgba(215,116,38,.10) 0%, transparent 75%),
-    radial-gradient(ellipse 58% 42% at 78% 108%, rgba(155,84,30,.07) 0%, transparent 78%),
-    linear-gradient(165deg,#0b0b10 0%,#101015 46%,#090a0e 100%) !important;
+    radial-gradient(ellipse 66% 40% at 105% -3%, rgba(185,79,44,.10) 0%, rgba(123,85,64,.032) 55%, transparent 79%),
+    radial-gradient(ellipse 58% 48% at -18% 70%, rgba(204,104,52,.06) 0%, transparent 75%),
+    radial-gradient(ellipse 58% 42% at 78% 108%, rgba(95,96,111,.04) 0%, transparent 78%),
+    linear-gradient(165deg,#0e1014 0%,#171b20 46%,#0d0f12 100%) !important;
 }
 body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-grid{
   display:block!important;
   position:absolute;
   inset:0;
   background-image:
-    linear-gradient(rgba(228,173,124,.032) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(228,173,124,.032) 1px,transparent 1px);
+    linear-gradient(rgba(154,161,174,.027) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(154,161,174,.027) 1px,transparent 1px);
   background-size:72px 72px;
-  opacity:.58;
+  opacity:.44;
   transform:none!important;
   animation:none!important;
   -webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 13%,#000 69%,transparent 100%);
@@ -2446,9 +2446,9 @@ body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-light-trace{
 @media (max-width:700px){
   body[data-nexora-page="home"] .nx-gaming-backdrop{
     background:
-      radial-gradient(ellipse 88% 33% at 105% 5%,rgba(242,126,39,.13),transparent 83%),
-      radial-gradient(ellipse 95% 52% at -24% 85%,rgba(190,100,35,.07),transparent 80%),
-      linear-gradient(170deg,#0a0a0f,#101015 50%,#09090e) !important;
+      radial-gradient(ellipse 88% 33% at 105% 5%,rgba(185,79,44,.09),transparent 83%),
+      radial-gradient(ellipse 95% 52% at -24% 85%,rgba(111,100,104,.05),transparent 80%),
+      linear-gradient(170deg,#0d0f12,#171b20 50%,#0c0e12) !important;
   }
   body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-gaming-grid{
     background-size:56px 56px;
@@ -2467,16 +2467,16 @@ body[data-nexora-page="home"] .nx-gaming-backdrop > .nx-bubble{
   border-radius:50%;
   pointer-events:none;
   opacity:0;
-  background:radial-gradient(circle at 32% 27%,rgba(255,211,145,.94) 0%,rgba(255,154,54,.82) 24%,rgba(241,89,28,.51) 62%,rgba(240,64,21,.07) 100%);
-  box-shadow:0 0 16px rgba(255,124,37,.21),0 0 36px rgba(244,74,33,.10);
+  background:radial-gradient(circle at 32% 27%,rgba(250,191,125,.86) 0%,rgba(230,120,50,.74) 24%,rgba(187,60,43,.35) 62%,rgba(172,46,39,.05) 100%);
+  box-shadow:0 0 16px rgba(222,110,44,.13),0 0 36px rgba(183,56,43,.06);
   animation:nxPremiumBubbleRise var(--duration) linear var(--delay) infinite;
   will-change:transform,opacity;
 }
 @keyframes nxPremiumBubbleRise{
   0%{transform:translate3d(0,0,0) scale(.8);opacity:0}
-  12%{opacity:.52}
-  45%{transform:translate3d(-11px,-49vh,0) scale(1.03);opacity:.58}
-  82%{opacity:.43}
+  12%{opacity:.39}
+  45%{transform:translate3d(-11px,-49vh,0) scale(1.03);opacity:.44}
+  82%{opacity:.33}
   100%{transform:translate3d(var(--drift),-115vh,0) scale(.76);opacity:0}
 }
 @media(max-width:700px){
