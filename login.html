@@ -277,6 +277,7 @@
 <link rel="stylesheet" href="nexora-premium.css?v=2">
 <script src="nexora-experience.js?v=2" defer></script>
 <link rel="stylesheet" href="nexora-mobile.css?v=2">
+<link rel="stylesheet" href="nexora-auth-entry.css?v=1">
 </head>
 
 <body data-nexora-page="login">
@@ -352,7 +353,7 @@
 
             <input
               type="checkbox"
-            >
+            id="rememberMe" checked>
 
             Recordarme
 
@@ -400,6 +401,12 @@
         🔵 &nbsp; Continuar con Google
       </button>
 
+      <button class="apple" id="appleButton" type="button" aria-label="Continuar con Apple ID">
+        Continuar con Apple
+      </button>
+
+      <p class="nx-auth-device-note">Accede desde Android, iPhone, iPad, Mac o Windows.</p>
+
 
       <p class="register-link">
 
@@ -417,192 +424,7 @@
 
 
 
-  <script type="module">
-
-    import {
-      signInWithEmailAndPassword,
-      signInWithPopup,
-      sendPasswordResetEmail
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-
-    import {
-      auth,
-      googleProvider
-    } from "./firebase.js";
-
-
-    const loginForm =
-      document.getElementById("loginForm");
-
-    const emailInput =
-      document.getElementById("email");
-
-    const passwordInput =
-      document.getElementById("password");
-
-    const loginButton =
-      document.getElementById("loginButton");
-
-    const googleButton =
-      document.getElementById("googleButton");
-
-    const forgotPassword =
-      document.getElementById("forgotPassword");
-
-    const message =
-      document.getElementById("message");
-
-
-    function showMessage(text) {
-
-      message.textContent = text;
-
-    }
-
-
-    function firebaseError(error) {
-
-      switch (error.code) {
-
-        case "auth/invalid-credential":
-          return "Correo o contraseña incorrectos.";
-
-        case "auth/invalid-email":
-          return "El correo electrónico no es válido.";
-
-        case "auth/user-disabled":
-          return "Esta cuenta está deshabilitada.";
-
-        case "auth/too-many-requests":
-          return "Demasiados intentos. Espera un momento.";
-
-        case "auth/popup-closed-by-user":
-          return "La ventana de Google fue cerrada.";
-
-        case "auth/popup-blocked":
-          return "El navegador bloqueó la ventana de Google.";
-
-        default:
-          return "No se pudo iniciar sesión.";
-      }
-
-    }
-
-
-    loginForm.addEventListener(
-      "submit",
-      async (event) => {
-
-        event.preventDefault();
-
-        showMessage("");
-
-        loginButton.disabled = true;
-
-        try {
-
-          await signInWithEmailAndPassword(
-            auth,
-            emailInput.value.trim(),
-            passwordInput.value
-          );
-
-          window.location.href = "perfil.html";
-
-        } catch (error) {
-
-          showMessage(
-            firebaseError(error)
-          );
-
-        } finally {
-
-          loginButton.disabled = false;
-
-        }
-
-      }
-    );
-
-
-    googleButton.addEventListener(
-      "click",
-      async () => {
-
-        showMessage("");
-
-        googleButton.disabled = true;
-
-        try {
-
-          await signInWithPopup(
-            auth,
-            googleProvider
-          );
-
-          window.location.href = "perfil.html";
-
-        } catch (error) {
-
-          showMessage(
-            firebaseError(error)
-          );
-
-        } finally {
-
-          googleButton.disabled = false;
-
-        }
-
-      }
-    );
-
-
-    forgotPassword.addEventListener(
-      "click",
-      async (event) => {
-
-        event.preventDefault();
-
-        const email =
-          emailInput.value.trim();
-
-
-        if (!email) {
-
-          showMessage(
-            "Escribe tu correo primero."
-          );
-
-          emailInput.focus();
-
-          return;
-        }
-
-
-        try {
-
-          await sendPasswordResetEmail(
-            auth,
-            email
-          );
-
-          showMessage(
-            "Te enviamos un correo para recuperar tu contraseña."
-          );
-
-        } catch (error) {
-
-          showMessage(
-            "No pudimos enviar el correo de recuperación."
-          );
-
-        }
-
-      }
-    );
-
-  </script>
+  <script type="module" src="nexora-auth-entry.js?v=1"></script>
 
 
   <script>
