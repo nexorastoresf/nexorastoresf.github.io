@@ -254,93 +254,100 @@ body[data-nexora-page] :is(a,button,input,select,textarea):focus-visible{
 }
 
 
-/* NEXORA SF · Paleta equilibrada naranja, rojo, negro y plomo (21/11/2026) */
+/* NEXORA SF · Naranja rojizo + rojo anaranjado, negro y plomo (21/11/2026)
+   Diseño sobrio: sin cambios en la lógica del catálogo, pagos ni autenticación. */
 :root{
-  --nx26-orange:#ef852b;
-  --nx26-red:#c83d34;
-  --nx26-line:rgba(163,174,190,.15);
+  --nx26-orange:#e86c32;
+  --nx26-red:#d34c34;
+  --nx26-line:rgba(154,162,174,.16);
 }
 body[data-nexora-page="home"],body[data-nexora-page="game"]{
-  --bg:#0d0f12;
-  --bg-soft:#15181e;
-  --panel:#1e232b;
-  --panel-2:#242930;
-  --border:rgba(147,155,167,.20);
-  --orange:#ef852b;
-  --orange-hover:#ffa044;
-  --orange2:#c83d34;
-  --nx-orange:#ef852b;
-  --nx-red:#c83d34;
-  --v3-orange:#ef852b;
-  --v3-coral:#c83d34;
-  --nx26-primary:#ef852b;
-  --nx26-primary-dark:#c83d34;
-  --nx26-accent:#ed8833;
-  --nx26-highlight:#f6aa61;
+  --bg:#0c0e12;
+  --bg-soft:#16191f;
+  --panel:#22262e;
+  --panel-2:#292d35;
+  --border:rgba(148,156,170,.21);
+  --orange:#e86c32;
+  --orange-hover:#ef8549;
+  --orange2:#d34c34;
+  --nx-orange:#e86c32;
+  --nx-red:#d34c34;
+  --v3-orange:#e86c32;
+  --v3-coral:#d34c34;
+  --nx26-primary:#e86c32;
+  --nx26-primary-dark:#b94330;
+  --nx26-accent:#d95a32;
+  --nx26-highlight:#f5a36a;
   color:#f4f5f7;
-  background:#0d0f12!important;
+  background:#0c0e12!important;
 }
 body[data-nexora-page="home"] .navbar,
 body[data-nexora-page="game"] .navbar{
-  background:rgba(13,15,18,.97);
-  border-bottom:1px solid rgba(145,152,161,.18);
+  background:rgba(12,14,18,.97);
+  border-bottom:1px solid rgba(154,162,174,.18);
   box-shadow:0 6px 22px rgba(0,0,0,.15);
 }
 body[data-nexora-page="home"] .brand img,
 body[data-nexora-page="game"] .brand img{
-  border-color:rgba(216,93,51,.30);
+  border-color:rgba(216,81,45,.31);
 }
 .nx26-hero .nx26-shell{
-  background:linear-gradient(125deg,#242024 0%,#1b2026 55%,#191b20 100%);
-  border-color:rgba(158,164,173,.21);
+  background:linear-gradient(124deg,#282328 0%,#1b1e25 55%,#211c20 100%);
+  border-color:rgba(159,159,171,.22);
   box-shadow:0 15px 36px rgba(0,0,0,.25);
 }
 .nx26-copy h1 strong{
-  background-image:linear-gradient(108deg,#ffac59 0%,#f08a30 50%,#d34d3a 100%);
+  background-image:linear-gradient(108deg,#ffae70 0%,#ec7535 50%,#d04a35 100%);
 }
-.nx26-kicker,.nx26-footnote span{color:#f6b16f}
-.nx26-kicker::before{background:#d64937}
-.nx26-copy p{color:#c4c8d0}
-.nx26-media{background:#24252b}
-.nx26-media img{filter:saturate(.98) contrast(1.03)}
+.nx26-kicker,.nx26-footnote span{color:#f5ad7c}
+.nx26-kicker::before{background:#d34c34}
+.nx26-copy p{color:#c5c8d0}
+.nx26-media{background:#25262e}
+.nx26-media img{filter:saturate(.99) contrast(1.03)}
 body[data-nexora-page="home"] :is(.register,.nxv3-primary,.catalog-btn,.cta-primary,.hero-btn,.filter.active,.install-app-btn:not(:disabled)),
 .nx26-action--primary,
 body[data-nexora-page="game"] :is(.continue-btn:not(:disabled),.hero-badge){
-  background:linear-gradient(110deg,#d97523 0%,#ce5630 61%,#bf3935 100%)!important;
+  background:linear-gradient(110deg,#ca602c 0%,#c34f2c 57%,#b64032 100%)!important;
   color:#fff!important;
-  border:1px solid rgba(216,122,65,.30)!important;
-  box-shadow:0 5px 16px rgba(119,35,24,.13)!important;
+  border:1px solid rgba(214,107,58,.27)!important;
+  box-shadow:0 5px 16px rgba(119,35,24,.12)!important;
 }
 body[data-nexora-page="home"] :is(.register,.nxv3-primary,.catalog-btn,.cta-primary,.hero-btn,.filter.active):hover,
 .nx26-action--primary:hover{filter:brightness(1.08)}
 body[data-nexora-page="home"] :is(.nxv3-pick,.trust-item,.benefit,.step,.install-card,.cta,.toolbar,.social-card),
 body[data-nexora-page="home"] #catalogo .catalog-card{
-  background:#1e232b;
-  border-color:rgba(147,155,167,.19);
+  background:#22262e;
+  border-color:rgba(148,156,170,.19);
   box-shadow:none;
 }
 body[data-nexora-page="home"] :is(.nxv3-pick,.social-card):hover,
 body[data-nexora-page="home"] #catalogo .catalog-card:hover,
 body[data-nexora-page="game"] .product:hover{
-  border-color:rgba(230,124,47,.51);
+  border-color:rgba(223,102,51,.52);
 }
 body[data-nexora-page="home"] .search,
-body[data-nexora-page="home"] .search input{background:#14171d;border-color:rgba(147,155,167,.20)}
-body[data-nexora-page="home"] .search:focus-within{border-color:#de8032;box-shadow:0 0 0 3px rgba(223,124,46,.10)}
-body[data-nexora-page="home"] :is(.eyebrow,.step-number,.brand-sub){color:#ef9b57!important}
-body[data-nexora-page="home"] :is(.nxv3-pick-arrow,.social-arrow){color:#e98636}
+body[data-nexora-page="home"] .search input{
+  background:#16191f;border-color:rgba(148,156,170,.20);
+}
+body[data-nexora-page="home"] .search:focus-within{
+  border-color:#d86a36;box-shadow:0 0 0 3px rgba(214,94,47,.10);
+}
+body[data-nexora-page="home"] :is(.eyebrow,.step-number,.brand-sub){color:#ee9763!important}
+body[data-nexora-page="home"] :is(.nxv3-pick-arrow,.social-arrow){color:#e77742}
 body[data-nexora-page="home"] #catalogo .catalog-tag{
-  color:#f6bd8c;
-  background:rgba(216,89,43,.12);
-  border-color:rgba(216,89,43,.26);
+  color:#f6baa0;
+  background:rgba(210,72,47,.12);
+  border-color:rgba(210,72,47,.26);
 }
 body[data-nexora-page="home"] .nx26-action--secondary{
-  background:#252a31;
+  background:#292d35;
   border-color:rgba(152,161,176,.26);
 }
-body[data-nexora-page="home"] .footer{background:#101216;border-top:1px solid rgba(147,155,167,.17)}
-body[data-nexora-page="game"] :is(.product,.summary,.box){background-color:#1e232b}
-body[data-nexora-page="game"] :is(.summary-title,.nxv3-game-trail a){color:#f4a764}
+body[data-nexora-page="home"] .footer{
+  background:#101217;border-top:1px solid rgba(148,156,170,.17);
+}
+body[data-nexora-page="game"] :is(.product,.summary,.box){background-color:#22262e}
+body[data-nexora-page="game"] :is(.summary-title,.nxv3-game-trail a){color:#f0a079}
 body[data-nexora-page] :is(a,button,input,select,textarea):focus-visible{
-  outline:2px solid #f59b43;outline-offset:3px;
+  outline:2px solid #f18b50;outline-offset:3px;
 }
