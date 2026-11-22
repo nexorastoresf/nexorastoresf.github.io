@@ -48,7 +48,7 @@ import {auth} from "./firebase.js";
 import {onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import {getFirestore,collection,doc,query,where,getDocs,writeBatch,serverTimestamp} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 import {PRODUCTOS_NEXORA} from "./catalogo-oficial.js";
-const ADMINS=new Set(["nexora.store.sf@gmail.com","stiven20eduu@gmail.com"]);
+const ADMINS=new Set(["nexora.store.sf@gmail.com"]);
 const db=getFirestore(auth.app),app=document.getElementById("app");
 const btn=document.getElementById("sync"),state=document.getElementById("status");
 function money(cents){return "S/ "+(cents/100).toFixed(2)}
@@ -81,7 +81,7 @@ btn.addEventListener("click",async()=>{
    for(const item of PRODUCTOS_NEXORA){
      batch.set(doc(db,"catalogPrices",item.id),{
        gameKey:item.gameKey,game:item.game,product:item.product,
-       priceCents:item.priceCents,enabled:false,updatedAt:serverTimestamp()
+       priceCents:item.priceCents,enabled:true,updatedAt:serverTimestamp()
      });
    }
    await batch.commit();
