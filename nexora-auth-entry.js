@@ -33,6 +33,8 @@ appleProvider.addScope("email");
 appleProvider.addScope("name");
 
 const buttons = [loginBtn, registerBtn, googleBtn, appleBtn].filter(Boolean);
+// No reactivar métodos que se anunciaron como "próximamente".
+const permanentlyDisabled = new Set(buttons.filter(button => button.disabled));
 let busy = false;
 function showMessage(text, type = "error") {
   if (!message) return;
@@ -44,11 +46,28 @@ function showMessage(text, type = "error") {
 }
 function setBusy(state) {
   busy = state;
-  for (const button of buttons) button.disabled = state;
+  for (const button of buttons) button.disabled = state || permanentlyDisabled.has(button);
   if (loginBtn) loginBtn.textContent = state ? "Ingresando…" : "Iniciar sesión";
   if (registerBtn) registerBtn.textContent = state ? "Creando cuenta…" : "Crear cuenta";
   if (googleBtn) googleBtn.textContent = state ? "Conectando…" : "Continuar con Google";
-  if (appleBtn) appleBtn.textContent = state ? "Conectando…" : "Continuar con Apple";
+  if (appleBtn) appleBtn.textContent = permanentlyDisabled.has(appleBtn)
+    ? "Apple ID (próximamente)"
+    : (state ? "Conectando…" : "Continuar con Apple");
+}
+function safeErrorCode(error) {
+  const code = typeof error?.code === "string" ? error.code : "";
+  return /^auth\/[a-z0-9-]{1,80}$/.test(code) ? code : "";
+}
+function diagnosticDetail(error) {
+  const code = safeErrorCode(error);
+  if (code) return " Código técnico: " + code + ".";
+  // Los errores sin código también deben poder diagnosticarse, sin publicar
+  // enlaces ni correos electrónicos en la interfaz de la tienda.
+  const detail = String(error?.message || "")
+    .replace(/https?:\/\/\S+/gi, "[enlace]")
+    .replace(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi, "[correo]")
+    .replace(/\s+/g, " ").slice(0, 150);
+  return detail ? " Detalle técnico: " + detail : " Error de autenticación sin código.";
 }
 function errorMessage(error, providerName = "") {
   switch (error?.code) {
@@ -75,7 +94,9 @@ function errorMessage(error, providerName = "") {
     case "auth/invalid-oauth-client-id":
     case "auth/invalid-oauth-provider": return "La configuración del proveedor de acceso debe revisarse.";
     default:
-      return providerName ? "No se pudo acceder con " + providerName + ". Si estás dentro de una app, abre NEXORA directamente en Safari o Chrome." : "No se pudo completar el acceso. Vuelve a intentarlo.";
+      return providerName
+        ? "No se pudo acceder con " + providerName + ". Revisa la configuración del proveedor en Firebase o prueba otro navegador."
+        : "No se pudo completar el acceso. Vuelve a intentarlo.";
   }
 }
 function goToProfile() {
@@ -129,8 +150,8 @@ async function oauthSignIn(provider, providerName) {
     await signInWithPopup(auth, provider);
     goToProfile();
   } catch (error) {
-    console.error("NEXORA OAuth " + providerName, error.code || error);
-    showMessage(errorMessage(error, providerName));
+    console.error("NEXORA OAuth " + providerName, error);
+    showMessage(errorMessage(error, providerName) + diagnosticDetail(error));
   } finally {
     setBusy(false);
   }
