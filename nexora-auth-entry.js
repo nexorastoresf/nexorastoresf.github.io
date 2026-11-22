@@ -13,7 +13,7 @@ import {
   browserLocalPersistence,
   browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { auth, googleProvider } from "./firebase.js";
+import { auth, googleProvider } from "./firebase.js?v=20261122-auth-key-2";
 
 auth.useDeviceLanguage();
 const $ = id => document.getElementById(id);
@@ -70,6 +70,9 @@ function diagnosticDetail(error) {
   return detail ? " Detalle técnico: " + detail : " Error de autenticación sin código.";
 }
 function errorMessage(error, providerName = "") {
+  if (/api-key-not-valid|invalid-api-key|API_KEY_INVALID/i.test(String(error?.message || "") + " " + String(error?.code || ""))) {
+    return "Firebase está rechazando la clave API. Revisa la clave y sus restricciones en Google Cloud Console (proyecto nexora-store-sf).";
+  }
   switch (error?.code) {
     case "auth/invalid-email": return "Ingresa un correo electrónico válido.";
     case "auth/invalid-credential":
