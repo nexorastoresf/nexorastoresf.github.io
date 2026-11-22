@@ -65,3 +65,18 @@ body[data-nexora-page="register"] .password-toggle{color:#bec5d1}
   body[data-nexora-page="login"] :is(.primary,.google,.apple),
   body[data-nexora-page="register"] :is(.btn,.apple-btn){min-height:50px}
 }
+
+
+/* NEXORA LOGIN - panel opaco y sin capas fantasma */
+body[data-nexora-page="login"] .panel{
+  background:#0c0e12 !important;
+  background-image:none !important;
+  isolation:isolate;
+}
+body[data-nexora-page="login"] .box{
+  position:relative;
+  z-index:1;
+}
+body[data-nexora-page="login"] .message{
+  overflow-wrap:anywhere;
+}
