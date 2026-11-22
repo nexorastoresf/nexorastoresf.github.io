@@ -9,7 +9,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAczzzSLjr880KKv7IcrSD9w_fvuGOQmFQ",
+  apiKey: "AIzaSyAczzzSLjr88OKKv7IcrSD9w_fvuGOQmFQ",
   authDomain: "nexora-store-sf.firebaseapp.com",
   projectId: "nexora-store-sf",
   storageBucket: "nexora-store-sf.firebasestorage.app",
