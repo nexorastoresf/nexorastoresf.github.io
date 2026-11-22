@@ -1,6 +1,6 @@
 /* NEXORA STORE PWA · Cache limitado a recursos públicos del propio sitio.
    No almacena llamadas a Firebase, métodos POST, APIs ni respuestas privadas. */
-const CACHE_NAME = "nexora-public-v15-nuevafirebase";
+const CACHE_NAME = "nexora-public-v16-auth-fresh";
 const SHELL = [
   "./",
   "./index.html",
@@ -54,6 +54,9 @@ self.addEventListener("fetch", event => {
     return;
   }
 
+  // Nunca servir desde caché módulos de autenticación, cuentas o billeteras.
+  // La configuración de Firebase puede cambiar y una versión antigua impedir el acceso.
+  if (/\/(?:firebase|nexora-auth-entry|account-data|wallet-data)\.js$/i.test(url.pathname)) return;
   if (!allowedFiles.test(url.pathname)) return;
   event.respondWith(
     fetch(request).then(response => {
