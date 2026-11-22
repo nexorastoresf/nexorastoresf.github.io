@@ -199,6 +199,7 @@ function render(){
     const meta=add("div",null,"purchase-meta");
     const created=order.createdAt?.toDate?.();
     meta.append(add("span",created&&!Number.isNaN(created.getTime())?created.toLocaleString("es-PE",{dateStyle:"medium",timeStyle:"short"}):"Fecha pendiente"));
+    if(order.paymentMethod==="yape")meta.append(add("span",order.status==="pending"?"Yape · comprobante en revisión":"Pago por Yape"));
     if(order.paymentMethod==="wallet")meta.append(add("span","Pago con saldo NEXORA"));
     if(order.playerId)meta.append(add("span","ID jugador: "+order.playerId));
     if(order.serverId)meta.append(add("span","Servidor: "+order.serverId));
