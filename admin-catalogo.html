@@ -81,7 +81,7 @@ btn.addEventListener("click",async()=>{
    for(const item of PRODUCTOS_NEXORA){
      batch.set(doc(db,"catalogPrices",item.id),{
        gameKey:item.gameKey,game:item.game,product:item.product,
-       priceCents:item.priceCents,enabled:true,updatedAt:serverTimestamp()
+       priceCents:item.priceCents,enabled:false,updatedAt:serverTimestamp()
      });
    }
    await batch.commit();
