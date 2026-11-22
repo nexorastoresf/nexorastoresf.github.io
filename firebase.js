@@ -1,3 +1,6 @@
+// Proyecto EXCLUSIVO de NEXORA STORE NUEVO (nexora-store-sf).
+// Firebase config web es pública; la seguridad de datos depende de las reglas
+// de Firestore y de los permisos de Authentication del proyecto.
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 
 import {
@@ -6,13 +9,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCW0MCzgikzsGGfy4MU7tCrDlAuS1RKnhs",
-  authDomain: "nexora-store-6857a.firebaseapp.com",
-  projectId: "nexora-store-6857a",
-  storageBucket: "nexora-store-6857a.firebasestorage.app",
-  messagingSenderId: "868281016747",
-  appId: "1:868281016747:web:a9afa4397d0e883581b2ee",
-  measurementId: "G-77DG50FEW8"
+  apiKey: "AIzaSyAczzSLjr880KKv7IcrSD9w_fvuGOQmFQ",
+  authDomain: "nexora-store-sf.firebaseapp.com",
+  projectId: "nexora-store-sf",
+  storageBucket: "nexora-store-sf.firebasestorage.app",
+  messagingSenderId: "205234333693",
+  appId: "1:205234333693:web:7967c3f368d71a5eb95b94",
+  measurementId: "G-ZTLZHTDW3W"
 };
 
 const app = initializeApp(firebaseConfig);
