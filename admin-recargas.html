@@ -48,6 +48,7 @@ button:disabled{opacity:.5;cursor:wait}.secondary{color:#fff;background:#1b2430;
 </div>
 </main>
 <script type="module">
+import { showReview, review } from "./yape-review.js";
 import { auth } from "./firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
 import { getAdminTopups, getCustomerLabel, approveYapeTopup, rejectYapeTopup, formatSoles } from "./wallet-data.js";
@@ -87,6 +88,7 @@ function makeItem(t){
    const reject=document.createElement("button");reject.type="button";reject.className="deny";reject.textContent="Rechazar";
    approve.addEventListener("click",()=>process(t,"approve"));reject.addEventListener("click",()=>process(t,"reject"));
    right.append(approve,reject);
+   showReview(left, {...t, kind:"topup"}, approve);
  }else{
    const status=document.createElement("span");status.className="status "+t.status;
    status.textContent=t.status==="approved"?"APROBADO · ACREDITADO":"RECHAZADO · SIN SALDO";
@@ -121,11 +123,11 @@ async function process(t,action){
  if(!window.confirm(prompt))return;
  busy=true;document.querySelectorAll(".actions button").forEach(b=>b.disabled=true);inform("Procesando…");
  try{
-   if(approve) await approveYapeTopup(t.id);else await rejectYapeTopup(t.id);
+   if(approve){ await review({...t, kind:"topup"}); await approveYapeTopup(t.id); }else await rejectYapeTopup(t.id);
    inform(approve?"Recarga aprobada y saldo acreditado una sola vez.":"Solicitud rechazada.");
    await refresh();
  }catch(e){console.error(e);inform(e.message==="Missing or insufficient permissions."?"Revisa que las reglas de Firebase estén desplegadas y el correo administrador verificado.":e.message||"Error al procesar la solicitud.",true);}
- finally{busy=false;document.querySelectorAll(".actions button").forEach(b=>b.disabled=false);}
+ finally{busy=false;render();}
 }
 document.getElementById("refresh").addEventListener("click",refresh);
 onAuthStateChanged(auth,user=>{

@@ -16,6 +16,7 @@
 <div id="orders" class="orders"></div>
 </section></main>
 <script type="module">
+import { showReview, review } from './yape-review.js';
 import {auth} from './firebase.js';
 import {isCodeDeliveryOrder,isMinecraftOrder,codeDeliveryDocumentId,codeDeliveryName,MAX_ROBLOX_CODES,normalizeRobloxCodes,fingerprintRobloxCode} from './roblox-delivery.js?v=20261102-minecraft1';
 
@@ -103,6 +104,7 @@ function render(){
     if(status==='processing'&&o.status==='processing')continue;
      if(status==='completed'&&isCodeDeliveryOrder(o)&&o.status==='pending')continue;
     const btn=element('button',status==='completed'&&isCodeDeliveryOrder(o)?'Entregar código y completar':title,'btn '+cls);btn.type='button';btn.disabled=busy;btn.addEventListener('click',()=>changeStatus(o,status));actions.append(btn);
+    if(!busy && o.paymentMethod==="yape" && o.status==="pending" && status==="processing")showReview(card,{...o,kind:"order"},btn);
    }
   }
   card.append(actions);$('orders').append(card);
@@ -166,7 +168,8 @@ async function changeStatus(order,next){
   if(!window.confirm(order.customer+' · '+order.product+'\nPedido: '+order.id+'\n\n'+question))return;
  }
  busy=true;render();feedback('Guardando cambio…');
- try{await saveStatus(order.uid,order.id,next,order.status,redemptionCodes);codeDrafts.delete(orderKey(order));feedback(next==='completed'&&isCodeDeliveryOrder(order)?'Pedido de código digital completado. Los códigos privados ya están disponibles en Mis compras del cliente.':next==='cancelled'&&order.paymentMethod==='wallet'?'Pedido cancelado y saldo reembolsado.':'Pedido actualizado: '+labels[next]+'.');}
+ try{if(order.paymentMethod==="yape" && order.status==="pending" && next==="processing")await review({...order,kind:"order"});
+ await saveStatus(order.uid,order.id,next,order.status,redemptionCodes);codeDrafts.delete(orderKey(order));feedback(next==='completed'&&isCodeDeliveryOrder(order)?'Pedido de código digital completado. Los códigos privados ya están disponibles en Mis compras del cliente.':next==='cancelled'&&order.paymentMethod==='wallet'?'Pedido cancelado y saldo reembolsado.':'Pedido actualizado: '+labels[next]+'.');}
  catch(error){feedback(error.code==='permission-denied'?'Firebase bloqueó el cambio. Publica las reglas nuevas de seguridad de códigos digitales.':error.message||'No se pudo confirmar el cambio. Revisa el estado antes de reintentar.',true);}
  finally{busy=false;render();}
 }

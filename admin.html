@@ -335,7 +335,7 @@ function showMember(uid){
      const completed=document.createElement("button");completed.className="btn complete";completed.type="button";completed.textContent="Marcar completado";
      const cancelled=document.createElement("button");cancelled.className="btn cancel-order";cancelled.type="button";cancelled.textContent="Cancelar pedido";
      completed.disabled=cancelled.disabled=savingOrder;
-      if(isCodeDeliveryOrder(o)&&o.status==='pending'){
+      if((isCodeDeliveryOrder(o)||o.paymentMethod==='yape')&&o.status==='pending'){
        completed.disabled=true;
        completed.title='Verifica el pago y pasa el pedido a En proceso desde la bandeja MVP.';
       }
@@ -385,6 +385,7 @@ async function changeOrderStatus(uid,orderId,nextStatus){
      if(!["pending","processing","verified"].includes(snap.data().status))
        throw new Error("Este pedido ya fue completado o cancelado. Actualiza el panel.");
      const current=snap.data();
+     if(nextStatus==="completed" && current.paymentMethod==="yape" && current.status==="pending")throw Error("Verifica el comprobante desde Atender pedidos.");
      const codeOrder=isCodeDeliveryOrder(current);
      if(nextStatus==="completed"&&codeOrder){
       if(!auth.currentUser?.emailVerified)throw new Error("Verifica tu correo para entregar códigos.");
