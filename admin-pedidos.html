@@ -47,6 +47,13 @@ function render(){
   head.append(left,element('div',money(o.price),'price'));card.append(head);
   const date=o.createdAt?.toDate?.();card.append(element('p','Pedido: '+o.id+(date?' · '+date.toLocaleString('es-PE'):''),'muted'));
   const details=element('div','','details');details.append(detail('ID del jugador / cuenta',o.playerId),detail('Nombre del jugador',o.playerName),detail('Servidor / región',[o.serverId,o.playerRegion].filter(Boolean).join(' · ')),detail('Pago',o.paymentMethod==='wallet'?'Pagado con saldo NEXORA':o.status==='pending'?'Pendiente de verificación':'Verificar comprobante del cliente'));card.append(details);
+  if(o.paymentMethod==='yape'){
+   card.append(detail('Yape · número de operación',o.yapeOperation));
+   if(/^data:image\/jpeg;base64,[A-Za-z0-9+/=]+$/.test(o.proofImage||'')){
+    const view=document.createElement('details');view.append(element('summary','Ver foto del comprobante'));
+    const img=document.createElement('img');img.loading='lazy';img.alt='Comprobante Yape del pedido';img.src=o.proofImage;img.style.cssText='max-width:100%;height:auto';view.append(img);card.append(view);
+   }
+  }
   if(o.status==='pending')card.append(element('p',isCodeDeliveryOrder(o)?'Antes de entregar el código digital, verifica el pago y pulsa «Poner en proceso».':'Verifica el pago real antes de entregar el producto.','notice'));
   if(isCodeDeliveryOrder(o)&&['verified','processing'].includes(o.status)){
    const wrap=element('section','','redeem-entry');
@@ -92,6 +99,7 @@ function render(){
   const actions=element('div','','actions');
   if(active(o.status)){
    for(const [status,title,cls] of [['processing','Poner en proceso','process'],['completed','Marcar completado','complete'],['cancelled','Cancelar pedido','cancel']]){
+    if(o.paymentMethod==='yape'&&o.status==='pending'&&status==='completed')continue;
     if(status==='processing'&&o.status==='processing')continue;
      if(status==='completed'&&isCodeDeliveryOrder(o)&&o.status==='pending')continue;
     const btn=element('button',status==='completed'&&isCodeDeliveryOrder(o)?'Entregar código y completar':title,'btn '+cls);btn.type='button';btn.disabled=busy;btn.addEventListener('click',()=>changeStatus(o,status));actions.append(btn);
@@ -112,6 +120,11 @@ async function saveStatus(uid,id,next,expectedStatus,redemptionCodes=null){
   if(!snap.exists())throw new Error('El pedido ya no existe.');
   const current=snap.data();
   if(!active(current.status)||current.status!==expectedStatus)throw new Error('Otro administrador actualizó este pedido. Revisa su estado antes de continuar.');
+  if(current.paymentMethod==='yape'&&current.status==='pending'&&next==='processing'){
+   const usedRef=doc(db,'yapeOperations',current.yapeOperation);
+   if((await tx.get(usedRef)).exists())throw Error('La operación ya fue utilizada. Revisa el movimiento en Yape.');
+   tx.set(usedRef,{uid,orderId:id,usedAt:serverTimestamp()});
+  }
   const codeOrder=isCodeDeliveryOrder(current);
   if(next==='completed'&&codeOrder){
    if(!auth.currentUser.emailVerified)throw new Error('Verifica tu correo de MVP.');
