@@ -201,8 +201,8 @@ footer{border-top:1px solid rgba(176,194,227,.09);font-size:11px}
 <section id="checkout" hidden>
 <div id="robuxCheckoutNotice" class="robux-payment-notice" role="status" hidden><strong>Por ahora no hay Robux (mantenimiento)</strong>Las recargas de Robux están suspendidas temporalmente. No se aceptan pagos para Roblox hasta que se restablezca el servicio.</div>
 <div class="eyebrow">PAGO SEGURO CON NEXORA</div>
-<h1>Paga con tu saldo NEXORA</h1>
-<p class="subhead">Confirma tu compra con el saldo disponible en tu cuenta. Se descontará únicamente el valor del producto y tu pedido se registrará con el pago verificado, listo para su atención.</p>
+<h1>Elige cómo pagar</h1>
+<p class="subhead">Paga con tu saldo NEXORA o envía el comprobante de tu pago por Yape.</p>
 <div class="checkout-perks" aria-label="Características de la compra">
   <span><span class="perk-symbol">✓</span> Precio oficial verificado</span>
   <span><span class="perk-symbol">✓</span> Descuento automático</span>
@@ -210,7 +210,7 @@ footer{border-top:1px solid rgba(176,194,227,.09);font-size:11px}
 </div>
 <ol class="nx-buy-steps" aria-label="Pasos de esta compra">
   <li><span class="nx-buy-number" aria-hidden="true">01</span><div><strong>Revisa el pedido</strong><small>Comprueba juego, paquete, ID y total.</small></div></li>
-  <li><span class="nx-buy-number" aria-hidden="true">02</span><div><strong>Comprueba tu saldo</strong><small>Debe estar acreditado en tu billetera NEXORA.</small></div></li>
+  <li><span class="nx-buy-number" aria-hidden="true">02</span><div><strong>Elige cómo pagar</strong><small>Usa tu saldo o escanea el QR de Yape.</small></div></li>
   <li><span class="nx-buy-number" aria-hidden="true">03</span><div><strong>Confirma el pago</strong><small>El descuento se hará solo cuando confirmes.</small></div></li>
 </ol>
 <div class="layout">
@@ -229,14 +229,16 @@ footer{border-top:1px solid rgba(176,194,227,.09);font-size:11px}
 <aside class="card wallet-card">
 <div class="card-head">
 <div class="section-tag">02 / MÉTODO DE PAGO</div>
-<div class="wallet-title">
+<label for="payMethod">Método de pago</label>
+<select id="payMethod" style="display:block;width:100%;padding:12px;margin:8px 0 16px;border-radius:8px;font:inherit"><option value="wallet">Saldo NEXORA</option><option value="yape">Yape con foto del comprobante</option></select>
+<div id="walletHeading"><div class="wallet-title">
   <div class="wallet-heading"><span class="wallet-icon">◈</span><h2>Mi saldo NEXORA</h2></div>
   <span id="walletStatusBadge" class="wallet-state waiting" aria-live="polite">Comprobando</span>
 </div>
-<p>Saldo acreditado y disponible en tu billetera.</p>
+<p>Saldo acreditado y disponible en tu billetera.</p></div>
 </div>
 <div class="card-body">
-<div class="balance-main"><span>Saldo disponible</span><strong id="walletBalance">Consultando…</strong></div>
+<div id="walletBody"><div class="balance-main"><span>Saldo disponible</span><strong id="walletBalance">Consultando…</strong></div>
 <div class="nx-wallet-help">¿No tienes saldo suficiente? Puedes solicitar una recarga por Yape. <strong>No se acredita automáticamente:</strong> debes esperar su aprobación antes de comprar.
 <a href="recargar-saldo.html">Solicitar recarga de saldo →</a></div>
 <div class="balance-row"><span>Precio oficial del producto</span><strong id="officialPrice">Consultando…</strong></div>
@@ -265,7 +267,17 @@ footer{border-top:1px solid rgba(176,194,227,.09);font-size:11px}
 <p><a href="compras.html">Revisar mi compra →</a></p>
 </div>
 </div>
-</aside>
+</div>
+<section id="yapeBody" class="card-body" hidden>
+<h2>Pagar con Yape</h2><p>Este método demora más. Revisaremos tu pago antes de atender tu pedido.</p>
+<p id="yapeWait" role="status"></p>
+<form id="yapeForm" hidden>
+<p>Escanea el QR y paga <strong id="yapeAmount"></strong>. Adjunta la foto o captura de esa operación.</p>
+<canvas id="yapeQr" width="360" height="360" aria-label="QR oficial de Yape de NEXORA" style="width:min(100%,220px);height:auto"></canvas>
+<label style="display:block;margin:14px 0">Número de operación <input id="yapeRef" required inputmode="numeric" pattern="[0-9]{4,24}" maxlength="24" style="display:block;padding:8px"></label>
+<label>Foto del comprobante <input id="yapeFile" required type="file" accept="image/jpeg,image/png,image/webp" style="display:block;margin:8px 0"></label>
+<button class="pay" id="yapeSend">Enviar comprobante</button>
+</form><p><a href="compras.html">Ver mis compras</a></p></section></aside>
 </div>
 <div class="security-footer">
   <span>✓ El precio se valida en Firebase</span>
@@ -308,7 +320,7 @@ footer{border-top:1px solid rgba(176,194,227,.09);font-size:11px}
 <script type="module">
 import { auth } from "./firebase.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, writeBatch, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, runTransaction, writeBatch, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 import { PRODUCTOS_NEXORA } from "./catalogo-oficial.js?v=20261102-minecraft";
 import { getMyWallet, formatSoles, buyWithNexoraBalance } from "./wallet-data.js?v=20261023-roblox-pago-2";
 
@@ -419,7 +431,7 @@ function refreshAvailableBalance(cents){
  }else byId("walletRemaining").textContent="—";
 }
 function paySucceeded(id,balance){
- paid=true;busy=false;
+ paid=true;busy=false;canSendYape=false;form.hidden=true;method.disabled=true;
  refreshAvailableBalance(balance);
  byId("walletRemaining").textContent=formatSoles(balance);
  setWalletState("Pago confirmado","paid");
@@ -434,6 +446,7 @@ async function readExistingOrder(uid,order){
  const snapshot=await getDoc(ref);
  if(!snapshot.exists())return false;
  const prior=snapshot.data();
+ if(prior.paymentMethod==="yape"){method.value="yape";method.dispatchEvent(new Event("change"));method.disabled=true;form.hidden=true;yapeWait.textContent="El comprobante ya está registrado. Consulta el estado en Mis compras.";return true;}
  if(prior.paymentMethod==="wallet" && prior.status!=="cancelled"){
   paySucceeded(order.historyId,await getMyWallet());return true;
  }
@@ -447,7 +460,7 @@ async function readExistingOrder(uid,order){
 }
 async function loadWallet(order,user){
  const uid=user?.uid||null;
- currentUserId=uid;
+ currentUserId=uid;canSendYape=false;form.hidden=true;method.disabled=false;yapeWait.textContent=uid?"Comprobando el pedido…":"Inicia sesión para enviar tu comprobante.";
  approvedPriceCents=null;
  busy=false;paid=false;button.disabled=true;
  updateMinecraftMvpActivation(order,user,false);
@@ -493,6 +506,7 @@ async function loadWallet(order,user){
    throw new Error("El precio oficial cambió. Selecciona de nuevo el producto para continuar.");
   }
   byId("walletRemaining").textContent=formatSoles(Math.max(0,wallet-official.priceCents));
+  canSendYape=true;form.hidden=false;yapeWait.textContent="";byId("yapeAmount").textContent=formatSoles(official.priceCents);
   if(wallet<official.priceCents){
    setWalletState("Saldo insuficiente","bad");
    byId("walletRemaining").textContent="—";
@@ -506,6 +520,7 @@ async function loadWallet(order,user){
   button.textContent="Confirmar y pagar "+formatSoles(official.priceCents);
   setStatus("Saldo suficiente. Confirma para registrar el pago y solicitar la entrega.");
  }catch(error){
+  yapeWait.textContent=error.message||"No se pudo verificar el producto.";
   console.error(error);
   setWalletState("Revisar saldo","waiting");
   button.disabled=true;button.textContent="No se puede pagar";
@@ -542,6 +557,120 @@ minecraftMvpButton.addEventListener("click",async()=>{
  }finally{minecraftMvpButton.disabled=false;}
 });
 
+const qrMatrix = [
+"11111110010101111110011010010011101111111",
+"10000010000101000100110100111110101000001",
+"10111010101101110110111110000001001011101",
+"10111010110011010000110010010100001011101",
+"10111010100010011010111110100010101011101",
+"10000010111111000110101001011110001000001",
+"11111110101010101010101010101010101111111",
+"00000000100001101001010110100001100000000",
+"10111110001000101100001001011010001111100",
+"00000101001001100011110010110000000111011",
+"10000110010110110110100001011110100101000",
+"10101000011101101001011110100001010011101",
+"00011011010000100110111011010110101011110",
+"01110000111011010011111100100000010001000",
+"11100110001101000010000111010110010100100",
+"01001100011000100010100010111001101011001",
+"00011110001100001010010011010010110011010",
+"01111100010001100010000110010011011010010",
+"11000111010000111011111111101110110101110",
+"11011100010110111111110000100001001011001",
+"10001011100011001100001001111110100010110",
+"00110101111001011100101001110000001110010",
+"11011010011001010000000101101111110101100",
+"11010001100100011001000001100001001010011",
+"01111110110011010001111111011010110110011",
+"01101001001100100011111110110010001010001",
+"11010010110010100110100001111100100101101",
+"00010100010101111101011110000011011010010",
+"11000111011000111010001010110010111110000",
+"10100001100101000010111010011000100110010",
+"10011010111011110001000010111111010101100",
+"10110100100011001001111010100001101010101",
+"10101111110101111111101000011000111111010",
+"00000000101111100110010000011010100010011",
+"11111110001010100101110011011110101011110",
+"10000010111011001110111000100000100010001",
+"10111010100101111000110001010010111111010",
+"10111010111101110010111000111011110010000",
+"10111010110010000100100011011110010011110",
+"10000010000000011101011100100001000100001",
+"11111110100001011010100001010110011010000"
+];
+function drawQr(){
+  const canvas=document.getElementById("yapeQr"),ctx=canvas.getContext("2d");
+  const quiet=4, count=qrMatrix.length, moduleSize=canvas.width/(count+quiet*2);
+  ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#71177f";
+  qrMatrix.forEach((line,y)=>[...line].forEach((cell,x)=>{
+    if(cell==="1") ctx.fillRect(Math.floor((x+quiet)*moduleSize),Math.floor((y+quiet)*moduleSize),Math.ceil(moduleSize),Math.ceil(moduleSize));
+  }));
+}
+
+drawQr();
+async function compressProof(file) {
+  if(!["image/png","image/jpeg","image/webp"].includes(file.type)) throw new Error("Selecciona un comprobante PNG, JPG o WebP.");
+  if(file.size > 8*1024*1024) throw new Error("El comprobante supera los 8 MB.");
+  const bitmap=await createImageBitmap(file);
+  try {
+    if(bitmap.width < 80 || bitmap.height < 80) throw new Error("La imagen es demasiado pequeña para revisar.");
+    const canvas=document.createElement("canvas"),ctx=canvas.getContext("2d");
+    if(!ctx)throw new Error("No se pudo procesar la imagen.");
+    for(const maxSize of [1000,800,600,480,360]){
+      const scale=Math.min(1,maxSize/Math.max(bitmap.width,bitmap.height));
+      canvas.width=Math.max(1,Math.round(bitmap.width*scale));
+      canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+      ctx.fillStyle="#fff";
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);
+      for(const quality of [0.78,0.66,0.52,0.4]){
+        const data=canvas.toDataURL("image/jpeg",quality);
+        if(data.startsWith("data:image/jpeg;base64,") && data.length <= 180000)return data;
+      }
+    }
+    throw new Error("No se pudo comprimir suficiente la imagen. Prueba con otra captura.");
+  } finally { bitmap.close(); }
+}
+
+const method=byId("payMethod"), form=byId("yapeForm"), yapeWait=byId("yapeWait");
+let canSendYape=false;
+method.addEventListener("change",()=>{
+ const yape=method.value==="yape";
+ byId("walletHeading").hidden=yape;byId("walletBody").hidden=yape;
+ byId("yapeBody").hidden=!yape;
+});
+form.addEventListener("submit",async event=>{
+ event.preventDefault();
+ if(busy||!canSendYape||!auth.currentUser||auth.currentUser.uid!==currentUserId)return;
+ const uid=currentUserId,order=readOrder();
+ if(!validOrder(order)||order.gameKey!==originalOrder.gameKey||order.product!==originalOrder.product||Math.round(Number(order.price)*100)!==approvedPriceCents){yapeWait.textContent="El pedido cambió. Vuelve al catálogo.";return;}
+ const operation=byId("yapeRef").value.trim();
+ if(!/^[0-9]{4,24}$/.test(operation))return;
+ if(!order.historyId){order.historyId=crypto.randomUUID();sessionStorage.setItem("nexoraOrder",JSON.stringify(order));}
+ const ref=doc(db,"users",uid,"orders",order.historyId);
+ busy=true;method.disabled=true;byId("yapeSend").disabled=true;
+ try{
+  const file=byId("yapeFile").files[0];if(!file)throw Error("Selecciona el comprobante.");
+  const proofImage=await compressProof(file),catalogId=encodeURIComponent(order.gameKey+"::"+order.product);
+  await runTransaction(db,async tx=>{
+   const previous=await tx.get(ref);
+   if(previous.exists()){
+    if(previous.data().paymentMethod==="yape"&&previous.data().yapeOperation===operation)return;
+    throw Error("Este pedido ya está registrado. Revisa Mis compras.");
+   }
+   const item=(await tx.get(doc(db,"catalogPrices",catalogId))).data();
+   if(!item?.enabled||item.priceCents!==approvedPriceCents||item.product!==order.product||item.game!==order.game)throw Error("El precio o la disponibilidad cambió. Vuelve al catálogo.");
+   const clean=(v,n)=>String(v||"").trim().slice(0,n);
+   tx.set(ref,{paymentMethod:"yape",status:"pending",currency:"PEN",game:item.game,product:item.product,price:item.priceCents/100,priceCents:item.priceCents,catalogId,
+    playerId:clean(order.playerId,100),serverId:clean(order.serverId,100),playerName:clean(order.playerName,120),playerRegion:clean(order.playerRegion,100),yapeOperation:operation,proofImage,createdAt:serverTimestamp()});
+  });
+  paid=true;canSendYape=false;form.hidden=true;button.disabled=true;
+  yapeWait.textContent="Comprobante recibido. Tu pedido está pendiente de verificación. Puedes seguirlo en Mis compras.";
+ }catch(err){yapeWait.textContent="No se pudo confirmar el envío. Revisa Mis compras antes de reintentar. "+(err.message||"");}
+ finally{busy=false;method.disabled=paid;byId("yapeSend").disabled=false;}
+});
 const originalOrder=readOrder();
 const robuxInMaintenance=false; // Robux reactivados; el pago mantiene la verificación de catálogo y saldo.
 if(!validOrder(originalOrder)){
