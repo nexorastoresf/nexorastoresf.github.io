@@ -1,6 +1,7 @@
-/* NEXORA STORE SF | Inicio de sesión unificado para navegadores móviles y desktop.
- * Firebase Authentication conserva el mismo UID y billetera del usuario.
- * Los proveedores OAuth requieren activación en Firebase > Authentication. */
+/* NEXORA STORE SF | Acceso web para navegadores móviles y desktop.
+ * NEXORA NUEVO usa Firebase nexora-store-sf y no migra usuarios ni saldos
+ * del proyecto anterior. Apple requiere configuración en Apple Developer
+ * y habilitación en Firebase Authentication antes de activar el botón. */
 import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
