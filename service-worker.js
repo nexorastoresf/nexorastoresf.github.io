@@ -1,6 +1,6 @@
 /* NEXORA STORE PWA · Cache limitado a recursos públicos del propio sitio.
    No almacena llamadas a Firebase, métodos POST, APIs ni respuestas privadas. */
-const CACHE_NAME = "nexora-public-v14-brand";
+const CACHE_NAME = "nexora-public-v15-nuevafirebase";
 const SHELL = [
   "./",
   "./index.html",
